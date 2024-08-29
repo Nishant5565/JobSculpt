@@ -2,12 +2,32 @@
      margin: 0;
      padding: 0;
      box-sizing: border-box;
-    font-family:'Trebuchet MS';
+    font-family: 'Helvetica';
 }
 
-
- .maker-canvas-container {
-     height: auto !important;
-     width: auto !important;
-     outline: 0;
- }
+@font-face {
+    font-family: 'Quickkiss';
+    src: url('../src/assets/Fonts/QuickKissPersonalUse-PxlZ.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Casandra';
+    src: url('../src/assets/Fonts/CassandraPersonalUseRegular-3BjG.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Countryside';
+    src: url('../src/assets/Fonts/Countryside-YdKj.ttf');
+  }
+  
+  @font-face {
+    font-family: 'COUNTRYSIDETWO';
+    src: url('../src/assets/Fonts/CountrysideTwo-r9WO.ttf');
+  }
+  
+  
+  @font-face {
+    font-family: GreatVibes;
+    src: url('../src/assets/Fonts/GreatVibes.ttf');
+  }
+  

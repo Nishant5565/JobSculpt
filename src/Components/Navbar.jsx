@@ -5,59 +5,61 @@ import './Styling/Buttons.css';
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-900 text-white shadow-lg fixed w-full z-10 top-0">
-      <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <div className="flex items-center">
-          <img
-            src={Logo}
-            alt="Company Logo"
-            className="w-12 h-12 mr-3 animate__animated animate__fadeIn animate__delay-1s"
-          />
-          <h1 className="text-2xl font-bold animate__animated animate__fadeIn animate__delay-2s">
-            JobSculpt
+    <nav className="bg-white text-gray-800 shadow-lg fixed w-full z-10 top-0 ">
+      <div className="container flex items-center justify-between py-4 px-6">
+        <div className="flex items-center gap-4">
+      
+          <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4">
+            <span className="font-greatvibes ml-2">
+              J
+            </span>
+            ob
+            <span className=' font-greatvibes'>
+              S
+            </span>
+            culpt
           </h1>
-        </div>
 
-        <div className="space-x-14 text-lg">
+          <div className="space-x-10 text-lg flex items-center">
           <Link
             to="/"
-            className="relative group hover:text-[#ff6a00] transition duration-300"
+            className="relative group hover:text-[#9000ff]    nav-text font- "
           >
-            Home
-            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#ff6a00] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            Hire
+
           </Link>
           <Link
             to="/about"
-            className="relative group hover:text-[#ff6a00] transition duration-300"
+            className="relative group hover:text-[#9000ff]    nav-text font- "
           >
             About
-            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#ff6a00] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+
           </Link>
           <Link
             to="/FindJobs"
-            className="relative group hover:text-[#ff6a00] transition duration-300"
+            className="relative group hover:text-[#9000ff]    nav-text font- "
           >
-               Find Jobs
-            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#ff6a00] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+            Find Jobs
+
           </Link>
           <Link
             to="/contact"
-            className="relative group hover:text-[#ff6a00] transition duration-300"
+            className="relative group hover:text-[#9000ff]    nav-text font- "
           >
             Contact
-            <span className="absolute left-0 bottom-0 w-full h-0.5 bg-[#ff6a00] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
-          </Link>
 
-          <Link class="blob-btn">
-               Login
-               <span class="blob-btn__inner">
-                    <span class="blob-btn__blobs">
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                    <span class="blob-btn__blob"></span>
-                    </span>
-               </span>
+          </Link>
+        </div>
+        </div>
+
+     
+
+        <div>
+          <Link to="/login" className="login">
+            Login
+          </Link>
+          <Link to="/register" className="signup">
+            Signup
           </Link>
         </div>
       </div>

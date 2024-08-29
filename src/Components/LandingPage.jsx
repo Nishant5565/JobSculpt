@@ -27,7 +27,14 @@ const LandingPage = () => {
         />
         <div className="text-center">
           <h1 className="text-6xl font-bold leading-tight mb-4 animate__animated animate__fadeIn animate__delay-1s">
-            JobSculpt
+          <span className="font-greatvibes">
+              J
+            </span>
+            ob
+            <span className=' font-greatvibes'>
+              S
+            </span>
+            culpt
           </h1>
           <p className="text-2xl font-light mb-8 animate__animated animate__fadeIn animate__delay-2s">
             Craft Your Career, Shape Your Team.
