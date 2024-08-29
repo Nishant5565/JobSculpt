@@ -4,7 +4,7 @@ import './App.css';
 import LandingPage from './Components/LandingPage';
 import Layout from './Pages/Layout';
 import Login from './Components/Login/Login';
-
+import Signup from './Components/SignUp/Singup';
 function App() {
   return (
     <Router>
@@ -13,6 +13,7 @@ function App() {
           <Route index element={<LandingPage />} />
         </Route>
         <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
       </Routes>
     </Router>
   );

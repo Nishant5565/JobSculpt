@@ -4,10 +4,13 @@ import * as Yup from 'yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai'; // Importing icons
 import Logo from '../../assets/Images/userProfile.png';
 import MinFooter from '../Footer/MinFooter';
-
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
+import { Link,useNavigate } from 'react-router-dom';
 const Login = () => {
   const [step, setStep] = useState(1);
-
+  const navigate = useNavigate();
   const emailFormik = useFormik({
     initialValues: {
       email: '',
@@ -31,10 +34,24 @@ const Login = () => {
         .min(6, 'Password must be at least 6 characters')
         .required('Required'),
     }),
-    onSubmit: values => {
-      console.log({ email: emailFormik.values.email, password: values.password });
+    onSubmit: async (values) => {
+      try {
+        const response = await axios.post('http://localhost:5000/api/auth/login', {
+          email: emailFormik.values.email,
+          password: values.password,
+        });
+        if (response.status !== 200) {
+          console.error('Login failed:', response.data);
+          return;
+        }
+        localStorage.setItem('token', response.data.token);
+        navigate('/');
+      } catch (err) {
+        console.error('Login failed:', err);
+      }
     },
   });
+  
 
   return (
     <>
@@ -49,7 +66,7 @@ const Login = () => {
         culpt
       </h1>
 
-      <div className="flex items-center justify-center min-h-screen mt-20">
+      <div className="flex items-center justify-center min-h-screen">
         <div className=" w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
             <h2 className="text-[28px] text-gray-900">
@@ -72,7 +89,7 @@ const Login = () => {
                   placeholder="Email or Username"
                 />
                 {emailFormik.touched.email && emailFormik.errors.email ? (
-                  <div className="absolute text-xs text-red-600">{emailFormik.errors.email}</div>
+                  <div className="absolute mt-1 text-xs text-[#495bff]">{emailFormik.errors.email}</div>
                 ) : null}
               </div>
               <div className="w-3/4">
@@ -112,7 +129,44 @@ const Login = () => {
               </div>
             </form>
           )}
+          <p className="text-gray-900 text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+            Or
+          </p>
+          <div className=" flex items-center justify-center ">
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              const { credential } = credentialResponse;
+              const decoded = jwtDecode(credential);
+              
+              try {
+                const response = await axios.post('http://localhost:5000/api/auth/google', {
+                  token: credential,
+                });
+                
+                localStorage.setItem('token', response.data.token);
+                
+                window.location.href = '/';
+              } catch (err) {
+                console.error('Google login failed:', err);
+              }
+            }}
+            onError={() => {
+              console.log('Google Login Failed');
+            }}
+          />
+
+          </div>
+
+          <div className="text-center flex flex-col gap-10 items-center">
+            <p className="text-gray-500 text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
+              Don't have a JobSculpt account? 
+            </p>
+            < Link to={"/signup"} className="text-[#495bff] border-2 w-48 py-2 border-[#495bff] rounded-lg">
+            Sign up
+            </Link>
+          </div>
         </div>
+        
       </div>
 
       <MinFooter />
