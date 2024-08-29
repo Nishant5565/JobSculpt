@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="container flex items-center justify-between py-4 px-6">
         <div className="flex items-center gap-4">
       
-          <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4">
+          <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4 cursor-pointer">
             <span className="font-greatvibes ml-2">
               J
             </span>
