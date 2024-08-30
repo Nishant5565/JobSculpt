@@ -15,10 +15,16 @@ const Navbar = () => {
     }
   }, [navigate]);
 
-  
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
+    // To check whether the token is valid or not 
 
   return (
-    <nav className="bg-white text-gray-800 shadow-lg fixed w-full z-10 top-0 ">
+    <nav className="bg-white text-gray-800 shadow-md fixed w-full z-10 top-0 ">
       <div className="container flex items-center justify-between py-4 px-6">
         <div className="flex items-center gap-4">
           <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4 cursor-pointer">
@@ -71,9 +77,14 @@ const Navbar = () => {
               </Link>
             </>
           ) : (
-            <Link to="/profile" className="profile">
+            <>
+            <Link className="login" onClick = {() => logout()} >
+              Logot 
+            </Link>
+            <Link to="/profile" className="signup">
               Profile
             </Link>
+            </>
           )}
         </div>
       </div>

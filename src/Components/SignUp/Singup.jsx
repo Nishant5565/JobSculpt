@@ -14,6 +14,15 @@ const Signup = () => {
   const [usernameAvailable, setUsernameAvailable] = useState('Input a username to check availability');
   const navigate = useNavigate();
 
+  // To check if the user is already logged in
+  useEffect(() => {
+    const user = localStorage.getItem('token');
+    if (user) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+
   const emailFormik = useFormik({
     initialValues: {
       email: '',
@@ -78,7 +87,7 @@ const debounce = (func, delay) => {
         }
         else{
           alert('Registration successful');
-          setStep(3);
+          navigate('/verify-email');
         }
         localStorage.setItem('token', response.data.token);
       } catch (err) {

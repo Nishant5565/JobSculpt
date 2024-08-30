@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai'; // Importing icons
@@ -10,8 +10,20 @@ import { API_URL } from '../../Functions/Constants';
 import VerifyEmail from '../EmailVerify/VerifyEmail';
 import Logo from '../../assets/Images/LogoNoBg.png';
 const Login = () => {
+
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+
+
+  // To check if the user is already logged in
+  useEffect(() => {
+    const user = localStorage.getItem('token');
+    if (user) {
+      navigate('/');
+    }
+  }, [navigate]);
+
+
   const emailFormik = useFormik({
     initialValues: {
       email: '',
@@ -29,11 +41,14 @@ const Login = () => {
   const sendEmailVerificationLink = async () => {
     try {
       const response = await axios.post(API_URL + '/api/auth/send-email-verification-link', {
-        email: emailFormik.values.email,
+      }, {
+        headers: {
+          'x-auth-token': localStorage.getItem('token'),
+        },
       });
       if (response.data.msg === 'Email sent') {
         console.log('Email sent');
-        setStep(3);
+        navigate('/verify-email');
       }
     } catch (err) {
       console.error('Email verification failed:', err);
@@ -60,7 +75,7 @@ const Login = () => {
           console.error('Login failed:', response.data);
           return;
         }
-        if (response.data.msg === 'Email is not validated') { 
+        if (response.data.msg === 'Email is not Verified') { 
           localStorage.setItem('token', response.data.token);
           sendEmailVerificationLink();
           return;
@@ -100,7 +115,7 @@ const Login = () => {
         <div className=" w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
             <h2 className="text-[28px] text-gray-900">
-              {step ==1 && 'Login'}
+              {step ==1 && 'Log in to JobSculpt'}
               {step ==2 && 'Password'}
               {step ==3 && 'Email Verification Required'}
             </h2>
@@ -108,17 +123,6 @@ const Login = () => {
 
           {step === 1 ? (
              <>
-            <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 mt-4 top-0 left-0 cursor-pointer fixed">
-            <span className="font-greatvibes ml-2">
-              J
-            </span>
-            ob
-            <span className=' font-greatvibes'>
-              S
-            </span>
-            culpt 
-            </h1>
-            <img src={Logo} alt="" className='w-40 mx-auto  top-0 right-0 fixed' />
 
             <form onSubmit={emailFormik.handleSubmit} className="space-y-6 flex flex-col items-center  ">
               <div className="relative w-3/4 "> 
@@ -170,17 +174,6 @@ const Login = () => {
           {step === 2 ? (
             (
               <>
-            <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 mt-4 top-0 left-0 cursor-pointer fixed">
-            <span className="font-greatvibes ml-2">
-              J
-            </span>
-            ob
-            <span className=' font-greatvibes'>
-              S
-            </span>
-            culpt 
-            </h1>
-            <img src={Logo} alt="" className='w-40 mx-auto  top-0 right-0 fixed' />
               <form onSubmit={passwordFormik.handleSubmit} className="space-y-6 flex flex-col items-center">
                 <div className="relative w-3/4">
                   <AiOutlineLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -216,14 +209,6 @@ const Login = () => {
             </>
             )
           ) : null}
-
-        {
-          step === 3 ? 
-          (
-            <VerifyEmail />
-          )
-          : null
-        }
         </div>        
       </div>
 
