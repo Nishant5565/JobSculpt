@@ -7,7 +7,8 @@ import axios from 'axios';
 import MinFooter from '../Footer/MinFooter';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaRegUser } from "react-icons/fa";
-
+import { API_URL } from '../../Functions/Constants';
+import VerifyEmail from '../EmailVerify/VerifyEmail';
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [usernameAvailable, setUsernameAvailable] = useState('Input a username to check availability');
@@ -23,7 +24,6 @@ const Signup = () => {
         .email('Invalid email address')
         .required('Required'),
       userName: Yup.string()
-     //  thier should be no white space in username
         .min(6, 'Username must be at least 6 characters')
             .matches(/^\S*$/, 'Username cannot contain white spaces')
         .required('Required'),
@@ -59,9 +59,10 @@ const debounce = (func, delay) => {
         .oneOf([Yup.ref('password'), null], 'Passwords must match')
         .required('Required'),
     }),
+
     onSubmit: async (values) => {
       try {
-        const response = await axios.post('http://localhost:5000/api/auth/register', {
+        const response = await axios.post( API_URL+'/api/auth/register', {
           userName: emailFormik.values.userName,
           email: emailFormik.values.email,
           password: values.password,
@@ -71,8 +72,15 @@ const debounce = (func, delay) => {
           console.error('Registration failed:', response.data);
           return;
         }
+        else if (response.data.msg === 'User already exists') {
+          alert('User already exists');
+          return;
+        }
+        else{
+          alert('Registration successful');
+          setStep(3);
+        }
         localStorage.setItem('token', response.data.token);
-        navigate('/');
       } catch (err) {
         console.error('Registration failed:', err);
       }
@@ -81,7 +89,7 @@ const debounce = (func, delay) => {
 
   const checkUsername = async (userName) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/check-username', {
+      const response = await axios.post( API_URL+ '/api/auth/check-username', {
         userName,
       });
 
@@ -102,6 +110,24 @@ const debounce = (func, delay) => {
       debouncedCheckUsername(emailFormik.values.userName);
     }
   }, [emailFormik.values.userName]);
+
+  const handleGoogleSuccess = async (response) => {
+    try {
+      const data = {
+        token: response.credential, // or response.tokenId depending on the library version
+      };
+      const res = await axios.post(API_URL + '/api/auth/google', data);
+      if (!res.data.token) {
+        console.error('Login failed:', res.data);
+        return;
+      }
+      localStorage.setItem('token', res.data.token);
+      navigate('/');
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
+  };
+  
 
   return (
     <>
@@ -222,27 +248,7 @@ const debounce = (func, delay) => {
             Or
           </p>
           <div className="flex items-center justify-center">
-            <GoogleLogin
-              onSuccess={async (credentialResponse) => {
-                const { credential } = credentialResponse;
-                const decoded = jwtDecode(credential);
-
-                try {
-                  const response = await axios.post('http://localhost:5000/api/auth/google', {
-                    token: credential,
-                  });
-
-                  localStorage.setItem('token', response.data.token);
-
-                  window.location.href = '/';
-                } catch (err) {
-                  console.error('Google registration failed:', err);
-                }
-              }}
-              onError={() => {
-                console.log('Google Login Failed');
-              }}
-            />
+          <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
           </div>
           
           <div className="flex items-center justify-center">

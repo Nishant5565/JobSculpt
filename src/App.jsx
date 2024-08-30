@@ -5,15 +5,22 @@ import LandingPage from './Components/LandingPage';
 import Layout from './Pages/Layout';
 import Login from './Components/Login/Login';
 import Signup from './Components/SignUp/Singup';
+import VerifyEmail from './Components/EmailVerify/VerifyEmail';
+import ProtectedRoute from './Pages/ProtectedRoute';
+
+
+
+
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<LandingPage />} />
+          <Route index element={<ProtectedRoute><LandingPage /></ProtectedRoute>} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="verify-email" element={<VerifyEmail />} />
       </Routes>
     </Router>
   );

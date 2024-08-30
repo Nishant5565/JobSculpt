@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , useNavigate} from 'react-router-dom';
 import Logo from '../assets/Images/LogoNoBg.png'; // Make sure the path is correct
 import './Styling/Buttons.css';
-
+import VerifyEmail from './EmailVerify/VerifyEmail';
+import axios from 'axios';
+import { API_URL } from '../Functions/Constants';
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const user = localStorage.getItem('token');
     if (user) {
       setIsLoggedIn(true);
     }
-  }, []);
+  }, [navigate]);
+
+  
 
   return (
     <nav className="bg-white text-gray-800 shadow-lg fixed w-full z-10 top-0 ">
