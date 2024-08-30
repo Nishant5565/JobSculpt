@@ -151,7 +151,7 @@ const Navbar = () => {
           </h1>
         </div>
 
-        <div className="text-lg gap-10 flex flex-col ">
+        <div className="text-lg gap-10 flex flex-col  items-center justify-center ">
             <Link
               to="/"
               className="relative group hover:text-[#9000ff] nav-text font-"

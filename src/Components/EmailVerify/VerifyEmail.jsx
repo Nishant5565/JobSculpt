@@ -63,10 +63,10 @@ const VerifyEmail = () => {
 
   return (
     <>
-       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer top-4 ">
+       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer absolute top-5 ">
             <span className="font-greatvibes ml-2">
               J
-            </span>
+            </span>5
             ob
             <span className=' font-greatvibes'>
               S
