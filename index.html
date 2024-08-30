@@ -13,7 +13,7 @@
         if (l.search[1] === '/' ) {
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
-          }).join('?');
+          }).join('');
           window.history.replaceState(null, null,
               l.pathname.slice(0, -1) + decoded + l.hash
           );
@@ -26,6 +26,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script src="%PUBLIC_URL%/static/js/bundle.js"></script>
   </body>
 </html>
