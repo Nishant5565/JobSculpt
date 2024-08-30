@@ -21,9 +21,9 @@
   border: none;
   transition: all 0.5s;
   cursor: pointer;
-  border-radius: 30px;
-  padding: 10px 26px;
-
+  border-radius: 20px;
+  padding: 10px 15px;
+  text-align: center;
 }
 
    /** Explore Button */
