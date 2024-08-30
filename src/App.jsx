@@ -9,7 +9,7 @@ import VerifyEmail from './Components/EmailVerify/VerifyEmail';
 
 function App() {
   return (
-    <Router>
+    <Router basename='/JobSculpt'>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
