@@ -63,6 +63,16 @@ const VerifyEmail = () => {
 
   return (
     <>
+       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer top-4 ">
+            <span className="font-greatvibes ml-2">
+              J
+            </span>
+            ob
+            <span className=' font-greatvibes'>
+              S
+            </span>
+            culpt
+          </Link>
     <div className="flex items-center justify-center h-96">
       <div className="w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl ">
         <div className="flex flex-col items-center space-y-6">

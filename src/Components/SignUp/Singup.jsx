@@ -9,10 +9,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaRegUser } from "react-icons/fa";
 import { API_URL } from '../../Functions/Constants';
 import VerifyEmail from '../EmailVerify/VerifyEmail';
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [usernameAvailable, setUsernameAvailable] = useState('Input a username to check availability');
   const navigate = useNavigate();
+  const [role , setRole] = useState('Job');
 
   // To check if the user is already logged in
   useEffect(() => {
@@ -22,6 +25,9 @@ const Signup = () => {
     }
   }, [navigate]);
 
+  const changeRole = (e) => {
+    setRole(e.target.value);
+  }
 
   const emailFormik = useFormik({
     initialValues: {
@@ -124,6 +130,7 @@ const debounce = (func, delay) => {
     try {
       const data = {
         token: response.credential, // or response.tokenId depending on the library version
+        role : role
       };
       const res = await axios.post(API_URL + '/api/auth/google', data);
       if (!res.data.token) {
@@ -140,27 +147,37 @@ const debounce = (func, delay) => {
 
   return (
     <>
-      <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 mt-4 cursor-pointer">
-        <span className="font-greatvibes ml-2">
-          J
-        </span>
-        ob
-        <span className=' font-greatvibes'>
-          S
-        </span>
-        culpt
-      </h1>
+       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer top-4 ">
+            <span className="font-greatvibes ml-2">
+              J
+            </span>
+            ob
+            <span className=' font-greatvibes'>
+              S
+            </span>
+            culpt
+          </Link>
+      <div className={`flex items-center justify-center min-h-screen mt-20 `}>
 
-      <div className="flex items-center justify-center min-h-screen mt-20">
-        <div className="w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2">
+        <div className={`w-[500px] p-8 space-y-8 bg-opacity-90 rounded-xl border-2 ${role !="Job"?" bg-gradient-to-t from-[#495bff] to-[#ffffff] ":" bg-gradient-to-t from-[#0066ff] to-[#ffffff] "} `}>
           <div className="text-center">
-            <h2 className="text-[28px] text-gray-900">
+            <h2 className={`text-[28px] ${role != "Job"?" text-[#495bff]":" text-[#0066ff]"} `}>
               {step === 1 ? 'Register for JobSculpt' : 'Choose a Password'}
             </h2>
           </div>
 
+
           {step === 1 ? (
-            <form onSubmit={emailFormik.handleSubmit} className="space-y-6 flex flex-col items-center">
+            <>
+        <div className="flex items-center justify-center">
+        <button className = {`${role == "Job"?" bg-[#0066ff] text-white": " text-black"}  px-14 py-2 rounded-md  `} onClick={() => setRole('Job')}>
+          Job 
+        </button>
+        <button className={`${role == "Hire"?" bg-[#495bff] text-white": " text-black"} px-14 py-2 rounded-md`}
+         onClick={() => setRole('Hire')}>
+          Hire</button>
+        </div>
+            <form onSubmit={emailFormik.handleSubmit} className={`space-y-6 flex flex-col items-center `}>
               <div className="relative w-3/4">
                 <AiOutlineMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -193,7 +210,7 @@ const debounce = (func, delay) => {
                   <div className="absolute text-xs text-red-600">{emailFormik.errors.userName}</div>
                 ) : <>
                <div className="relative w-3/4">
-                <div className={`absolute text-xs ${ usernameAvailable === 'Username already exists' ? 'text-red-600' : 'text-green-600'}`}>
+                <div className={`absolute text-xs ${ usernameAvailable === 'Username already exists' ? 'text-red-600' : 'text-white'}`}>
                     {usernameAvailable}</div>
               </div>
                 </>
@@ -203,14 +220,35 @@ const debounce = (func, delay) => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-2 text-white rounded-lg bg-[#495bff] shadow-md hover:bg-[#6473f8]"
+                  className={`${role != "Job"?" bg-[#495bff] text-white": " bg-[#0066ff] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
                 >
                   Continue
                 </button>
               </div>
             </form>
+          <p className="text-white text-[14px] text-center">
+          Or
+        </p>
+        <div className="flex items-center justify-center">
+        <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
+        </div>
+        <p className="text-white text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 text-center">
+            Already have a JobSculpt account? 
+          </p>
+
+        <div className="flex items-center justify-center">
+          
+          <Link to={"/login"} className="text-[#ffffff] border-2 w-48 py-2 border-[#ffffff] rounded-lg text-center">
+            Log in
+          </Link>
+        </div>
+
+            </>
           ) : (
-            <form onSubmit={passwordFormik.handleSubmit} className="space-y-6 flex flex-col items-center">
+            <form onSubmit={passwordFormik.handleSubmit} className="space-y-6 flex flex-col items-center h-96">
+              <button onClick={() => setStep(1)} className="text-black text-[20px] relative -top-16 -left-52 hover:underline">
+                <IoMdArrowRoundBack />
+              </button>
               <div className="relative w-3/4">
                 <AiOutlineLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                 <input
@@ -220,7 +258,7 @@ const debounce = (func, delay) => {
                   onChange={passwordFormik.handleChange}
                   onBlur={passwordFormik.handleBlur}
                   value={passwordFormik.values.password}
-                  className="w-full px-10 py-3 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  className="w-full px-10 py-2 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                   placeholder="Enter your password"
                 />
                 {passwordFormik.touched.password && passwordFormik.errors.password ? (
@@ -236,7 +274,7 @@ const debounce = (func, delay) => {
                   onChange={passwordFormik.handleChange}
                   onBlur={passwordFormik.handleBlur}
                   value={passwordFormik.values.confirmPassword}
-                  className="w-full px-10 py-3 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  className="w-full px-10 py-2 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
                   placeholder="Confirm your password"
                 />
                 {passwordFormik.touched.confirmPassword && passwordFormik.errors.confirmPassword ? (
@@ -246,25 +284,21 @@ const debounce = (func, delay) => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-3 text-lg font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-md hover:bg-gradient-to-l hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
+                  className={`${role != "Job"?" bg-[#495bff] text-white": " bg-[#0066ff] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
                 >
                   Register
                 </button>
               </div>
+              <p className="text-white text-[14px]  after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+                Note 
+                <ul className="text-white text-[14px] ml-4" >
+                  <li> Password must be at least 6 characters</li>
+                  <li> Password must contain at least one uppercase letter, one lowercase letter, one number and one special character</li>
+
+                </ul>
+              </p>
             </form>
           )}
-          <p className="text-gray-900 text-[14px] text-center">
-            Or
-          </p>
-          <div className="flex items-center justify-center">
-          <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
-          </div>
-          
-          <div className="flex items-center justify-center">
-            <Link to={"/login"} className="text-[#495bff] border-2 w-48 py-2 border-[#495bff] rounded-lg text-center">
-              Log in
-            </Link>
-          </div>
         </div>
       </div>
 

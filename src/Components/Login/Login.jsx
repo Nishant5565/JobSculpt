@@ -110,14 +110,23 @@ const Login = () => {
 
   return (
     <>
-
+       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer top-4 ">
+            <span className="font-greatvibes ml-2">
+              J
+            </span>
+            ob
+            <span className=' font-greatvibes'>
+              S
+            </span>
+            culpt
+          </Link>
+          
       <div className="flex items-center justify-center min-h-screen">
-        <div className=" w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2">
+        <div className=" w-[500px] p-8 space-y-8 bg-gradient-to-t from-[#495bff] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
-            <h2 className="text-[28px] text-gray-900">
+            <h2 className="text-[28px] text-[#495bff]">
               {step ==1 && 'Log in to JobSculpt'}
               {step ==2 && 'Password'}
-              {step ==3 && 'Email Verification Required'}
             </h2>
           </div>
 
@@ -151,7 +160,7 @@ const Login = () => {
               </div>
             </form>
 
-            <p className="text-gray-900 text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+            <p className="text-white text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
             Or
             </p>
             <div className=" flex items-center justify-center ">
@@ -159,10 +168,10 @@ const Login = () => {
             </div>
 
             <div className="text-center flex flex-col gap-10 items-center">
-            <p className="text-gray-500 text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
+            <p className="text-white text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
               Don't have a JobSculpt account? 
             </p>
-            < Link to={"/signup"} className="text-[#495bff] border-2 w-48 py-2 border-[#495bff] rounded-lg">
+            < Link to={"/signup"} className="text-[#ffffff] border-2 w-48 py-2 border-[#ffffff] rounded-lg">
             Sign up
             </Link>
           </div>
@@ -200,7 +209,7 @@ const Login = () => {
                   </button>
                 </div>
               </form>
-              <p className="text-gray-900 text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+              <p className="text-white text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
             Or
             </p>
             <div className=" flex items-center justify-center ">
