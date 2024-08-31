@@ -157,7 +157,7 @@ const debounce = (func, delay) => {
 
   return (
     <>
-       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer absolute top-5  ">
+       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#124E66] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer absolute top-5  ">
             <span className="font-greatvibes ml-2">
               J
             </span>
@@ -169,9 +169,9 @@ const debounce = (func, delay) => {
           </Link>
       <div className={`flex items-center justify-center  min-h-screen mt-20 transition-all duration-500  `}>
 
-        <div className={`w-[500px] p-8 min-h-[612.5px] space-y-8 bg-opacity-90 rounded-xl border-2 ${role !="Job"?" bg-gradient-to-t from-[#495bff] to-[#ffffff] ":" bg-gradient-to-t from-[#0066ff] to-[#ffffff] "} `}>
+        <div className={`w-[500px] p-8 min-h-[612.5px] space-y-8 bg-opacity-90 rounded-xl border-2 ${role !="Job"?" bg-gradient-to-t from-[#124E66] to-[#ffffff] ":" bg-gradient-to-t from-[#4E6E5D] to-[#ffffff] "} `}>
           <div className="text-center">
-            <h2 className={` text-[28px] transition-colors duration-700 ${role != "Job"?" fade-in text-[#495bff]":" text-[#0066ff] fade-in1"} `}>
+            <h2 className={` text-[28px] transition-colors duration-700 ${role != "Job"?" fade-in text-[#124E66]":" text-[#4E6E5D] fade-in1"} `}>
               {step === 1 ? (
                 <>
                   <div class="container">
@@ -253,7 +253,7 @@ const debounce = (func, delay) => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className={`${role != "Job"?" bg-[#495bff] text-white": " bg-[#0066ff] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
+                  className={`${role != "Job"?" bg-[#124E66] text-white": " bg-[#4E6E5D] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
                 >
                   Continue
                 </button>
@@ -317,7 +317,7 @@ const debounce = (func, delay) => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className={`${role != "Job"?" bg-[#495bff] text-white": " bg-[#0066ff] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
+                  className={`${role != "Job"?" bg-[#124E66] text-white": " bg-[#4E6E5D] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
                 >
                   Register
                 </button>

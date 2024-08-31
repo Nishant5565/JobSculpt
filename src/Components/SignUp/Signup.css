@@ -41,19 +41,19 @@
   left: 0;
   width: 50%;
   height: 100%;
-  background-color: #0066ff;
+  background-color: #4E6E5D;
   transition: transform 0.3s ease, background-color 0.3s ease;
   z-index: 0;
 }
 
 .button-wrapper.Job::before {
   transform: translateX(0);
-  background-color: #0066ff;
+  background-color: #4E6E5D;
 }
 
 .button-wrapper.Hire::before {
   transform: translateX(100%);
-  background-color: #495bff;
+  background-color: #124E66;
 }
 
 .fade-in {

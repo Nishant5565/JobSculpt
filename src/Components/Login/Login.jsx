@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 import { API_URL } from '../../Functions/Constants';
 
+
 import { IoMdArrowRoundBack } from 'react-icons/io';
 const Login = () => {
 
@@ -122,11 +123,11 @@ const Login = () => {
           </Link>
           
       <div className="flex items-center justify-center min-h-screen mt-20">
-        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#0066ff] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
+        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#124E66] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
           <div class="container">
             <div class="card">
-              <div id="front" class="cardFront text-[#0066ff]">
+              <div id="front" class="cardFront text-[#124E66]">
                 Log in To JobSculpt
               </div>
             </div>
@@ -156,7 +157,7 @@ const Login = () => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#0066ff] shadow-md hover:bg-[#5293f6]"
+                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md "
                 >
                   Continue
                 </button>
@@ -166,8 +167,8 @@ const Login = () => {
             <p className="text-white text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
             Or
             </p>
-            <div className=" flex items-center justify-center ">
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
+            <div className=" flex items-center justify-center  ">
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
             </div>
 
             <div className="text-center flex flex-col gap-10 items-center">
@@ -211,7 +212,7 @@ const Login = () => {
                 <div className="w-3/4">
                   <button
                     type="submit"
-                     className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#0066ff] shadow-md hover:bg-[#589bff]"
+                     className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md "
                   >
                     Login
                   </button>
@@ -220,8 +221,10 @@ const Login = () => {
               <p className="text-white text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
             Or
             </p>
-            <div className=" flex items-center justify-center ">
-            <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
+            {/* Google desgin */}
+            <div className=" flex items-center justify-center" >
+
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
             </div>
             </>
             )

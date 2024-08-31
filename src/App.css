@@ -38,4 +38,6 @@
     font-family: GreatVibes;
     src: url('../src/assets/Fonts/GreatVibes.ttf');
   }
-  
+  p , h1, h2, h3, h4, h5, h6 , span, a, button, input, label, select, option, textarea{
+    font-family: Arial, Helvetica;
+  }
