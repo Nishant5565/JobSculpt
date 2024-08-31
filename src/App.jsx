@@ -6,6 +6,7 @@ import Layout from './Pages/Layout';
 import Login from './Components/Login/Login';
 import Signup from './Components/SignUp/Singup';
 import VerifyEmail from './Components/EmailVerify/VerifyEmail';
+import EmailVerified from './Components/EmailVerify/EmailVerified';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="verify-email" element={<VerifyEmail />} />
+        <Route path="email-verified/:userName" element={<EmailVerified />} />
         
       </Routes>
     </Router>

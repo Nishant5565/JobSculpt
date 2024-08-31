@@ -7,14 +7,13 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 import { API_URL } from '../../Functions/Constants';
-
-
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import Spinner2 from '../ShimmerAndSpinner/Spinner2';
 const Login = () => {
 
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
 
   // To check if the user is already logged in
   useEffect(() => {
@@ -68,10 +67,12 @@ const Login = () => {
     }),
     onSubmit: async (values) => {
       try {
+        setIsLoading(true);
         const response = await axios.post( API_URL+ '/api/auth/login', {
           email: emailFormik.values.email,
           password: values.password,
         });
+        setIsLoading(false);
         if (!response.data.token) {
           console.error('Login failed:', response.data);
           return;
@@ -93,10 +94,12 @@ const Login = () => {
 
   const handleGoogleSuccess = async (response) => {
     try {
+      isLoading(true);
       const data = {
         token: response.credential, // or response.tokenId depending on the library version
       };
       const res = await axios.post(API_URL + '/api/auth/google', data);
+      isLoading(false);
       if (!res.data.token) {
         console.error('Login failed:', res.data);
         return;
@@ -119,9 +122,9 @@ const Login = () => {
       <div className="flex items-center justify-center min-h-screen mt-20">
         <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#124E66] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
-          <div class="container">
-            <div class="card">
-              <div id="front" class="cardFront text-[#124E66]">
+          <div className="container">
+            <div className="card">
+              <div id="front" className="cardFront text-[#124E66]">
                 Log in To JobSculpt
               </div>
             </div>
@@ -170,7 +173,7 @@ const Login = () => {
               Don't have a JobSculpt account? 
             </p>
             < Link to={"/signup"} className="text-[#ffffff] border-2 w-48 py-2 border-[#ffffff] rounded-lg">
-            Sign up
+              Sign Up
             </Link>
           </div>
 
@@ -205,10 +208,19 @@ const Login = () => {
                 </div>
                 <div className="w-3/4">
                   <button
+                    disabled={isLoading}  
                     type="submit"
-                     className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md "
+                     className={`relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md 
+                      ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
+                      `}
                   >
-                    Login
+                    {
+                      isLoading ? (
+                        <div className="flex justify-center items-baseline  relative top-2">
+                          <Spinner2 />
+                        </div>
+                      ): 'Log in'
+                    }
                   </button>
                 </div>
               </form>

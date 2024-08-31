@@ -11,12 +11,15 @@ import { API_URL } from '../../Functions/Constants';
 import VerifyEmail from '../EmailVerify/VerifyEmail';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import './Signup.css';
+import Spinner2 from '../ShimmerAndSpinner/Spinner2';
+
 
 const Signup = () => {
   const [step, setStep] = useState(1);
   const [usernameAvailable, setUsernameAvailable] = useState('Input a username to check availability');
   const navigate = useNavigate();
   const [role , setRole] = useState('Job');
+  const [isLoading, setIsLoading] = useState(false);
 
   // To check if the user is already logged in
   useEffect(() => {
@@ -87,11 +90,13 @@ const debounce = (func, delay) => {
 
     onSubmit: async (values) => {
       try {
+        setIsLoading(true);
         const response = await axios.post( API_URL+'/api/auth/register', {
           userName: emailFormik.values.userName,
           email: emailFormik.values.email,
           password: values.password,
         });
+        setIsLoading(false);
 
         if (response.status !== 200) {
           console.error('Registration failed:', response.data);
@@ -138,6 +143,7 @@ const debounce = (func, delay) => {
 
   const handleGoogleSuccess = async (response) => {
     try {
+      
       const data = {
         token: response.credential, // or response.tokenId depending on the library version
         role : role
@@ -167,14 +173,13 @@ const debounce = (func, delay) => {
             <h2 className={` text-[28px] transition-colors duration-700 ${role != "Job"?" fade-in text-[#124E66]":" text-[#4E6E5D] fade-in1"} `}>
               {step === 1 ? (
                 <>
-                  <div class="container">
-                    <div class="card">
-                      <div id="back" class="cardBack">
+                  <div className="container">
+                    <div className="card">
+                      <div id="back" className="cardBack">
                       Build Your Business 
                         </div>
-                      <div id="front" class="cardFront">
+                      <div id="front" className="cardFront">
                         Craft Your Career
-
                       </div>
                     </div>
                   </div>
@@ -309,10 +314,17 @@ const debounce = (func, delay) => {
               </div>
               <div className="w-3/4">
                 <button
+                  disabled={isLoading}
                   type="submit"
-                  className={`${role != "Job"?" bg-[#124E66] text-white": " bg-[#4E6E5D] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md `}
+                  className={`${role != "Job"?" bg-[#124E66] text-white": " bg-[#4E6E5D] text-white"} relative w-full px-4 py-2 text-white rounded-lg shadow-md ${isLoading ? 'cursor-not-allowed' : ' cursor-pointer'}`}
                 >
-                  Register
+                                     {
+                      isLoading ? (
+                        <div className="flex justify-center items-baseline  relative top-2">
+                          <Spinner2 />
+                        </div>
+                      ): 'Sign Up'
+                    }
                 </button>
               </div>
               <p className="text-white text-[14px]  after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-20 pt-20 ">

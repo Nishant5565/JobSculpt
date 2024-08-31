@@ -16,6 +16,7 @@ const Navbar = () => {
   const [hamburger, setHamburger] = useState(false);
   const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
 
   const handleClick = () => {
     setIsOpened(!isOpened);
@@ -23,15 +24,38 @@ const Navbar = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('token');
+    checkAuthUser();
     if (user) {
       setIsLoggedIn(true);
     }
   }, [navigate]);
 
+  const checkAuthUser = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      logout();
+      return;
+    }
+    try {
+      const response = await axios.get(`${API_URL}/api/auth-user/`, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      if (response.status === 200) {
+        setIsLoggedIn(true);
+        setUserInfo(response.data);
+      }
+    } catch (err) {
+      console.error('User not authenticated:', err);
+      logout();
+    }
+  };
+  
   const logout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    navigate('/');
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -40,9 +64,6 @@ const Navbar = () => {
     }
   }, []);
 
-  const handleHamburger = () => {
-    setHamburger(!hamburger);
-  };
 
   return (
     device === "Desktop" ? (
