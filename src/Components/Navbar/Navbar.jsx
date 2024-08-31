@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Logo from '../../assets/Images/LogoNoBg.png'; // Make sure the path is correct
-import '../Styling/Buttons.css';
-import VerifyEmail from '../EmailVerify/VerifyEmail';
 import axios from 'axios';
-import { API_URL } from '../../Functions/Constants';
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
+import { API_URL } from '../../Functions/Constants';
+import Logo from '../../assets/Images/LogoNoBg.png'; // Make sure the path is correct
+import '../Styling/Buttons.css';
 import './Navbar.css';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -24,15 +23,15 @@ const Navbar = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('token');
-    checkAuthUser();
     if (user) {
-      setIsLoggedIn(true);
+      checkAuthUser();
     }
-  }, [navigate]);
+  }, []);
 
   const checkAuthUser = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
+      navigate('/login');
       return;
     }
     try {
@@ -44,13 +43,15 @@ const Navbar = () => {
       if (response.status === 200) {
         setIsLoggedIn(true);
         setUserInfo(response.data);
+      } else {
+        logout();
       }
     } catch (err) {
       console.error('User not authenticated:', err);
       logout();
     }
   };
-  
+
   const logout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
@@ -63,16 +64,14 @@ const Navbar = () => {
     }
   }, []);
 
-
   return (
     device === "Desktop" ? (
       <nav className="bg-white text-gray-800 shadow-md fixed w-full z-10 top-0 material-navbar">
         <div className="flex items-center justify-between h-[60px] px-6">
           <div className="flex items-center gap-4">
-          <Link to={'/'} className="text-xl font-bold text-aesthetic-green ">
+            <Link to={'/'} className="text-xl font-bold text-aesthetic-green">
               JobSculpt
-          </Link>
-
+            </Link>
             <div className="space-x-10 text-lg flex items-center">
               <Link
                 to="/"
@@ -100,7 +99,7 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          <div className=" ml-[500px]">
+          <div className="ml-[500px]">
             <SearchBar />
           </div>
           <div className="flex items-center gap-4">
@@ -118,6 +117,9 @@ const Navbar = () => {
                 <Link to="/profile" className="text-aesthetic-green px-5">
                   Profile
                 </Link>
+                <button onClick={logout} className="text-aesthetic-green px-5">
+                  Log out
+                </button>
               </>
             )}
           </div>
@@ -149,9 +151,9 @@ const Navbar = () => {
         <nav className={`mobile-navbar bg-white text-gray-800 shadow-md transition-transform duration-500 fixed w-full top-0 z-10 ${!isOpened ? " translate-x-full " : " translate-x-0"}`}>
           <div className="container flex flex-col gap-10 h-screen items-center justify-center py-4 px-6">
             <div className="flex flex-col justify-center gap-4">
-            <Link to={'/'} className="text-xl font-bold text-aesthetic-green">
-              JobSculpt
-          </Link>
+              <Link to={'/'} className="text-xl font-bold text-aesthetic-green">
+                JobSculpt
+              </Link>
             </div>
 
             <div className="gap-10 flex flex-col items-center justify-center">
@@ -184,21 +186,21 @@ const Navbar = () => {
             <div className="flex flex-col gap-10">
               {!isLoggedIn ? (
                 <>
-                <Link to="/login" className="text-aesthetic-green px-5">
-                  Log in
-                </Link>
-                <Link to="/signup" className="bg-aesthetic-green text-white px-5 py-2 rounded-lg">
-                  Signup
-                </Link>
+                  <Link to="/login" className="text-aesthetic-green px-5">
+                    Log in
+                  </Link>
+                  <Link to="/signup" className="bg-aesthetic-green text-white px-5 py-2 rounded-lg">
+                    Signup
+                  </Link>
                 </>
               ) : (
                 <>
                   <Link to="/profile" className="text-aesthetic-green px-5">
-                    Log out
-                  </Link>
-                  <Link to="/profile" className="text-aesthetic-green px-5">
                     Profile
                   </Link>
+                  <button onClick={logout} className="text-aesthetic-green px-5">
+                    Log out
+                  </button>
                 </>
               )}
             </div>
