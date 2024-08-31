@@ -63,39 +63,33 @@ const VerifyEmail = () => {
 
   return (
     <>
-       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer absolute top-5 ">
-            <span className="font-greatvibes ml-2">
-              J
-            </span>5
-            ob
-            <span className=' font-greatvibes'>
-              S
-            </span>
-            culpt
-          </Link>
-    <div className="flex items-center justify-center h-96">
-      <div className="w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl ">
-        <div className="flex flex-col items-center space-y-6">
-          <div className="relative w-3/4">
+      <Link to={'/'} className="text-xl font-bold text-aesthetic-green relative top-10 left-10">
+          JobSculpt
+      </Link>
+    <div className="flex justify-center mt-40 ">
+      <div className="w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2 border-aesthetic-green h-96 ">
+        <div className="flex flex-col  items-center gap-40 space-y-6 ">
+          <div className=" w-3/4">
             <p className=" text-center text-navy-blue">
                We have sent you an email. Please check your inbox and verify your email address.
             </p>
           </div>
         </div>
-      </div>
-    </div>
-    <div className="text-center flex flex-col gap-10 items-center">
-      <p className="text-gray-500 text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
+      <div className="text-center flex flex-col gap-10  items-center">
+      <p className="text-gray-500 text-[16px] mt-20 after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
         {
           message!=='' ? message : 'Verify your email to continue'
         }
       </p>
-      < button className="text-[#495bff] border-2 w-48 py-2 border-[#495bff] rounded-lg" onClick={() => 
+      < button className=" text-aesthetic-green border-2 w-48 mt-10 py-2 border-aesthetic-green rounded-lg" onClick={() => 
         checkEmailVerified()
       }>
         Continue 
       </button>
     </div>
+      </div>
+    </div>
+
     </>
   );
 };

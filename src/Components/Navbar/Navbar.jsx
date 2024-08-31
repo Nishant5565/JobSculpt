@@ -49,9 +49,9 @@ const Navbar = () => {
       <nav className="bg-white text-gray-800 shadow-md fixed w-full z-10 top-0 material-navbar">
         <div className="flex items-center justify-between h-[60px] px-6">
           <div className="flex items-center gap-4">
-            <h1 className="text-xl font-bold text-aesthetic-green mr-4 cursor-pointer">
+          <Link to={'/'} className="text-xl font-bold text-aesthetic-green ">
               JobSculpt
-            </h1>
+          </Link>
 
             <div className="space-x-10 text-lg flex items-center">
               <Link
@@ -129,16 +129,9 @@ const Navbar = () => {
         <nav className={`mobile-navbar bg-white text-gray-800 shadow-md transition-transform duration-500 fixed w-full top-0 z-10 ${!isOpened ? " translate-x-full " : " translate-x-0"}`}>
           <div className="container flex flex-col gap-10 h-screen items-center justify-center py-4 px-6">
             <div className="flex flex-col justify-center gap-4">
-              <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4 cursor-pointer">
-                <span className="font-greatvibes ml-2">
-                  J
-                </span>
-                ob
-                <span className=' font-greatvibes'>
-                  S
-                </span>
-                culpt
-              </h1>
+            <Link to={'/'} className="text-xl font-bold text-aesthetic-green">
+              JobSculpt
+          </Link>
             </div>
 
             <div className="gap-10 flex flex-col items-center justify-center">

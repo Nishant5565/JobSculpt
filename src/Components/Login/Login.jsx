@@ -111,16 +111,10 @@ const Login = () => {
 
   return (
     <>
-       <Link to={'/'} className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent ml-4 cursor-pointer absolute top-5 ">
-            <span className="font-greatvibes ml-2">
-              J
-            </span>
-            ob
-            <span className=' font-greatvibes'>
-              S
-            </span>
-            culpt
+          <Link to={'/'} className="text-xl font-bold text-aesthetic-green relative top-10 left-10">
+              JobSculpt
           </Link>
+
           
       <div className="flex items-center justify-center min-h-screen mt-20">
         <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#124E66] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
