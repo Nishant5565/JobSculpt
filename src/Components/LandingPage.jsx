@@ -7,7 +7,6 @@ const LandingPage = () => {
     <>
       <div
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${BackgroundImage})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundAttachment: 'fixed',
@@ -41,7 +40,7 @@ const LandingPage = () => {
           </p>
           <a
             href="#explore"
-            className="explore_button"
+            className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-[25px] animate__animated animate__fadeIn animate__delay-3s "
           >
             Explore More
           </a>

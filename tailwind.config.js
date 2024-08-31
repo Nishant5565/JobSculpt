@@ -16,6 +16,17 @@ export default {
         'pinkish': '#FFD3B6',
         'skin':'#DCA47C',
         'mildWhite':'#FCF8F3',
+        'aesthetic-red':'#A41F13',
+        'aesthetic-yellow':'#F2C94C',
+        'aesthetic-blue':'#2A324B',
+        'aesthetic-white':'#FAF5F1',
+        'aesthetic-black':'#292F36',
+        'aesthetic-grey':'#E0DBD8',
+        'aesthetic-green':'#4E6E5D',
+        'aesthetic-pink':'#F2C94C',
+        'aesthetic-purple':'#A41F13',
+        'aesthetic-orange':'#F2C94C',
+        'aesthetic-brown':'#8F7A6E',
       },
       fontFamily: {
         'quickkiss': ['"Quickkiss"', 'sans-serif'], // Use the font-family name and provide a fallback

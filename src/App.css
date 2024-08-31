@@ -2,8 +2,16 @@
      margin: 0;
      padding: 0;
      box-sizing: border-box;
-    font-family: 'Helvetica';
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
 }
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('../src/assets/Fonts/Light.ttf');
+}
+
 
 @font-face {
     font-family: 'Quickkiss';
@@ -31,6 +39,3 @@
     src: url('../src/assets/Fonts/GreatVibes.ttf');
   }
   
-  h1, h2, h3, h4, h5, h6 , p, a, span, div, input, button, label, select, option, textarea, li{
-    font-family: 'Helvetica';
-  }

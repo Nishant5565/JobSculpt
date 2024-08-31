@@ -47,8 +47,8 @@ const Navbar = () => {
 
   return (
     device== "Desktop" ? (
-      <nav className="bg-white text-gray-800 shadow-md fixed w-full z-10 top-0 ">
-      <div className="container flex items-center justify-between py-4 px-6">
+      <nav className="bg-white text-gray-800 shadow-md h-[60px] fixed w-full z-10 top-0 flex  ">
+      <div className="container flex items-center justify-between px-6">
         <div className="flex items-center gap-4">
           <h1 className="text-xl font-bold animate__animated animate__fadeIn animate__delay-2s text-clip bg-gradient-to-tr from-[#495bff] to-[#ff006e] bg-clip-text text-transparent mr-4 cursor-pointer">
             <span className="font-greatvibes ml-2">
@@ -93,7 +93,7 @@ const Navbar = () => {
           {!isLoggedIn ? (
             <>
               <Link to="/login" className="login">
-                Login
+              Log in
               </Link>
               <Link to="/signup" className="signup">
                 Signup
@@ -101,9 +101,6 @@ const Navbar = () => {
             </>
           ) : (
             <>
-            <Link className="login" onClick = {() => logout()} >
-              Logot 
-            </Link>
             <Link to="/profile" className="signup">
               Profile
             </Link>
@@ -182,7 +179,7 @@ const Navbar = () => {
           {!isLoggedIn ? (
             <>
               <Link to="/login" className="login">
-                Login
+                Log in
               </Link>
               <Link to="/signup" className="signup">
                 Signup
@@ -190,9 +187,6 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link className="login" onClick={() => logout()}>
-                Logout
-              </Link>
               <Link to="/profile" className="signup">
                 Profile
               </Link>

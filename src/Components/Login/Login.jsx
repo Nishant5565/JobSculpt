@@ -7,8 +7,8 @@ import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 import { API_URL } from '../../Functions/Constants';
-import VerifyEmail from '../EmailVerify/VerifyEmail';
-import Logo from '../../assets/Images/LogoNoBg.png';
+
+import { IoMdArrowRoundBack } from 'react-icons/io';
 const Login = () => {
 
   const [step, setStep] = useState(1);
@@ -121,13 +121,16 @@ const Login = () => {
             culpt
           </Link>
           
-      <div className="flex items-center justify-center min-h-screen">
-        <div className=" w-[500px] p-8 space-y-8 bg-gradient-to-t from-[#495bff] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
+      <div className="flex items-center justify-center min-h-screen mt-20">
+        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#0066ff] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
-            <h2 className="text-[28px] text-[#495bff]">
-              {step ==1 && 'Log in to JobSculpt'}
-              {step ==2 && 'Password'}
-            </h2>
+          <div class="container">
+            <div class="card">
+              <div id="front" class="cardFront text-[#0066ff]">
+                Log in To JobSculpt
+              </div>
+            </div>
+          </div>
           </div>
 
           {step === 1 ? (
@@ -147,13 +150,13 @@ const Login = () => {
                   placeholder="Email or Username"
                 />
                 {emailFormik.touched.email && emailFormik.errors.email ? (
-                  <div className="absolute mt-1 text-xs text-[#495bff]">{emailFormik.errors.email}</div>
+                  <div className="absolute mt-1 text-xs text-red-500">{emailFormik.errors.email}</div>
                 ) : null}
               </div>
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#495bff] shadow-md hover:bg-[#6473f8]"
+                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#0066ff] shadow-md hover:bg-[#5293f6]"
                 >
                   Continue
                 </button>
@@ -183,7 +186,12 @@ const Login = () => {
           {step === 2 ? (
             (
               <>
+
+
               <form onSubmit={passwordFormik.handleSubmit} className="space-y-6 flex flex-col items-center">
+              <button onClick={() => setStep(1)} className="text-black text-[20px] relative -top-16 -left-52 hover:underline">
+                <IoMdArrowRoundBack />
+              </button>
                 <div className="relative w-3/4">
                   <AiOutlineLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
@@ -203,7 +211,7 @@ const Login = () => {
                 <div className="w-3/4">
                   <button
                     type="submit"
-                     className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#495bff] shadow-md hover:bg-[#6473f8]"
+                     className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#0066ff] shadow-md hover:bg-[#589bff]"
                   >
                     Login
                   </button>

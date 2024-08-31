@@ -10,6 +10,7 @@ import { FaRegUser } from "react-icons/fa";
 import { API_URL } from '../../Functions/Constants';
 import VerifyEmail from '../EmailVerify/VerifyEmail';
 import { IoMdArrowRoundBack } from "react-icons/io";
+import './Signup.css';
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -25,9 +26,18 @@ const Signup = () => {
     }
   }, [navigate]);
 
+
   const changeRole = (e) => {
-    setRole(e.target.value);
-  }
+    const prevRole = role;
+    setRole(e);
+    const front = document.getElementById('front');
+    const back = document.getElementById('back');
+
+    if (e !== prevRole) {
+      front.classList.toggle('flipped');
+      back.classList.toggle('flipped');
+    }
+  };
 
   const emailFormik = useFormik({
     initialValues: {
@@ -157,25 +167,48 @@ const debounce = (func, delay) => {
             </span>
             culpt
           </Link>
-      <div className={`flex items-center justify-center min-h-screen mt-20 `}>
+      <div className={`flex items-center justify-center  min-h-screen mt-20 transition-all duration-500  `}>
 
-        <div className={`w-[500px] p-8 space-y-8 bg-opacity-90 rounded-xl border-2 ${role !="Job"?" bg-gradient-to-t from-[#495bff] to-[#ffffff] ":" bg-gradient-to-t from-[#0066ff] to-[#ffffff] "} `}>
+        <div className={`w-[500px] p-8 min-h-[612.5px] space-y-8 bg-opacity-90 rounded-xl border-2 ${role !="Job"?" bg-gradient-to-t from-[#495bff] to-[#ffffff] ":" bg-gradient-to-t from-[#0066ff] to-[#ffffff] "} `}>
           <div className="text-center">
-            <h2 className={`text-[28px] ${role != "Job"?" text-[#495bff]":" text-[#0066ff]"} `}>
-              {step === 1 ? 'Register for JobSculpt' : 'Choose a Password'}
+            <h2 className={` text-[28px] transition-colors duration-700 ${role != "Job"?" fade-in text-[#495bff]":" text-[#0066ff] fade-in1"} `}>
+              {step === 1 ? (
+                <>
+                  <div class="container">
+                    <div class="card">
+                      <div id="back" class="cardBack">
+                      Build Your Business 
+                        </div>
+                      <div id="front" class="cardFront">
+                        Craft Your Career
+
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : 'Choose a Password'}
             </h2>
           </div>
-
-
+          
           {step === 1 ? (
             <>
-        <div className="flex items-center justify-center">
-        <button className = {`${role == "Job"?" bg-[#0066ff] text-white": " text-black"}  px-14 py-2 rounded-md  `} onClick={() => setRole('Job')}>
-          Job 
-        </button>
-        <button className={`${role == "Hire"?" bg-[#495bff] text-white": " text-black"} px-14 py-2 rounded-md`}
-         onClick={() => setRole('Hire')}>
-          Hire</button>
+        <div className="flex items-center justify-center ">
+          <div className="button-container">
+            <div className={`button-wrapper ${role}`}>
+              <button
+                className={`button ${role === 'Job' ? 'active' : ''}`}
+                onClick={() => changeRole('Job')}
+              >
+                Job
+              </button>
+              <button
+                className={`button ${role === 'Hire' ? 'active' : ''}`}
+                onClick={() => changeRole('Hire')}
+              >
+                Hire
+              </button>
+            </div>
+          </div>
         </div>
             <form onSubmit={emailFormik.handleSubmit} className={`space-y-6 flex flex-col items-center `}>
               <div className="relative w-3/4">
@@ -289,9 +322,9 @@ const debounce = (func, delay) => {
                   Register
                 </button>
               </div>
-              <p className="text-white text-[14px]  after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+              <p className="text-white text-[14px]  after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-20 pt-20 ">
                 Note 
-                <ul className="text-white text-[14px] ml-4" >
+                <ul className="text-white text-[14px] ml-4 mt-10" >
                   <li> Password must be at least 6 characters</li>
                   <li> Password must contain at least one uppercase letter, one lowercase letter, one number and one special character</li>
 
