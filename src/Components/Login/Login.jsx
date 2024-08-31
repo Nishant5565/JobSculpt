@@ -94,12 +94,10 @@ const Login = () => {
 
   const handleGoogleSuccess = async (response) => {
     try {
-      isLoading(true);
       const data = {
         token: response.credential, // or response.tokenId depending on the library version
       };
       const res = await axios.post(API_URL + '/api/auth/google', data);
-      isLoading(false);
       if (!res.data.token) {
         console.error('Login failed:', res.data);
         return;
