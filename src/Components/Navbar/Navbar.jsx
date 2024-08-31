@@ -33,7 +33,6 @@ const Navbar = () => {
   const checkAuthUser = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      logout();
       return;
     }
     try {
