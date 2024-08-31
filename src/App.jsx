@@ -18,7 +18,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="verify-email" element={<VerifyEmail />} />
-        <Route path="email-verified/:userName" element={<EmailVerified />} />
+        <Route path="email-verified/" element={<EmailVerified />} />
         
       </Routes>
     </Router>

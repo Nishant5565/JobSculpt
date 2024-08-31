@@ -1,10 +1,10 @@
 import React from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import {  useNavigate, Link } from 'react-router-dom';
 import { Container, Paper, Typography, Button, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const StyledButton = styled(Button)(({ theme }) => ({
-  background: 'linear-gradient(45deg, #FF99CC 30%, #FF6699 90%)',
+  background: '#FF6699',
   color: '#ffffff',
   padding: '10px 20px',
   borderRadius: '50px',
@@ -15,7 +15,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   border: 'none',
   cursor: 'pointer',
   '&:hover': {
-    boxShadow: '0px 8px 16px rgba(255, 200, 221, 0.3)',
+    boxShadow: '0px 8px 16px rgba(255, 200, 221, 0.7)',
     transform: 'translateY(-2px)',
   },
   '&:active': {
@@ -25,7 +25,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const EmailVerified = () => {
-  const { userName } = useParams();
   const navigate = useNavigate();
 
   const handleContinue = () => {
@@ -60,7 +59,7 @@ const EmailVerified = () => {
           Email Verified
         </Typography>
         <Typography variant="body1" sx={{ mb: 4, color: '#555' }}>
-          Hello, {userName}! Your email has been successfully verified.
+          Your email has been successfully verified! You can now continue to use your account. 
         </Typography>
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <StyledButton onClick={handleContinue}>Continue</StyledButton>
