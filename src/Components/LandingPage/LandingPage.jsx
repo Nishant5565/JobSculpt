@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import { Link } from "react-router-dom";
@@ -11,13 +11,26 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 
+
 const LandingPage = () => {
+
+  const [isLoggedIn, setIsloggedIn] = useState(null);
   useEffect(() => {
     AOS.init({
       duration: 1000,
       once: true,
     });
   }, []);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(token){
+      setIsloggedIn(true);
+    }
+  }
+  ,[])
+
 
   return (
     <div className="landing-page bg-white text-[#4E6E5D]">
@@ -122,7 +135,10 @@ const LandingPage = () => {
       </section>
 
       {/* Call to Action Section */}
-      <section
+     {
+      
+      !isLoggedIn && (
+        <section
         className="py-16 px-4 md:px-8 bg-[#4E6E5D] text-white text-center mb-16"
         data-aos="zoom-in"
       >
@@ -148,6 +164,8 @@ const LandingPage = () => {
           </Link>
         </div>
       </section>
+      )
+     }
     </div>
   );
 };
