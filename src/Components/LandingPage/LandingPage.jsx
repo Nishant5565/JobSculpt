@@ -141,7 +141,7 @@ const LandingPage = () => {
             Sign Up as Job Seeker
           </Link>
           <Link
-            to="/employer-signup"
+            to="/signup"
             className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-full shadow-md hover:bg-white hover:text-[#4E6E5D] transition duration-300"
           >
             Sign Up as Employer
