@@ -139,7 +139,32 @@ const Navbar = () => {
   ) : (
 <>
   {/* Hamburger */}
-  <div className="bg-white shadow-md fixed w-screen h-16"></div>
+    <div className="flex fixed items-center h-16 w-screen justify-evenly z-[10] bg-white shadow-md">
+    <Link to={"/"} className="text-xl font-bold text-aesthetic-green ">
+              JobSculpt
+    </Link>
+
+    {
+      !isLoggedIn ? (
+        <Link
+        to="/signup"
+        className="bg-aesthetic-green text-white px-5 py-2 rounded-lg"
+      >
+        Signup
+      </Link>
+      ) : (
+        <Link
+        to="/profile"
+        className="bg-aesthetic-green text-white px-5 py-2 rounded-lg"
+      >
+        Profile
+      </Link>
+      )
+    }
+    </div>
+
+
+    
   <button
     className={`menu z-50 left-4 fixed ${isOpened ? "opened" : ""}`}
     onClick={handleClick}
