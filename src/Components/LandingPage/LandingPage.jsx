@@ -105,7 +105,7 @@ const LandingPage = () => {
       <section
         id="hire"
         className="py-16 px-4 md:px-8 bg-white "
-        data-aos="fade-right"
+        data-aos="fade-up"
         
       >
         <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-center">
@@ -140,7 +140,6 @@ const LandingPage = () => {
       !isLoggedIn && (
         <section
         className="py-16 px-4 md:px-8 bg-[#4E6E5D] text-white text-center mb-16"
-        data-aos="zoom-in"
       >
         <h2 className="text-3xl md:text-4xl font-semibold mb-6">
           Ready to Get Started?
