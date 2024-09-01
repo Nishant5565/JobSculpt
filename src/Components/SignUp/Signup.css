@@ -113,7 +113,8 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background-color: #ebf4ff;
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: 600;
 }
 .cardBack {
   transform: perspective(1000px) rotateY(180deg);

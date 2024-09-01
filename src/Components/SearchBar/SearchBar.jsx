@@ -11,7 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
-  borderRadius: '10px',
+  borderRadius: '20px',
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -61,7 +61,7 @@ export default function SearchAppBar() {
         sx={{
           height: '50px',
           backgroundColor: 'white',
-          borderRadius: '10px',
+          borderRadius: '20px',
           boxShadow:'none',
           display: 'flex',
           justifyContent: 'center',
@@ -76,7 +76,10 @@ export default function SearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              style={{ color: 'black' }}
+              style={{ color: 'black',
+                  border : '2px solid #e0e0e0',
+                  borderRadius: '20px',
+               }}
             />
           </Search>
         </Toolbar>

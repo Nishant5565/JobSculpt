@@ -118,11 +118,11 @@ const Login = () => {
 
           
       <div className="flex items-center justify-center min-h-screen mt-20">
-        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#124E66] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
+        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#4E6E5D] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
           <div className="text-center">
           <div className="container">
             <div className="card">
-              <div id="front" className="cardFront text-[#124E66]">
+              <div id="front" className="cardFront text-[#4E6E5D]">
                 Log in To JobSculpt
               </div>
             </div>
@@ -152,7 +152,7 @@ const Login = () => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md "
+                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#4E6E5D] shadow-md "
                 >
                   Continue
                 </button>
@@ -208,7 +208,7 @@ const Login = () => {
                   <button
                     disabled={isLoading}  
                     type="submit"
-                     className={`relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#124E66] shadow-md 
+                     className={`relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#4E6E5D] shadow-md 
                       ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
                       `}
                   >
