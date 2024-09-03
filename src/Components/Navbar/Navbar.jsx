@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
@@ -16,10 +16,11 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [device, setDevice] = useState("Desktop");
   const [hamburger, setHamburger] = useState(false);
-  const navigate = useNavigate();
   const [isOpened, setIsOpened] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   const handleClick = () => {
     setIsOpened(!isOpened);
@@ -30,6 +31,7 @@ const Navbar = () => {
     if (user) {
       checkAuthUser();
     }
+    console.log(location);
   }, []);
 
   const checkAuthUser = async () => {
@@ -107,7 +109,7 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-        <div className="ml-[500px]">
+        <div className="ml-[700px]">
           <SearchBar />
         </div>
         <div className="flex items-center gap-4">
@@ -125,12 +127,19 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/profile" className="text-aesthetic-green px-5">
+            {
+              location == "/profile"?(
+              <>
+              <Link to="/" className="text-white px-5 py-2 rounded-lg bg-aesthetic-green">
+                Home
+              </Link>
+              </>
+              ):(
+              <Link to="/profile" className="text-white px-5 py-2 rounded-lg bg-aesthetic-green">
                 Profile
               </Link>
-              <button onClick={logout} className="text-aesthetic-green px-5">
-                Log out
-              </button>
+              ) 
+            }
             </>
           )}
         </div>

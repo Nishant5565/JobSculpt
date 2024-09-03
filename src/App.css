@@ -41,3 +41,21 @@
   p , h1, h2, h3, h4, h5, h6 , span, a, button, input, label, select, option, textarea{
     font-family:  Helvetica;
   }
+
+
+  /* * changing the scroll bar  */
+
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
