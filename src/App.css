@@ -59,3 +59,10 @@
   ::-webkit-scrollbar-thumb {
     background: #888;
   }
+
+
+  /* Jobsculpt Logo */
+.JobSculpt{
+  font-family: 'Helvetica';
+  color: teal;
+}

@@ -16,13 +16,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
-          <Route path="dashboard" element={<Dashboard />} />
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="email-verified" element={<EmailVerified />} />
+        <Route path="dashboard" element={<Dashboard />} />
+
         
       </Routes>
     </Router>

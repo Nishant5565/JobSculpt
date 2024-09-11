@@ -33,7 +33,7 @@ const EmailVerified = () => {
 
   return (
      <>
-     <Link to={'/'} className="text-xl font-bold text-aesthetic-green relative top-10 left-10">
+     <Link to={'/'} className="text-xl font-bold JobSculpt relative top-10 left-10">
           JobSculpt
       </Link>
     <Container

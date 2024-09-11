@@ -24,6 +24,11 @@ export default {
         'aesthetic-purple':'#A41F13',
         'aesthetic-orange':'#F2C94C',
         'aesthetic-brown':'#8F7A6E',
+        'default-color1':'#3D52A0',
+        'default-color2':'#7091E6',
+        'default-color3':'#8697C4',
+        'default-color4':'#ADBBDA',
+        'default-color5':'#EDE8F5',
       },
       fontFamily: {
         'quickkiss': ['"Quickkiss"', 'sans-serif'], // Use the font-family name and provide a fallback

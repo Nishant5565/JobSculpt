@@ -1,104 +1,159 @@
-.landing-page {
-     font-family: Arial, sans-serif;
-     color: #4e6e5d;
-     background-color: white;
-     text-align: center;
-   }
-   
-   .landing-header {
-     background-color: #4e6e5d;
-     color: white;
-     padding: 100px 20px;
-   }
-   
-   .header-content {
-     max-width: 800px;
-     margin: 0 auto;
-   }
-   
-   .site-name {
-     font-size: 48px;
-     margin-bottom: 20px;
-   }
-   
-   .tagline {
-     font-size: 24px;
-     margin-bottom: 40px;
-   }
-   
-   .cta-buttons {
-     display: flex;
-     justify-content: center;
-     gap: 20px;
-   }
-   
-   .cta-button {
-     padding: 15px 30px;
-     border-radius: 5px;
-     color: white;
-     background-color: #4e6e5d;
-     text-decoration: none;
-     font-size: 18px;
-     transition: background-color 0.3s;
-   }
-   
-   .cta-button:hover {
-     background-color: #3b5549;
-   }
-   
-   .features-section {
-     padding: 50px 20px;
-     background-color: #f9f9f9;
-   }
-   
-   .feature {
-     margin-bottom: 40px;
-   }
-   
-   .feature-title {
-     font-size: 32px;
-     margin-bottom: 20px;
-   }
-   
-   .feature-description {
-     font-size: 18px;
-     margin-bottom: 20px;
-   }
-   
-   .learn-more {
-     color: #4e6e5d;
-     text-decoration: underline;
-   }
-   
-   .testimonial-section {
-     padding: 50px 20px;
-   }
-   
-   .testimonial-title {
-     font-size: 32px;
-     margin-bottom: 40px;
-   }
-   
-   .testimonials {
-     display: flex;
-     flex-direction: column;
-     gap: 20px;
-   }
-   
-   .testimonial {
-     background-color: #f1f1f1;
-     padding: 20px;
-     border-radius: 5px;
-   }
-   
-   .testimonial-text {
-     font-size: 18px;
-     margin-bottom: 10px;
-   }
-   
-   .testimonial-author {
-     font-size: 16px;
-     color: #4e6e5d;
-   }
+.heading1::before {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 10px;
+  top: -10px;
+  position: relative;
+  left: -12%;
+  background: linear-gradient(90deg, #00bfa5, #00796b, #004d40);
+  z-index: -1;
+  animation: animate1 5s ease-in-out infinite;
+  background-size: 200% 200%;
+}
 
-   
+@keyframes animate1 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.heading2::after {
+  content: "";
+  display: block;
+  position: relative;
+  left: 80%;
+  top: 10px;
+  width: 200px;
+  height: 10px;
+  background: linear-gradient(90deg, #00bfa5, #00796b, #004d40);  
+  z-index: -1;
+  animation: animate2 5s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes animate2 {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+.blob-btn {
+  z-index: 1;
+  position: relative;
+  padding: 15px 26px;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #004d40;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: color 0.5s;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.blob-btn:before {
+  content: "";
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #004d40;
+  border-radius: 30px;
+}
+.blob-btn:after {
+  content: "";
+  z-index: -2;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s 0.2s;
+  border-radius: 30px;
+}
+.blob-btn:hover {
+  color: #FFFFFF;
+  border-radius: 30px;
+}
+.blob-btn:hover:after {
+  transition: all 0.3s;
+  left: 0;
+  top: 0;
+  border-radius: 0px;
+}
+.blob-btn__inner {
+  z-index: -1;
+  overflow: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: #ffffff;
+}
+.blob-btn__blobs {
+  position: relative;
+  display: block;
+  height: 100%;
+  filter: url("#goo");
+}
+.blob-btn__blob {
+  position: absolute;
+  top: 2px;
+  width: 25%;
+  height: 100%;
+  background: #004d40;
+  border-radius: 30%;
+  transform: translate3d(0, 150%, 0) scale(1.7);
+  transition: transform 0.45s;
+}
+@supports (filter: url("#goo")) {
+  .blob-btn__blob {
+    transform: translate3d(0, 150%, 0) scale(1.4);
+  }
+}
+.blob-btn__blob:nth-child(1) {
+  left: 0%;
+  transition-delay: 0s;
+}
+.blob-btn__blob:nth-child(2) {
+  left: 30%;
+  transition-delay: 0.08s;
+}
+.blob-btn__blob:nth-child(3) {
+  left: 60%;
+  transition-delay: 0.16s;
+}
+.blob-btn__blob:nth-child(4) {
+  left: 90%;
+  transition-delay: 0.24s;
+}
+.blob-btn:hover .blob-btn__blob {
+  transform: translateZ(0) scale(1.7);
+}
+@supports (filter: url("#goo")) {
+  .blob-btn:hover .blob-btn__blob {
+    transform: translateZ(0) scale(1.4);
+  }
+}
