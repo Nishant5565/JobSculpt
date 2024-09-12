@@ -178,7 +178,7 @@ const Navbar = () => {
                   <div className="flex items-center gap-4 p-4 bg-gray-100 border-b border-gray-200 rounded-t-lg">
                     <div>
                       <img
-                        src={userInfo.profileImage}
+                        src={userInfo?.profileImage}
                         alt="Profile"
                         className="w-14 h-14 rounded-full border-2 border-gray-300 shadow-md"
                       />

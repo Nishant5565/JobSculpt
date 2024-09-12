@@ -12,6 +12,17 @@
   background-size: 200% 200%;
 }
 
+.heading1{
+  color: #00967d;
+  opacity: 0.8;
+}
+
+.heading2{
+  color: #3d3d3d;
+  opacity: 0.8;
+}
+
+
 @keyframes animate1 {
   0% {
     background-position: 0% 50%;
@@ -47,6 +58,19 @@
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .heading1::before {
+    width: 100px ;
+    left : 0%;
+
+  }
+  .heading2::after {
+    width: 100px;
+    left : 72%;
   }
 }
 
@@ -157,3 +181,21 @@
     transform: translateZ(0) scale(1.4);
   }
 }
+
+
+.featureCard{
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.featureCard:hover{
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  /* cool animation */
+  transform: translateY(-5px);
+}
+

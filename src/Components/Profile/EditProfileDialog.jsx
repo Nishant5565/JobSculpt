@@ -5,7 +5,7 @@ import { Close as CloseIcon, Save as SaveIcon } from '@mui/icons-material';
 const EditProfileDialog = ({ editDialogOpen, editUser, usernameAvailable, handleEditClose, handleEditChange, handleEditSave }) => {
   return (
     <Dialog open={editDialogOpen} onClose={handleEditClose}>
-      <DialogTitle>Edit Profile</DialogTitle>
+      <DialogTitle className=' text-black'>Edit Profile</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus
@@ -40,6 +40,7 @@ const EditProfileDialog = ({ editDialogOpen, editUser, usernameAvailable, handle
           fullWidth
           value={editUser?.role || ''}
           onChange={handleEditChange}
+          disabled
         />
         <TextField
           margin="dense"

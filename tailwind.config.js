@@ -37,6 +37,13 @@ export default {
         'countrysidetwo': ['"COUNTRYSIDETWO"', 'sans-serif'],
         'greatvibes': ['"GreatVibes"', 'sans-serif'],
       },
+      screens: {
+        'max-xs': {'max': '430px'}, // Custom max-width media query for screens smaller than 640px
+        'max-sm': {'max': '639px'}, // Custom max-width media query for screens smaller than 640px
+        'max-md': {'max': '767px'}, // Custom max-width media query for screens smaller than 768px
+        'max-lg': {'max': '1023px'}, // Custom max-width media query for screens smaller than 1024px
+        'max-xl': {'max': '1279px'}, // Custom max-width media query for screens smaller than 1280px
+      },
     },
   },
   plugins: [],
