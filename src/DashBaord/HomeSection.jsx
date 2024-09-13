@@ -109,21 +109,27 @@ const HomeSection = ({ theme, user }) => {
               sx={{ width: 150, height: 150, mb: 2 }}
             />
 
-            <Typography variant="h6" gutterBottom>
-              Welcome, {user?.userName}
-            </Typography>
-            <Typography>{user?.about}</Typography>
-            <IconButton
+      <IconButton
               onClick={handleOpen}
               sx={{
                 position: "absolute",
-                top: 10,
-                right: 10,
-                color: "#fff",
+                bottom: 90,
+                left: 130,
+                color: "#000",
+                bgcolor: "#fff",
+                "&:hover": {
+                  bgcolor: "#f0f0f0",
+                },
               }}
             >
               <EditIcon />
             </IconButton>
+
+            <Typography variant="h6" gutterBottom>
+              Welcome, {user?.userName}
+            </Typography>
+            <Typography>{user?.about}</Typography>
+
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
@@ -223,17 +229,24 @@ const HomeSection = ({ theme, user }) => {
           <div className="flex justify-between items-center">
             <div>
               {previewImage ? (
-                <Avatar
+                <div className="flex flex-col justify-center items-center">
+                  <Avatar
                   alt="Profile preview"
                   src={previewImage}
                   sx={{ width: 200, height: 200, mb: 2 }}
                 />
+                  <Typography variant="h6" gutterBottom >
+                    Preview
+                  </Typography>
+                </div>
               ) : (
+                <div className="flex flex-col justify-center items-center">
                 <Avatar
                   alt={user?.userName || "User"}
                   src={user?.profileImage}
                   sx={{ width: 200, height: 200, mb: 2 }}
                 />
+                </div>
               )}
             </div>
             <div className="flex flex-col items-center">
@@ -295,6 +308,9 @@ const HomeSection = ({ theme, user }) => {
                 fontWeight: "bold",
                 color: "white",
                 cursor: !selectedFile ? "not-allowed" : "pointer",
+                opacity: !selectedFile ? "0" : "1",
+                py: 1,
+
               }}
               disabled={!selectedFile || loading}
             >
@@ -308,13 +324,14 @@ const HomeSection = ({ theme, user }) => {
                 
                 width: "200px",
                 borderRadius: "12px",
-                borderColor: "#fff",
+                borderColor: theme === "dark" ? "#d0d7de" : "#333",
                 color: "red",
                 textTransform: "none",
                 fontWeight: "bold",
+                py: 1,
               }}
             >
-              CLOSE
+              CANCEL
             </Button>
           </div>
         </Box>

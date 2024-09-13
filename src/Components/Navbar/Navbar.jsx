@@ -181,7 +181,7 @@ const Navbar = ({handleSendTheme}) => {
               <div className="flex items-center gap-2 hover:cursor-pointer">
                 <Avatar
                   src={userInfo.profileImage}
-                  sx={{ width: 40, height: 40 }}
+                  sx={{ width: 40, height: 40, cursor: "pointer" }} 
                   onClick={handleProfileMenuOpen}
                 />  
                 <Menu
