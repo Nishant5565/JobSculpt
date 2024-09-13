@@ -8,8 +8,11 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { useContext } from 'react';
+import { ThemeContext } from '../../Pages/ThemeContext';
 const Search = styled('div')(({ theme }) => ({
+
+  
   position: 'relative',
   borderRadius: '20px',
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -54,36 +57,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        position="static"
-        sx={{
-          height: '50px',
-          backgroundColor: 'white',
-          borderRadius: '20px',
-          boxShadow:'none',
-          display: 'flex',
-          justifyContent: 'center',
-          padding: '0 10px',
-        }}
-      >
+
         <Toolbar>
           <Search>
             <SearchIconWrapper>
-              <SearchIcon style={{ color: 'black' }} />
+              <SearchIcon style={{ color: theme == 'dark' ? 'white' : 'black'}} />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ 'aria-label': 'search' }}
-              style={{ color: 'black',
-                  border : '2px solid #e0e0e0',
+              style={{ color: theme == 'dark' ? 'white' : 'black',
                   borderRadius: '20px',
                }}
             />
           </Search>
         </Toolbar>
-      </AppBar>
     </Box>
   );
 }

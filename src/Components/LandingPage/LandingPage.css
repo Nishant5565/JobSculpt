@@ -11,6 +11,21 @@
   animation: animate1 5s ease-in-out infinite;
   background-size: 200% 200%;
 }
+.heading1Dark::before {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 10px;
+  top: -10px;
+  position: relative;
+  left: -12%;
+  /* LandingPage.css */
+  
+  background: linear-gradient(90deg, #ff6f61, #e53935, #b71c1c);
+  z-index: -1;
+  animation: animate1 5s ease-in-out infinite;
+  background-size: 200% 200%;
+}
 
 .heading1{
   color: #00967d;
@@ -44,6 +59,20 @@
   width: 200px;
   height: 10px;
   background: linear-gradient(90deg, #00bfa5, #00796b, #004d40);  
+  z-index: -1;
+  animation: animate2 5s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+.heading2Dark::after {
+  content: "";
+  display: block;
+  position: relative;
+  left: 80%;
+  top: 10px;
+  width: 200px;
+  height: 10px;
+  background: linear-gradient(90deg, #ff6f61, #e53935, #b71c1c);  
   z-index: -1;
   animation: animate2 5s ease-in-out infinite;
   background-size: 200% 200%;
@@ -83,7 +112,6 @@
   margin-bottom: 30px;
   text-align: center;
   text-transform: uppercase;
-  color: #004d40;
   font-size: 16px;
   font-weight: bold;
   background-color: transparent;
@@ -93,6 +121,11 @@
   cursor: pointer;
   border-radius: 30px;
 }
+
+.colour{
+  color: #004d40;
+}
+
 .blob-btn:before {
   content: "";
   z-index: 1;
@@ -101,7 +134,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  border: 2px solid #004d40;
+  border: 2px solid ;
   border-radius: 30px;
 }
 .blob-btn:after {
@@ -147,11 +180,20 @@
   top: 2px;
   width: 25%;
   height: 100%;
-  background: #004d40;
   border-radius: 30%;
   transform: translate3d(0, 150%, 0) scale(1.7);
   transition: transform 0.45s;
 }
+
+
+.bgLight{
+  background: #004d40;
+}
+
+.bgDark{
+  background: #fb0505;
+}
+
 @supports (filter: url("#goo")) {
   .blob-btn__blob {
     transform: translate3d(0, 150%, 0) scale(1.4);
