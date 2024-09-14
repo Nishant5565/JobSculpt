@@ -44,6 +44,9 @@ export default {
         'max-lg': {'max': '1023px'}, // Custom max-width media query for screens smaller than 1024px
         'max-xl': {'max': '1279px'}, // Custom max-width media query for screens smaller than 1280px
       },
+      borderImage: {
+        'gradient-border': 'linear-gradient(to right, #4E6E5D, #FF5733)',
+      },
     },
   },
   plugins: [],
