@@ -103,6 +103,7 @@ const HomeSection = ({ theme, user }) => {
               background: "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
               color: "#fff",
               position: "relative",
+              minHeight: "400px",
             }}
           >
             {
@@ -167,7 +168,7 @@ const HomeSection = ({ theme, user }) => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
-          <CurrentDevices />
+          <CurrentDevices theme = {theme} user={user} />
         </Grid>
         <Grid item xs={12}>
           <RecentJobs />

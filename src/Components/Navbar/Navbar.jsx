@@ -250,6 +250,41 @@ const Navbar = ({handleSendTheme}) => {
                     <ListItemText primary="Profile" />
                   </MenuItem>
 
+                  <MenuItem onClick={() => {navigate("/jobs")
+
+                    handleProfileMenuClose()
+                  }
+                  }>
+                    <ListItemIcon>
+                      <TrendingUp />
+                    </ListItemIcon>
+                    <ListItemText primary="Jobs" />
+                  </MenuItem>
+
+                  <MenuItem onClick={() => {navigate("/membership")
+                    handleProfileMenuClose()
+                  } }>
+                    <ListItemIcon>
+                      <CardMembership />
+                    </ListItemIcon>
+                    <ListItemText primary="Membership" />
+                  </MenuItem>
+
+                  <MenuItem onClick={() => {navigate("/settings")
+                    handleProfileMenuClose()
+                  } }>
+                    <ListItemIcon>
+                      <Settings />
+                    </ListItemIcon>
+                    <ListItemText primary="Settings" />
+                  </MenuItem>
+
+                  <MenuItem onClick={logout}>
+                    <ListItemIcon>
+                      <Logout />
+                    </ListItemIcon>
+                    <ListItemText primary="Logout" />
+                  </MenuItem>
                 </Menu>
               </div>
             </>
@@ -258,7 +293,13 @@ const Navbar = ({handleSendTheme}) => {
       </div>
     </nav>
   ) : (
-    <></>
+    <>
+    
+    {/* Mobile Menu */}
+    
+    
+    
+    </>
   );
 };
 
