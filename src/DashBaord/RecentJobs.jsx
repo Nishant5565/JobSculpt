@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper, Typography } from "@mui/material";
 
-const RecentJobs = () => {
+const RecentJobs = ({user}) => {
   return (
     <Paper
       sx={{
@@ -15,10 +15,12 @@ const RecentJobs = () => {
       }}
     >
       <Typography variant="h6" gutterBottom>
-        Recent Jobs
+        About You
       </Typography>
       <Typography>
-        Here are the latest job postings that match your skills.
+        {
+          user?.about ? user.about : 'Add some information about yourself by clicking on the edit button'
+        }
       </Typography>
     </Paper>
   );

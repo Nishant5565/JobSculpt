@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
@@ -12,6 +12,8 @@ import VerifyEmail from '../EmailVerify/VerifyEmail';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import './Signup.css';
 import Spinner2 from '../ShimmerAndSpinner/Spinner2';
+import { ThemeContext } from '../../Pages/ThemeContext';
+
 
 
 const Signup = () => {
@@ -20,7 +22,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [role , setRole] = useState('Job');
   const [isLoading, setIsLoading] = useState(false);
-
+  const { theme } = useContext(ThemeContext);
   // To check if the user is already logged in
   useEffect(() => {
     const user = localStorage.getItem('token');
@@ -163,7 +165,7 @@ const debounce = (func, delay) => {
 
   return (
     <>
-          <Link to={'/'} className="text-xl font-bold JobSculpt relative top-10 left-10">
+        <Link to={'/'} className={`text-xl font-bold JobSculpt  top-10 left-10 ${theme == 'dark'? 'text-red-500':''} fixed`}>
               JobSculpt
           </Link>
       <div className={`flex items-center justify-center  min-h-screen mt-20 transition-all duration-500  `}>

@@ -92,7 +92,7 @@ const LandingPage = () => {
           </div>
         )}
       </section>
-      <Hero />
+      <Hero theme = {theme} />
     </div>
   );
 };

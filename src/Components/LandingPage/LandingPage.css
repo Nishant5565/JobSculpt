@@ -243,3 +243,19 @@
   transform: translateY(-5px);
 }
 
+.featureCardDark{
+  background-color: #3d3d3d;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 0 3px rgb(146, 137, 137);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.featureCardDark:hover{
+  box-shadow: 0 10px 10px rgb(146, 137, 137);
+  /* cool animation */
+  transform: translateY(-5px);
+
+}

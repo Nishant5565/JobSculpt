@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai'; // Importing icons
@@ -9,11 +9,13 @@ import { Link,useNavigate } from 'react-router-dom';
 import { API_URL } from '../../Functions/Constants';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import Spinner2 from '../ShimmerAndSpinner/Spinner2';
+import { ThemeContext } from '../../Pages/ThemeContext';
 const Login = () => {
 
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   // To check if the user is already logged in
   useEffect(() => {
@@ -112,7 +114,7 @@ const Login = () => {
 
   return (
     <>
-          <Link to={'/'} className="text-xl font-bold JobSculpt relative top-10 left-10">
+          <Link to={'/'} className={`text-xl font-bold JobSculpt  top-10 left-10 ${theme == 'dark'? 'text-red-500':''} fixed`}>
               JobSculpt
           </Link>
 

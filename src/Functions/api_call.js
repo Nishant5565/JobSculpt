@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { API_URL } from './Constants';
-
+import { useNavigate } from 'react-router-dom';
 const api_call = () => {
      const [user, setUser] = useState({});
+      const navigate = useNavigate();
      const authuser = async () => {
           const token = localStorage.getItem('token');
           if (!token) {
-            navigate('/login');
+            console.log('No token found');
             return;
           }
     
@@ -17,12 +18,17 @@ const api_call = () => {
                 'x-auth-token': token,
               },
             });
+            if(response.status === 401){
+              navigate('/login');
+              localStorage.removeItem('token');
+            }
             const data = await response.json();
             setUser(data);
             return data;
 
           } catch (error) {
             console.error('Error fetching user info:', error);
+            navigate('/login');
             return error;
           }
         };

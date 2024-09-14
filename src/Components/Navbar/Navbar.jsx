@@ -63,10 +63,11 @@ const Navbar = ({handleSendTheme}) => {
         if (data) {
           setIsLoggedIn(true);
           setUserInfo(data);
+          console.log(data);
         }
       });  
     }
-  }, [navigate]);
+  }, []);
 
 
   const logout = () => {

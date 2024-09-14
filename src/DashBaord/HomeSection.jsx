@@ -16,6 +16,8 @@ import CurrentDevices from "./CurrentDevices";
 import RecentJobs from "./RecentJobs";
 import EditPhotoModal from "./EditPhotoModal";
 import {Skeleton} from "@mui/material";
+import EditProfileDialog from "../Components/Profile/EditProfileDialog";
+import Button from "@mui/material/Button";
 
 const HomeSection = ({ theme, user }) => {
   const [open, setOpen] = useState(false);
@@ -88,19 +90,45 @@ const HomeSection = ({ theme, user }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+
+  const handleEditOpen = () => {
+    setEditDialogOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setEditDialogOpen(false);
+  };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl" 
+    className="themeTransition"
+sx={{
+  position: "relative",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "20px 0",
+  transition: "all 0.5s",
+  background: theme === 'dark' ? '#1f1f1f' : '#fff',
+  color: theme === 'dark' ? '#fff' : '#1f1f1f',
+  borderRadius: "15px",
+  border: "2px solid #fdeff9",
+  overflow: "hidden", 
+}}
+
+    >
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper
             sx={{
-              p: 1,
-              display: "flex",
+              p: 0.3,
               flexDirection: "column",
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-              borderRadius: "20px",
-              background: "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+              borderRadius: "15px",
+              // background:"white",
+              // light dark
+              border : "2px solid #757575",
               color: "#fff",
               position: "relative",
             }}
@@ -111,7 +139,8 @@ const HomeSection = ({ theme, user }) => {
                 <Avatar />
                 </Skeleton>
               ) : (
-                <div className={`${theme =='dark' ? 'bg-[#1f1f1f]' :'bg-white'} p-20 rounded-[17px]`}>                  
+                <div className={`${theme =='dark' ? 'bg-[#1f1f1f]' :'bg-white'} p-20 rounded-[15px] flex justify-between themeTransition`}>                  
+                  <div className=" flex items-center gap-10">
                   <Box
                     sx={{
                       position: "relative",
@@ -138,12 +167,15 @@ const HomeSection = ({ theme, user }) => {
                       }}
                     />
                   </Box>
+                  <h2 className={`text-4xl font-bold ${theme == 'dark' ? 'text-white' : 'text-black'} themeTransition`} >
+                      {user?.userName}
+                  </h2>
       
                   <IconButton
                     onClick={handleOpen}
                     sx={{
                       position: "absolute",
-                      bottom: 153,
+                      top: 200,
                       left: 190,
                       color: theme == 'dark' ? '#1f1f1f' : '#fff',
                       bgcolor: theme != 'dark' ? '#1f1f1f' : '#fff',
@@ -156,11 +188,41 @@ const HomeSection = ({ theme, user }) => {
                   >
                     <EditIcon />
                   </IconButton>
+                  </div>
+
+                  <div>
+                  <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEditOpen}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '10px 20px',
+                    borderRadius: '8px',
+                    background: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)',
+                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+                    textTransform: 'uppercase',
+                    color: theme === 'dark' ? '#fff' : '#fff',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #5a0fbf 0%, #1f5fcf 100%)',
+                    },
+                  }}
+                >      
+                 Edit Profile
+              </Button>
+
+      {/* Integrate the EditProfileDialog component */}
+                  <EditProfileDialog
+                    user={user}
+                    open={editDialogOpen}
+                    onClose={handleEditClose}
+                    theme={theme}
+                  />
+                  </div>
       
-                  <Typography variant="h6" gutterBottom>
-                    Welcome, {user?.userName}
-                  </Typography>
-                  <Typography>{user?.about}</Typography>
                 </div>
               )
             }
@@ -170,7 +232,7 @@ const HomeSection = ({ theme, user }) => {
           <CurrentDevices />
         </Grid>
         <Grid item xs={12}>
-          <RecentJobs />
+          <RecentJobs user ={user} />
         </Grid>
       </Grid>
 

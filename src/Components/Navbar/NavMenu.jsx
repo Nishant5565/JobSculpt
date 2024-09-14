@@ -2,8 +2,10 @@ import React from 'react';
 import { Menu, Avatar, Switch } from '@mui/material';
 import { AccountCircle, TrendingUp, CardMembership, Settings, Logout } from '@mui/icons-material';
 import ProfileMenuItem from './ProfileMenuItem.jsx'; // Import the new component
+import { useNavigate } from 'react-router-dom';
 
-const NavMenu = ({ anchorEl, handleProfileMenuClose, theme, userInfo, onlineStatus, handleOnlineStatusToggle, navigate, logout }) => {
+const NavMenu = ({ anchorEl, handleProfileMenuClose, theme, userInfo, onlineStatus, handleOnlineStatusToggle,  logout }) => {
+  const navigate = useNavigate();
   return (
     <Menu
       anchorEl={anchorEl}

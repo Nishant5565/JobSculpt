@@ -1,9 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { ThemeContext } from '../../Pages/ThemeContext';
 
 const Footer = () => {
+  const { theme } = useContext(ThemeContext);
+  const backgroundColor = theme === 'light' ? 'bg-white' : 'bg-gray-900';
+  const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
+  const linkHoverColor = theme === 'light' ? 'hover:text-red-500' : 'hover:text-teal-500';
+
   return (
-    <footer className=" bg-aesthetic-black text-white py-8">
+    <footer className={`${backgroundColor} ${textColor} py-8 rounded-t-lg shadow-lg transition-all duration-300`}>
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
         {/* Company Info */}
         <div className="text-center md:text-left mb-6 md:mb-0">
@@ -16,10 +23,10 @@ const Footer = () => {
 
         {/* Navigation Links */}
         <div className="text-center md:text-right space-y-2 md:space-y-0 md:space-x-6 md:flex md:items-center">
-          <Link to="/" className="hover:text-yellow-500 transition duration-300 animate__animated animate__fadeIn animate__delay-3s">Home</Link>
-          <Link to="/about" className="hover:text-yellow-500 transition duration-300 animate__animated animate__fadeIn animate__delay-4s">About</Link>
-          <Link to="/services" className="hover:text-yellow-500 transition duration-300 animate__animated animate__fadeIn animate__delay-5s">Services</Link>
-          <Link to="/contact" className="hover:text-yellow-500 transition duration-300 animate__animated animate__fadeIn animate__delay-6s">Contact</Link>
+          <Link to="/" className={`transition duration-300 animate__animated animate__fadeIn animate__delay-3s ${linkHoverColor}`}>Home</Link>
+          <Link to="/about" className={`transition duration-300 animate__animated animate__fadeIn animate__delay-4s ${linkHoverColor}`}>About</Link>
+          <Link to="/services" className={`transition duration-300 animate__animated animate__fadeIn animate__delay-5s ${linkHoverColor}`}>Services</Link>
+          <Link to="/contact" className={`transition duration-300 animate__animated animate__fadeIn animate__delay-6s ${linkHoverColor}`}>Contact</Link>
         </div>
       </div>
     </footer>
