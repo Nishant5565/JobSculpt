@@ -92,12 +92,14 @@
 
 
 @media (max-width: 768px) {
-  .heading1::before {
+  .heading1::before ,.heading1Dark::before {
     width: 100px ;
     left : 0%;
 
   }
-  .heading2::after {
+
+  
+  .heading2::after ,.heading2Dark::after {
     width: 100px;
     left : 72%;
   }
