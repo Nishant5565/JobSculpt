@@ -25,7 +25,7 @@ const HomeSection = ({ theme, user }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, isLoading] = useState(false);
   const [photoUpdated, setPhotoUpdated] = useState(false);
-  const [brightestColor, setBrightestColor] = useState(null);  // To store the brightest color
+  const [dominantColor, setDominantColor] = useState(null);  // To store the dominant color
   const { authuser } = api_call();
   const imageRef = useRef(null);  // Create a ref to the profile image
 
@@ -43,10 +43,12 @@ const HomeSection = ({ theme, user }) => {
     });
   }, []);
 
+  // Function to calculate brightness of a color
   const calculateBrightness = (color) => {
     return (color[0] * 299 + color[1] * 587 + color[2] * 114) / 1000;
   };
 
+  // ColorThief logic to extract the brightest and darkest colors
   useEffect(() => {
     if (user.profileImage && imageRef.current) {
       console.log(imageRef.current);  // Debugging: Log the imageRef
@@ -59,14 +61,18 @@ const HomeSection = ({ theme, user }) => {
         const brightest = palette.reduce((prev, curr) => {
           return calculateBrightness(curr) > calculateBrightness(prev) ? curr : prev;
         });
-        setBrightestColor(brightest);
+        const darkest = palette.reduce((prev, curr) => {
+          return calculateBrightness(curr) < calculateBrightness(prev) ? curr : prev;
+        });
+        setDominantColor(theme === "dark" ? brightest : darkest);
         console.log("Brightest Color:", brightest);  // Debugging: Log the brightest color
+        console.log("Darkest Color:", darkest);  // Debugging: Log the darkest color
       };
       if (imageRef.current.complete) {
         imageRef.current.onload();
       }
     }
-  }, [user.profileImage]);
+  }, [user.profileImage, theme]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -117,7 +123,7 @@ const HomeSection = ({ theme, user }) => {
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
               borderRadius: "15px",
               position: "relative",
-              backgroundColor: theme === "dark" ? "#1f1f1f" : "#fff",
+              backgroundColor: dominantColor ? `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})` : (theme === "dark" ? "#1f1f1f" : "#fff"), // Use dominant color if available
             }}
             className="themeTransition"
           >
@@ -149,7 +155,7 @@ const HomeSection = ({ theme, user }) => {
                       width: 160,
                       height: 160,
                       borderRadius: "50%",
-                      background: `rgb(${brightestColor})`,
+                      background: `linear-gradient(135deg, rgb(${dominantColor?.[0]},${dominantColor?.[1]},${dominantColor?.[2]}) 0%, #dc2430 100%)`,  // Set the background gradient using the dominant color
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
