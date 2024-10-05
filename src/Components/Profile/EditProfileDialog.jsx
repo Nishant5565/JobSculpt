@@ -54,7 +54,7 @@ const EditProfileDialog = ({ user, open, onClose, theme }) => {
       if (data.success) {
         console.log('Profile updated successfully:', data);
         onClose();
-        window.location.reload();
+        return;
       } else {
         console.error('Error updating profile:', data.error);
       }

@@ -69,7 +69,6 @@ const Navbar = ({handleSendTheme}) => {
     }
   }, []);
 
-
   const logout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);

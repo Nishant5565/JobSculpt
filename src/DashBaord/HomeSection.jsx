@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Container,
   Grid,
-  Paper,
-  Typography,
-  IconButton,
   Avatar,
-  Box
+  Box,
+  IconButton,
+  Button,
+  Skeleton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { API_URL } from "../Functions/Constants";
 import CurrentDevices from "./CurrentDevices";
 import RecentJobs from "./RecentJobs";
 import EditPhotoModal from "./EditPhotoModal";
-import {Skeleton} from "@mui/material";
 import EditProfileDialog from "../Components/Profile/EditProfileDialog";
-import Button from "@mui/material/Button";
+import api_call from '../Functions/api_call';
+import ColorThief from 'colorthief';  // Importing ColorThief
 
 const HomeSection = ({ theme, user }) => {
   const [open, setOpen] = useState(false);
@@ -25,12 +24,16 @@ const HomeSection = ({ theme, user }) => {
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, isLoading] = useState(false);
+  const [photoUpdated, setPhotoUpdated] = useState(false);
+  const [brightestColor, setBrightestColor] = useState(null);  // To store the brightest color
+  const { authuser } = api_call();
+  const imageRef = useRef(null);  // Create a ref to the profile image
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setPreviewImage(null); // Reset preview image on close
-    setSelectedFile(null); // Reset selected file on close
+    setPreviewImage(null);
+    setSelectedFile(null);
   };
 
   useEffect(() => {
@@ -40,40 +43,40 @@ const HomeSection = ({ theme, user }) => {
     });
   }, []);
 
+  const calculateBrightness = (color) => {
+    return (color[0] * 299 + color[1] * 587 + color[2] * 114) / 1000;
+  };
+
+  useEffect(() => {
+    if (user.profileImage && imageRef.current) {
+      console.log(imageRef.current);  // Debugging: Log the imageRef
+      console.log("Image reference is set");  // Debugging: Log when imageRef is set
+      const colorThief = new ColorThief();
+      imageRef.current.onload = () => {
+        console.log("Image loaded");  
+        const palette = colorThief.getPalette(imageRef.current, 10);  // Get a palette of 10 colors
+        console.log("Palette:", palette);  // Debugging: Log the palette
+        const brightest = palette.reduce((prev, curr) => {
+          return calculateBrightness(curr) > calculateBrightness(prev) ? curr : prev;
+        });
+        setBrightestColor(brightest);
+        console.log("Brightest Color:", brightest);  // Debugging: Log the brightest color
+      };
+      if (imageRef.current.complete) {
+        imageRef.current.onload();
+      }
+    }
+  }, [user.profileImage]);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewImage(reader.result);
+      setPhotoUpdated(true);
     };
     reader.readAsDataURL(file);
-  };
-
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-
-    try {
-      const response = await fetch(API_URL + "/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          "x-auth-token": localStorage.getItem("token"),
-        },
-      });
-      const data = await response.json();
-      if (data.success) {
-        isLoading(true);
-        setProfileImage(data.url);
-        user.profileImage = data.url;
-        handleClose();
-      } else {
-        // Handle error
-      }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
   };
 
   const handleDrop = (event) => {
@@ -83,6 +86,7 @@ const HomeSection = ({ theme, user }) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       setPreviewImage(reader.result);
+      setPhotoUpdated(true);
     };
     reader.readAsDataURL(file);
   };
@@ -90,6 +94,7 @@ const HomeSection = ({ theme, user }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   const handleEditOpen = () => {
@@ -97,142 +102,108 @@ const HomeSection = ({ theme, user }) => {
   };
 
   const handleEditClose = () => {
+    window.location.reload();
     setEditDialogOpen(false);
   };
 
   return (
-    <Container maxWidth="xl" 
-    className="themeTransition"
-sx={{
-  position: "relative",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "20px 0",
-  transition: "all 0.5s",
-  background: theme === 'dark' ? '#1f1f1f' : '#fff',
-  color: theme === 'dark' ? '#fff' : '#1f1f1f',
-  borderRadius: "15px",
-  border: "2px solid #fdeff9",
-  overflow: "hidden", 
-}}
-
-    >
+    <Container maxWidth="xl" className="themeTransition">
       <Grid container spacing={3}>
         <Grid item xs={12} md={8} lg={9}>
-          <Paper
-            sx={{
-              p: 0.3,
+          <div
+            style={{
+              padding: "20px",
               flexDirection: "column",
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
               borderRadius: "15px",
-              // background:"white",
-              // light dark
-              border : "2px solid #757575",
-              color: "#fff",
               position: "relative",
+              backgroundColor: theme === "dark" ? "#1f1f1f" : "#fff",
             }}
+            className="themeTransition"
           >
-            {
-              loading ? (
-                <Skeleton variant="circular">
+            {loading ? (
+              <Skeleton variant="circular">
                 <Avatar />
-                </Skeleton>
-              ) : (
-                <div className={`${theme =='dark' ? 'bg-[#1f1f1f]' :'bg-white'} p-20 rounded-[15px] flex justify-between themeTransition`}>                  
-                  <div className=" flex items-center gap-10">
+              </Skeleton>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    flexDirection: { xs: "column", md: "row" },
+                    position: "relative",
+                  }}
+                >
                   <Box
                     sx={{
                       position: "relative",
-                      width: 160, // Adjusted to account for the border
-                      height: 160, // Adjusted to account for the border
+                      width: 160,
+                      height: 160,
                       borderRadius: "50%",
-                      background: "linear-gradient(135deg, #7b4397 0%, #dc2430 100%)",
+                      background: `rgb(${brightestColor})`,
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <Avatar
+                    <img
                       alt={user?.userName}
                       src={user?.profileImage}
-                      sx={{
+                      ref={imageRef}  // Attach the ref to the image
+                      crossOrigin="anonymous"  // Allow cross-origin requests
+                      style={{
                         width: 150,
                         height: 150,
-                        mb: 2,
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
+                        borderRadius: "50%",
+                        objectFit: "cover",
                       }}
                     />
+                    <div
+                      onClick={handleOpen}
+                      style={{
+                        position: "absolute",
+                        bottom: 10,
+                        right: 0,
+                        width: 40,
+                        height: 40,
+                        borderRadius: "50%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        cursor: "pointer",
+                        transition: "all 0.3s",
+                      }}
+                      className="themeTransition bg-[#fff] text-[#1f1f1f] rounded-full hover:bg-[#1f1f1f] hover:text-[#fff]"
+                    >
+                      <EditIcon />
+                    </div>
                   </Box>
-                  <h2 className={`text-4xl font-bold ${theme == 'dark' ? 'text-white' : 'text-black'} themeTransition`} >
-                      {user?.userName}
-                  </h2>
-      
-                  <IconButton
-                    onClick={handleOpen}
-                    sx={{
-                      position: "absolute",
-                      top: 200,
-                      left: 190,
-                      color: theme == 'dark' ? '#1f1f1f' : '#fff',
-                      bgcolor: theme != 'dark' ? '#1f1f1f' : '#fff',
-                      transition: "all 0.5s",
-                      "&:hover": {
-                        bgcolor: theme == 'dark' ? '#1f1f1f' : '#fff',
-                        color: theme != 'dark' ? '#1f1f1f' : '#fff',
-                      },
-                    }}
+                  <h2
+                    className={`text-4xl font-bold ${
+                      theme === "dark" ? "text-white" : "text-black"
+                    } themeTransition`}
                   >
-                    <EditIcon />
-                  </IconButton>
-                  </div>
-
-                  <div>
-                  <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleEditOpen}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)',
-                    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-                    textTransform: 'uppercase',
-                    color: theme === 'dark' ? '#fff' : '#fff',
-                    fontWeight: 'bold',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #5a0fbf 0%, #1f5fcf 100%)',
-                    },
-                  }}
-                >      
-                 Edit Profile
-              </Button>
-
-      {/* Integrate the EditProfileDialog component */}
-                  <EditProfileDialog
-                    user={user}
-                    open={editDialogOpen}
-                    onClose={handleEditClose}
-                    theme={theme}
-                  />
-                  </div>
-      
-                </div>
-              )
-            }
-          </Paper>
+                    {user?.userName}
+                  </h2>
+                </Box>
+              </Box>
+            )}
+          </div>
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <CurrentDevices />
         </Grid>
         <Grid item xs={12}>
-          <RecentJobs user ={user} />
+          <RecentJobs user={user} />
         </Grid>
       </Grid>
 
@@ -244,10 +215,10 @@ sx={{
         handleFileChange={handleFileChange}
         handleDrop={handleDrop}
         handleDragOver={handleDragOver}
-        handleUpload={handleUpload}
         previewImage={previewImage}
         selectedFile={selectedFile}
         loading={loading}
+        setPhotoUpdated={setPhotoUpdated}
       />
     </Container>
   );
