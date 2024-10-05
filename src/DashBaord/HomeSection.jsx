@@ -48,16 +48,12 @@ const HomeSection = ({ theme, user }) => {
     return (color[0] * 299 + color[1] * 587 + color[2] * 114) / 1000;
   };
 
-  // ColorThief logic to extract the brightest and darkest colors
   useEffect(() => {
     if (user.profileImage && imageRef.current) {
-      console.log(imageRef.current);  // Debugging: Log the imageRef
-      console.log("Image reference is set");  // Debugging: Log when imageRef is set
       const colorThief = new ColorThief();
       imageRef.current.onload = () => {
         console.log("Image loaded");  
-        const palette = colorThief.getPalette(imageRef.current, 10);  // Get a palette of 10 colors
-        console.log("Palette:", palette);  // Debugging: Log the palette
+        const palette = colorThief.getPalette(imageRef.current, 10);  
         const brightest = palette.reduce((prev, curr) => {
           return calculateBrightness(curr) > calculateBrightness(prev) ? curr : prev;
         });
@@ -65,8 +61,6 @@ const HomeSection = ({ theme, user }) => {
           return calculateBrightness(curr) < calculateBrightness(prev) ? curr : prev;
         });
         setDominantColor(theme === "dark" ? brightest : darkest);
-        console.log("Brightest Color:", brightest);  // Debugging: Log the brightest color
-        console.log("Darkest Color:", darkest);  // Debugging: Log the darkest color
       };
       if (imageRef.current.complete) {
         imageRef.current.onload();
@@ -123,7 +117,7 @@ const HomeSection = ({ theme, user }) => {
               boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
               borderRadius: "15px",
               position: "relative",
-              backgroundColor: dominantColor ? `rgb(${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]})` : (theme === "dark" ? "#1f1f1f" : "#fff"), // Use dominant color if available
+              backgroundColor: theme === "dark" ? "#1f1f1f" : "#fff",
             }}
             className="themeTransition"
           >
@@ -149,23 +143,24 @@ const HomeSection = ({ theme, user }) => {
                     position: "relative",
                   }}
                 >
-                  <Box
-                    sx={{
+                  <div
+                    style={{
                       position: "relative",
                       width: 160,
                       height: 160,
                       borderRadius: "50%",
-                      background: `linear-gradient(135deg, rgb(${dominantColor?.[0]},${dominantColor?.[1]},${dominantColor?.[2]}) 0%, #dc2430 100%)`,  // Set the background gradient using the dominant color
+                      background: `linear-gradient(135deg, rgb(${dominantColor?.[0]},${dominantColor?.[1]},${dominantColor?.[2]}) 0%, #dc2430 100%)`,  
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      transition: "all 0.5s",
                     }}
                   >
                     <img
                       alt={user?.userName}
                       src={user?.profileImage}
                       ref={imageRef}  // Attach the ref to the image
-                      crossOrigin="anonymous"  // Allow cross-origin requests
+                      crossOrigin="anonymous"  
                       style={{
                         width: 150,
                         height: 150,
@@ -192,7 +187,7 @@ const HomeSection = ({ theme, user }) => {
                     >
                       <EditIcon />
                     </div>
-                  </Box>
+                  </div>
                   <h2
                     className={`text-4xl font-bold ${
                       theme === "dark" ? "text-white" : "text-black"
