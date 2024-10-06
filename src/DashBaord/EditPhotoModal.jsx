@@ -31,8 +31,7 @@ const EditPhotoModal = ({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState("");
-  const [showMessage, setShowMessage] = useState(false); // Add this state
-
+  const [showMessage, setShowMessage] = useState(false); 
   const fileInputRef = useRef(null); 
 
   const onCropComplete = useCallback(async (croppedArea, croppedAreaPixels) => {
@@ -102,7 +101,7 @@ const EditPhotoModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          bgcolor: theme === "dark" ? "#1a1a1a" : "mintcream",
+          bgcolor: theme === "dark" ? "#1a1a1a" : "white",
           boxShadow: 24,
           height: { xs: "90vh", md: "80vh" },
           width: { xs: "90vw", md: "70vw" },
@@ -280,7 +279,7 @@ const EditPhotoModal = ({
             variant="contained"
             color="primary"
             sx={{
-              width: "100%",
+              width: "200px",
               md: { width: "200px" },
               background: loading
                 ? "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)"
@@ -305,7 +304,7 @@ const EditPhotoModal = ({
             variant="outlined"
             color="secondary"
             sx={{
-              width: "100%",
+              width: "200px",
               md: { width: "200px" },
               borderRadius: "12px",
               borderColor: theme === "dark" ? "#d0d7de" : "#333",

@@ -8,6 +8,7 @@ const api_call = () => {
           const token = localStorage.getItem('token');
           if (!token) {
             console.log('No token found');
+            navigate('/login');
             return;
           }
     
@@ -23,9 +24,16 @@ const api_call = () => {
               localStorage.removeItem('token');
             }
             const data = await response.json();
+            if(data === null){
+              navigate('/login');
+              return;
+            }
             setUser(data);
-            return data;
 
+            if(data?.profileCompleteStatus != "Complete"){
+              navigate('/complete-profile');
+            }
+            return data;
           } catch (error) {
             console.error('Error fetching user info:', error);
             navigate('/login');

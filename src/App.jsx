@@ -4,31 +4,16 @@ import './App.css';
 import LandingPage from './Components/LandingPage/LandingPage';
 import Layout from './Pages/Layout';
 import Login from './Components/Login/Login';
-import Signup from './Components/SignUp/Singup';
+import SignupPage from './Pages/SingupPage';
 import VerifyEmail from './Components/EmailVerify/VerifyEmail';
 import EmailVerified from './Components/EmailVerify/EmailVerified';
-import Profile from './Components/Profile/Profile';
 import Dashboard from './DashBaord/Dashboard';
-import { useState, useEffect } from 'react';
-import { Box, Toolbar, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import ThemeSwitcher from './DashBaord/ThemeSwitcher';
+import Signup from './Components/SignUp/Singup';
+import CompleteProfile from './Components/CompleteProfile/CompleteProfile';
 
 function App() {
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    console.log('theme', theme);
-  };
-  const themeConfig = createTheme({
-    palette: {
-      mode: theme,
-    },
-  });
 
   return (
     <Router basename='/JobSculpt'>
@@ -38,9 +23,11 @@ function App() {
           <Route path="profile" element={<Dashboard />} />
         </Route>
         <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="signup/:role" element={<Signup />} />
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="email-verified" element={<EmailVerified />} />
+        <Route path="complete-profile" element={<CompleteProfile />} />
 
         
       </Routes>

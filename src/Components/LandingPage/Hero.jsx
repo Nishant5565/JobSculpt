@@ -130,7 +130,7 @@ const Hero = ({ theme }) => {
       </section>
 
       {!isLoggedIn && (
-        <section className="py-20 px-4 md:px-8 bg-teal-700 text-white text-center">
+        <section className={`py-20 px-4 md:px-8 text-white text-center ${theme == "dark" ? 'bg-red-600' : 'bg-teal-700'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             Ready to Get Started?
           </h2>
@@ -141,13 +141,13 @@ const Hero = ({ theme }) => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link
               to="/signup"
-              className="bg-white text-teal-700 px-8 py-4 rounded-full shadow-lg hover:bg-gray-200 transition duration-300"
+              className={`bg-transparent border-2 border-white text-white px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-gray-700 transition duration-300`}
             >
               Sign Up as Job Seeker
             </Link>
             <Link
               to="/signup"
-              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-teal-700 transition duration-300"
+              className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full shadow-lg hover:bg-white hover:text-gray-700 transition duration-300"
             >
               Sign Up as Employer
             </Link>

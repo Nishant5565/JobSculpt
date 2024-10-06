@@ -79,13 +79,16 @@ const Login = () => {
           console.error('Login failed:', response.data);
           return;
         }
+        localStorage.setItem('token', response.data.token);
+
+        if (response?.data?.profileCompleteStatus !== 'Complete') {
+          navigate('/complete-profile');
+          return;
+        }
         if (response.data.msg === 'Email is not Verified') { 
-          localStorage.setItem('token', response.data.token);
           sendEmailVerificationLink();
           return;
         }
-  
-        localStorage.setItem('token', response.data.token);
         navigate('/');
       } catch (err) {
         console.error('Login failed:', err);
