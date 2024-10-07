@@ -65,6 +65,7 @@
 .JobSculpt{
   font-family: 'Helvetica';
   color: teal;
+  position: absolute;
 }
 body, .themeTransition{
   transition: all 0.5s;
