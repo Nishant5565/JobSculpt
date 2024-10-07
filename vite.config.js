@@ -5,5 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/JobSculpt',
+  server: {
+    host: true, // This will allow you to access the server from your phone
+    port: 5173, // You can change the port if needed
+  },
 
 })

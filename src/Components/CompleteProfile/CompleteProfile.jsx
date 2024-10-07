@@ -11,6 +11,7 @@ import Role from './role'
 import Navbar from '../Navbar/Navbar'
 import ProfileLoading from './ProfileLoading'
 import Education from './Education'
+import Skills from './Skills'
 
 const CompleteProfile = () => {
 
@@ -77,6 +78,7 @@ const CompleteProfile = () => {
     { step == 'UserDetail' && <UserDetail userInfo={userInfo} setStep = {setStep} theme = {theme}/>}
     { step == 'Education' && <Education user={userInfo} setStep = {setStep} theme = {theme} page ={ "education"}/>}
     { step == 'Work' && <Education user={userInfo} setStep = {setStep} theme = {theme} page ={ "workExperience"}/>}
+    { step == 'Skills' && <Skills user={userInfo} setStep = {setStep} theme = {theme} />}
      </div>
       <MinFooter />   
 

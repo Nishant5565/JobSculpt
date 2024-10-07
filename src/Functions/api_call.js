@@ -8,7 +8,6 @@ const api_call = () => {
           const token = localStorage.getItem('token');
           if (!token) {
             console.log('No token found');
-            navigate('/login');
             return;
           }
     
@@ -30,8 +29,11 @@ const api_call = () => {
             }
             setUser(data);
 
-            if(data?.profileCompleteStatus != "Complete"){
+            if(data?.profileCompleteStatus != "Complete" && data?.emailVerified) {
               navigate('/complete-profile');
+            }
+            if (!data.emailVerified) {
+              navigate('/verify-email');
             }
             return data;
           } catch (error) {

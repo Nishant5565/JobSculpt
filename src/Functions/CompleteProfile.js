@@ -49,13 +49,13 @@ export const updateProfileCompleteStatus = async (status) => {
      }
 
 
-    export const updateUserName = async (userName, name) => {
+    export const updateUserName = async (userName, name, about) => {
 
       try {
       const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
       const response = await axios.post(
             API_URL + '/api/auth/update-username',
-            { userName, name },
+            { userName, name, about },
             {
             headers: {
                 'x-auth-token': token,
@@ -210,3 +210,84 @@ export const deleteWorkExperience = async (index) => {
     return err;
   }
 };
+
+export const getAllSkills = async () => {
+  try {
+    const response = await axios.get(API_URL + '/api/jobsculpt/admin/auth/skills');
+    if (response.status !== 200) {
+      console.error('Error fetching skills:', response.data);
+      return [];
+    }
+    return response.data;
+  } catch (err) {
+    console.error('Error fetching skills:', err);
+    return [];
+  }
+};
+
+export const getUserSkills = async () => {
+  try {
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+    const response = await axios.get(API_URL + '/api/auth/user-skills', {
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+    console.log(response);
+    if (response.status !== 200) {
+      console.error('Error fetching user skills:', response.data);
+      return [];
+    }
+
+    return response.data;
+  } catch (err) {
+    console.error('Error fetching user skills:', err);
+    return [];
+  }
+}
+
+export const addSkill = async (skill) => {
+  try {
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+    const response = await axios.post(
+      API_URL + '/api/auth/add-user-skill',
+      { skill },
+      {
+        headers: {
+          'x-auth-token': token,
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      console.error('Error adding skill:', response.data);
+      return;
+    }
+  } catch (err) {
+    console.error('Error adding skill:', err);
+    return err;
+  }
+}
+
+export const deleteSkill = async (skill) => {
+  try {
+    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+    const response = await axios.post(
+      API_URL + '/api/auth/delete-user-skill',
+      { skill },
+      {
+        headers: {
+          'x-auth-token': token,
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      console.error('Error deleting skill:', response.data);
+      return;
+    }
+  } catch (err) {
+    console.error('Error deleting skill:', err);
+    return err;
+  }
+}

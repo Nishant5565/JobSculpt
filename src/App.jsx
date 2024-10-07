@@ -10,6 +10,7 @@ import EmailVerified from './Components/EmailVerify/EmailVerified';
 import Dashboard from './DashBaord/Dashboard';
 import Signup from './Components/SignUp/Singup';
 import CompleteProfile from './Components/CompleteProfile/CompleteProfile';
+import ChooseTheme from './Pages/ChooseTheme';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="profile" element={<Dashboard />} />
         </Route>
         <Route path="login" element={<Login />} />
+        <Route path="choosetheme" element={<ChooseTheme />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="signup/:role" element={<Signup />} />
         <Route path="verify-email" element={<VerifyEmail />} />

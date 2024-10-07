@@ -34,7 +34,7 @@ import MobileNavbar from "./MobileNavbar";
 import api_call from "../../Functions/api_call";
 import NavMenu from "./NavMenu";
 
-const Navbar = ({handleSendTheme}) => {
+const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [device, setDevice] = useState("Desktop");
   const [hamburger, setHamburger] = useState(false);
@@ -148,7 +148,7 @@ const Navbar = ({handleSendTheme}) => {
                 Log in
               </Link>
               <Link
-                to="/signup"
+                to="/choosetheme"
                 className={`${
                   theme != "dark"
                     ? "bg-teal-600 text-white"

@@ -81,7 +81,7 @@ const Login = () => {
         }
         localStorage.setItem('token', response.data.token);
 
-        if (response?.data?.profileCompleteStatus !== 'Complete') {
+        if (response?.data?.profileCompleteStatus != 'Complete' && response.data.msg !== 'Email is not Verified') {
           navigate('/complete-profile');
           return;
         }
@@ -108,6 +108,10 @@ const Login = () => {
         return;
       }
       localStorage.setItem('token', res.data.token);
+      if (res?.data?.profileCompleteStatus != 'Complete') {
+        navigate('/complete-profile');
+        return;
+      }
       navigate('/');
     } catch (err) {
       console.error('Login failed:', err);
@@ -123,11 +127,11 @@ const Login = () => {
 
           
       <div className="flex items-center justify-center min-h-screen mt-20">
-        <div className=" w-[500px] h-[612.5px] p-8 space-y-8 bg-gradient-to-t from-[#4E6E5D] to-[#ffffff] bg-opacity-90 rounded-xl border-2">
+        <div className={`${theme =='dark' ?'bg-[#1e1e1e] border-[#3f3f3f]':'bg-[#ffffff] border-[#999999]'} w-[600px] h-[612.5px]  p-8 space-y-8 bg bg-opacity-90 rounded-xl  border-2 `}>
           <div className="text-center">
           <div className="container">
             <div className="card">
-              <div id="front" className="cardFront text-[#4E6E5D]">
+              <div id="front" className={` text-[19px] ${theme == 'dark'? 'text-white':' text-aesthetic-black'}`}>
                 Log in To JobSculpt
               </div>
             </div>
@@ -147,7 +151,7 @@ const Login = () => {
                   onChange={emailFormik.handleChange}
                   onBlur={emailFormik.handleBlur}
                   value={emailFormik.values.email}
-                  className="w-full px-10 py-2 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  className="w-full px-10 py-2 mt-1 text-gray-900 placeholder-gray-400 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent"
                   placeholder="Email or Username"
                 />
                 {emailFormik.touched.email && emailFormik.errors.email ? (
@@ -157,14 +161,14 @@ const Login = () => {
               <div className="w-3/4">
                 <button
                   type="submit"
-                  className="relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#4E6E5D] shadow-md "
+                  className="relative w-full px-4 py-2 border-2 text-white text-whit rounded-lg bg-[#000000] "
                 >
                   Continue
                 </button>
               </div>
             </form>
 
-            <p className="text-white text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4">
+            <p className={`${theme =='dark'? 'text-white':'text-black'} text-[14px] text-center after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 after:mt-4`}>
             Or
             </p>
             <div className=" flex items-center justify-center  ">
@@ -172,10 +176,10 @@ const Login = () => {
             </div>
 
             <div className="text-center flex flex-col gap-10 items-center">
-            <p className="text-white text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
+            <p className=" text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
               Don't have a JobSculpt account? 
             </p>
-            < Link to={"/signup"} className="text-[#ffffff] border-2 w-48 py-2 border-[#ffffff] rounded-lg">
+            < Link to={"/choosetheme"} className=" border-2 w-48 py-2 bg-black text-white rounded-lg">
               Sign Up
             </Link>
           </div>

@@ -16,7 +16,7 @@ const MobileNavbar = ({ isLoggedIn, isOpened, handleClick, isSearchOpen, setIsSe
         </Link>
         {!isLoggedIn ? (
           <Link
-            to="/signup"
+            to="/choosetheme"
             className="bg-teal-700 text-white px-5 py-2 rounded-lg"
           >
             Signup
@@ -118,7 +118,7 @@ const MobileNavbar = ({ isLoggedIn, isOpened, handleClick, isSearchOpen, setIsSe
                   Log in
                 </Link>
                 <Link
-                  to="/signup"
+                  to="/choosetheme"
                   className="bg-teal-700 text-white px-5 py-2 rounded-lg"
                   onClick={handleClick}
                 >

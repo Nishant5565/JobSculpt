@@ -15,19 +15,16 @@ import {
 const UserDetail = ({ userInfo, setStep }) => {
   const [userName, setUserName] = useState("");
   const [name, setName] = useState("");
+  const [about, setAbout] = useState("");
   const [usernameAvailable, setUsernameAvailable] = useState("");
   const [loading, isLoading] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    if (userInfo?.isGoogleUser) {
-      setName(userInfo?.name || "");
-    }
-  }, [userInfo]);
+
 
 
   const handleNext = () => {
-    updateUserName(userName, name);
+    updateUserName(userName, name, about);
     updateProfileCompleteStatus('Education');
     setStep('Education'); 
   };
@@ -102,6 +99,21 @@ const UserDetail = ({ userInfo, setStep }) => {
               placeholder="Enter your name"
             />
           </Box>
+
+          {/* About You section */}
+
+          <Box mb={6}>
+            <Typography variant="h6" sx={{ mb: 1 }}>
+              Tell us about yourself
+            </Typography>
+            <textarea
+              value = {about}
+              id="about"
+              className="w-full px-4 py-3 border-2 rounded-lg focus:ring-4 focus:ring-primary outline-none transition-all duration-300 text-black"
+              placeholder="Write about yourself"
+            />
+          </Box>
+
 
           {/* Completion Message */}
           <Box textAlign="">

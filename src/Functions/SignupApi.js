@@ -47,7 +47,7 @@ export const handleGoogleSuccess = async (response, role, navigate) => {
   }
 };
 
-export const registerUser = async (emailFormik, values, role, setIsLoading, navigate) => {
+export const registerUser = async (emailFormik, values, role, setIsLoading, navigate, setMessages) => {
   try {
     setIsLoading(true);
     const response = await axios.post(API_URL + '/api/auth/register', {
@@ -60,9 +60,10 @@ export const registerUser = async (emailFormik, values, role, setIsLoading, navi
 
     if (response.status !== 200) {
       console.error('Registration failed:', response.data);
+      setMessages('Registration failed');
       return error;
     } else if (response.data.msg === 'User already exists') {
-      alert('User already exists');
+      setMessages(['User already exists']);
       return 'User already exists';
     } else {
       navigate('/verify-email');
