@@ -281,16 +281,20 @@ const EditPhotoModal = ({
             sx={{
               width: "200px",
               md: { width: "200px" },
-              background: loading
-                ? "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)"
-                : "linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)",
+              background: 'black',
               borderRadius: "12px",
               textTransform: "none",
               fontWeight: "bold",
               color: "white",
               cursor: !selectedFile ? "not-allowed" : "pointer",
               opacity: !selectedFile ? "0" : "1",
+              transition: "0.3s ease-in-out",
               py: 1,
+              '&:hover': {
+                backgroundColor: 'white',
+                color: 'black',
+                transform: 'scale(1.05)',
+              },
             }}
             disabled={!selectedFile || loading}
           >
@@ -311,7 +315,11 @@ const EditPhotoModal = ({
               color: "red",
               textTransform: "none",
               fontWeight: "bold",
+              transition: "0.3s ease-in-out",
               py: 1,
+              '&:hover': {
+                transform: 'scale(1.05)',
+              },
             }}
           >
             CANCEL

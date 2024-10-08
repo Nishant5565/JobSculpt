@@ -8,9 +8,9 @@ const api_call = () => {
           const token = localStorage.getItem('token');
           if (!token) {
             console.log('No token found');
-            return;
+            return 'No token found';
           }
-    
+  
           try {
             const response = await fetch(API_URL + '/api/auth/auth-user', {
               method: 'POST',
@@ -23,7 +23,8 @@ const api_call = () => {
               localStorage.removeItem('token');
             }
             const data = await response.json();
-            if(data === null){
+            if(data == null){
+              localStorage.removeItem('token');
               navigate('/login');
               return;
             }

@@ -2,18 +2,46 @@ import React from 'react'
 import { ThemeContext } from './ThemeContext'
 import MinFooter from '../Components/Footer/MinFooter'
 import { Link , useNavigate} from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext , useState} from 'react'
+import JobSculptLogo from '../Functions/JobSculptLogo'
+import { updateTheme } from '../Functions/CompleteProfile'
 
-const ChooseTheme = () => {
+const ChooseTheme = ({inPreview,setOpenSnackbar,setSnackbarMessage,setSnackbarSeverity,setPreviewOpenModal,setUpdatedUser}) => {
      const { theme, toggleTheme } = useContext(ThemeContext);
+     const [loading, setLoading] = useState(false);
      const navigate = useNavigate();
+
+     const handleUpdateTheme = (theme) => {
+      if(inPreview){      
+        setLoading(true);
+        const token = localStorage.getItem('token');
+        if(!token){
+          navigate('/login');
+        }
+        updateTheme( theme).then((data) => {
+          setLoading(false);
+          setOpenSnackbar(true);
+          setSnackbarMessage("Theme Updated Successfully");
+          setSnackbarSeverity('success');
+          setPreviewOpenModal(false);
+          setUpdatedUser(data?.data?.user);
+          
+        });
+        return;
+       }
+       else {
+          alert('Please complete the signup process to continue');
+          navigate('/signup');
+       }
+      }
   return (
      <>
      <div className={`min-h-screen flex flex-col items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'} p-2`}>
-       <Link to="/" className={`text-xl font-bold fixed top-10 left-10 ${theme == 'dark' ? 'text-red-500' : 'text-teal-700'} transition-colors duration-500`}>
-         JobSculpt
-       </Link>
-       
+        {
+          !inPreview && (
+            <JobSculptLogo />
+          )
+        }       
        <div className={`container mx-auto max-w-3xl p-8 rounded-3xl border-2  shadow-2xl transition-all duration-500 ${theme == 'dark' && 'bg-[#131313] '} `}>
 
           {/* Select Your theme */}
@@ -31,7 +59,7 @@ const ChooseTheme = () => {
                  Dark Theme
             </h2>
             <p className="mb-6">
-                 Enable dark mode for a more comfortable experience.
+                 Enable the dark mode for a more comfortable experience and reduced eye strain.
             </p>
 
           </div>
@@ -41,21 +69,29 @@ const ChooseTheme = () => {
           >
             <h2 className="text-2xl font-semibold mb-4">Light Theme</h2>
             <p className="mb-6">
-                 Enable light mode for a more vibrant experience.
+                 Enable the light mode for a more vibrant experience and better readability.
             </p>
           </div>
         </div>   
-        <Link to="/signup">
+        <Link to={!inPreview && '/signup' } >
               <button className={`w-full mt-10 py-3 px-4 rounded-full shadow-md ${theme === 'dark' ? 'text-black bg-white' : 'bg-black text-white'} transition-all duration-500 `}
-              onClick = {() => navigate('/signup')}
+              onClick = {() => {handleUpdateTheme(theme)}}
               >
-                Get Started
+               {
+                  !inPreview ? 'Get Started' : 'Save Theme'
+               }
               </button>
-     </Link>       
+           </Link>       
           </div>
 
        </div>
-       <MinFooter />
+       {
+        !inPreview && (
+          <MinFooter />
+        )
+       }
+
+       
  
      </>
   )

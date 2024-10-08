@@ -15,7 +15,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { updateEducation, editEducation, deleteEducation, updateWorkExperience, editWorkExperience, deleteWorkExperience , updateProfileCompleteStatus} from '../../Functions/CompleteProfile';
 import {Delete} from '@mui/icons-material'
 
-const Education = ({ user, theme, setStep, page }) => {
+const Education = ({ user, theme, setStep, page, editStep, setPreviewOpenModal }) => {
   const [data, setData] = useState(page === 'education' ? user.education || [] : user.workExperience || []);
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -31,6 +31,11 @@ const Education = ({ user, theme, setStep, page }) => {
     description: '',
   });
   const handleNext = () => {
+
+    if(!editStep){
+      setPreviewOpenModal(false);
+      return
+    }
     
     if (page === 'education') {
       updateProfileCompleteStatus('Work');
@@ -114,16 +119,7 @@ const Education = ({ user, theme, setStep, page }) => {
   };
 
   return (
-    <div
-      className={`${
-        theme === 'dark' ? 'bg-[#131313]' : 'bg-[#f5f5f5]'
-      } rounded-[30px] p-6 min-h-screen flex items-center justify-center`}
-    >
-      <div
-        className={`${
-          theme === 'dark' ? 'bg-[#222222]' : 'bg-white'
-        } container mx-auto max-w-4xl p-8 sm:p-16 rounded-[40px] shadow-2xl transition-all duration-500`}
-      >
+    <>
         <Typography
           variant="h4"
           className={`${
@@ -144,7 +140,7 @@ const Education = ({ user, theme, setStep, page }) => {
             <div
               key={index}
               className={`p-6 rounded-[25px] mb-6 shadow-lg w-[400px] space-y-2 transition-all duration-200 hover:shadow-2xl ${
-                theme === 'dark' ? 'bg-[#333]' : 'bg-[#f8f9fa]'
+                theme === 'dark' ? 'bg-[#000000] border-2' : 'bg-[#f8f9fa]'
               }`}
             >
               <Typography
@@ -155,13 +151,13 @@ const Education = ({ user, theme, setStep, page }) => {
               </Typography>
               <Typography
                 variant="body2"
-                className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
+                className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
               >
                 {page === 'education' ? item.degree || 'Degree Not Specified' : item.position || 'Position Not Specified'} - {item.fieldOfStudy || 'Field Not Specified'}
               </Typography>
               <Typography
                 variant="body2"
-                className={`${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}
+                className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}
               >
                 {item.from ? new Date(item.from).toLocaleDateString() : 'From Date Not Specified'} -
                 {item.to ? new Date(item.to).toLocaleDateString() : 'Ongoing'}
@@ -185,7 +181,7 @@ const Education = ({ user, theme, setStep, page }) => {
             </div>
           ))
         ) : (
-          <Typography variant="body" className="text-gray-500 text-[14px]" sx={{ mb: 3 }}>
+          <Typography variant="body" className=" text-[14px]" sx={{ mb: 3 }}>
             Add your {page === 'education' ? 'education' : 'work experience'} details to make your profile more attractive.
           </Typography>
         )}
@@ -196,14 +192,14 @@ const Education = ({ user, theme, setStep, page }) => {
           onClick={handleOpen}
           sx={{
             borderRadius: '30px',
-            background: 'linear-gradient(90deg, #6A5ACD 0%, #7B68EE 100%)',
+            background: theme === 'dark' ? 'white' : 'black',
+            color: theme === 'dark' ? 'black' : 'white',  
             padding: '10px 20px',
             fontSize: '18px',
             textTransform: 'none',
-            transition: 'all 0.3s ease-in-out',
+            transition: 'all 0.2s ease-in',
             '&:hover': {
-              transform: 'scale(1.05)',
-              background: 'linear-gradient(90deg, #5A4FC5 0%, #7B68EE 100%)',
+              transform: 'scale(1.02)',
             },
           }}
         >
@@ -211,17 +207,24 @@ const Education = ({ user, theme, setStep, page }) => {
         </Button>
 
         {/* Modal for adding/editing data */}
-        <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose} 
+        sx={
+          {
+            backgroundBlendMode: 'darken',
+          }
+        }
+        >
           <Box
             sx={{
               position: 'absolute',
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              bgcolor: theme === 'dark' ? '#333' : 'background.paper',
+              bgcolor: theme === 'dark' ? '#131313' : 'white',
               boxShadow: 24,
               p: 6,
               borderRadius: '25px',
+              border: theme === 'dark' ? '2px solid white' : '2px solid black',
               width: '90%',
               maxWidth: '700px',
               transition: 'all 0.3s ease-in-out',
@@ -247,7 +250,7 @@ const Education = ({ user, theme, setStep, page }) => {
               <Close />
             </IconButton>
 
-            <Typography variant="h5" fontWeight="bold" mb={3} className={`${theme === 'dark' ? 'text-white' : 'text-black'}`}>
+            <Typography variant="h5" fontWeight="bold" mb={3} className={`  text-center ${theme === 'dark' ? 'text-white' : 'text-black'}`}>
               {isEditing ? `Edit ${page === 'education' ? 'Education' : 'Work Experience'}` : `Add ${page === 'education' ? 'Education' : 'Work Experience'}`}
             </Typography>
 
@@ -266,9 +269,12 @@ const Education = ({ user, theme, setStep, page }) => {
                       placeholder="Ex: Northwestern University"
                       value={newData.institution}
                       onChange={handleInputChange}
-                      variant="outlined"
+                      
                       InputProps={{
                         style: {
+                          backgroundColor: theme !== 'dark' ? 'white' : 'black',
+                          color: theme !== 'dark' ? 'black' : 'white',
+                          outline : 'none',
                           borderRadius: '8px',
                         },
                       }}
@@ -287,6 +293,8 @@ const Education = ({ user, theme, setStep, page }) => {
                       variant="outlined"
                       InputProps={{
                         style: {
+                          backgroundColor: theme !== 'dark' ? 'white' : 'black',
+                          color: theme !== 'dark' ? 'black' : 'white',
                           borderRadius: '8px',
                         },
                       }}
@@ -305,6 +313,8 @@ const Education = ({ user, theme, setStep, page }) => {
                       variant="outlined"
                       InputProps={{
                         style: {
+                          backgroundColor: theme !== 'dark' ? 'white' : 'black',
+                          color: theme !== 'dark' ? 'black' : 'white',
                           borderRadius: '8px',
                         },
                       }}
@@ -323,10 +333,12 @@ const Education = ({ user, theme, setStep, page }) => {
                       placeholder="Ex: Google"
                       value={newData.company}
                       onChange={handleInputChange}
-                      variant="outlined"
                       InputProps={{
                         style: {
+                          backgroundColor: theme == 'dark' ? '#131313' : 'white',
+                          color: theme !== 'dark' ? '' : 'white',
                           borderRadius: '8px',
+                          
                         },
                       }}
                     />
@@ -341,9 +353,10 @@ const Education = ({ user, theme, setStep, page }) => {
                       placeholder="Position"
                       value={newData.position}
                       onChange={handleInputChange}
-                      variant="outlined"
                       InputProps={{
                         style: {
+                          backgroundColor: theme == 'dark' ? '#131313' : 'white',
+                          color: theme !== 'dark' ? 'black' : 'white',
                           borderRadius: '8px',
                         },
                       }}
@@ -361,7 +374,10 @@ const Education = ({ user, theme, setStep, page }) => {
                     <DatePicker
                       value={newData.from}
                       onChange={(newValue) => handleDateChange('from', newValue)}
-                      renderInput={(params) => <TextField {...params} fullWidth />}
+                      renderInput={(params) => <TextField {...params} fullWidth />
+                      }
+                      sx={{
+                      }}
                     />
                   </Box>
                   <Box>
@@ -372,6 +388,10 @@ const Education = ({ user, theme, setStep, page }) => {
                       value={newData.to}
                       onChange={(newValue) => handleDateChange('to', newValue)}
                       renderInput={(params) => <TextField {...params} fullWidth />}
+                      
+                      sx={{
+                      }}
+                      className=''
                     />
                   </Box>
                 </div>
@@ -392,50 +412,61 @@ const Education = ({ user, theme, setStep, page }) => {
                   variant="outlined"
                   InputProps={{
                     style: {
+                      backgroundColor: theme !== 'dark' ? 'white' : '#131313  ',
+                      color: theme !== 'dark' ? 'black' : 'white',
                       borderRadius: '8px',
                     },
                   }}
                 />
               </Box>
             </Box>
-
+              <div className=' text-center'>
+                
             <Button
               variant="contained"
               onClick={handleSave}
+              // Disable button if education or company is not provided
+              disabled={ !newData.from}
               sx={{
                 mt: 3,
-                background: 'linear-gradient(90deg, #6A5ACD 0%, #7B68EE 100%)',
+                background: theme === 'dark' ? 'white' : 'black',
                 padding: '10px 20px',
                 borderRadius: '30px',
                 textTransform: 'none',
                 fontSize: '16px',
-                transition: 'all 0.3s ease-in-out',
+                transition: 'all 0.3s ease-in',
                 '&:hover': {
                   transform: 'scale(1.05)',
-                  background: 'linear-gradient(90deg, #5A4FC5 0%, #7B68EE 100%)',
+                  background: theme === 'dark' ? 'white' : 'black',
                 },
               }}
             >
               {isEditing ? `Update ${page === 'education' ? 'Education' : 'Work Experience'}` : `Add ${page === 'education' ? 'Education' : 'Work Experience'}`}
             </Button>
+              </div>
           </Box>
         </Modal>
-          <div className="flex mt-10  w-full justify-end ">
-              <button
-            onClick={handleNext}
-            className= 'bg-indigo-500 text-white px-10 py-4 rounded-[25px] transition-all duration-300 hover:bg-indigo-600' 
-          >
-            Next
-          </button>
+          <div className="flex mt-10 gap-6 w-full justify-end ">
           <button
             onClick={handleNext}
-            className= 'bg-[#484848] text-white px-10 rounded-[25px] hover:bg-black transition-all duration-300 ml-4'
-          > 
-            Skip
+            className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black border-2 border-black' : 'bg-black text-white  '} transition-all duration-300
+            hover:scale-105
+            `}
+          >
+            {
+              editStep ? 'Next' : 'Close'
+            }
           </button>
+          { editStep &&( <button
+            onClick={handleNext}
+            className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black border-2 border-black' : 'bg-black text-white  '} transition-all duration-300\
+            hover:scale-105
+            `}
+          >
+            Skip
+          </button>)}
           </div>
-      </div>
-    </div>
+    </>
   );
 };
 

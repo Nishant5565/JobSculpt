@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Role from './role';
+import { Snackbar, Alert } from '@mui/material';
 
 import { updateProfileCompleteStatus } from '../../Functions/CompleteProfile';
 
-const Start = ({ user, setStep, theme }) => {
+const Start = ({ userInfo, setStep, theme }) => {
   const [isRoleConfirmed, setIsRoleConfirmed] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [showRoleComponent, setShowRoleComponent] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [user , setUser] = useState(userInfo);
 
   const handleNext = () => {
     if (isRoleConfirmed && isTermsAccepted) {
       updateProfileCompleteStatus('UploadImage');
-      setMessage(true);
       setStep('UploadImage'); 
     }
   };
+
 
   const handleRoleChange = () => {
     setShowRoleComponent(true); // Show the Role component
@@ -25,14 +30,13 @@ const Start = ({ user, setStep, theme }) => {
     return (
 
      <>
-      <Role back = {true}  user = {user} setShowRoleComponent = {setShowRoleComponent} />
+      <Role back = {true}  user = {user} setShowRoleComponent = {setShowRoleComponent} setSnackbarMessage = {setSnackbarMessage} setOpenSnackbar = {setOpenSnackbar} setSnackbarSeverity = {setSnackbarSeverity} setUser = {setUser} />
      </>
     )
   }
 
   return (
-    <div className={`${theme === 'dark' ? 'bg-[#131313]' : 'bg-[#e7e7e7]'} rounded-[25px] p-6 mb-10 min-h-screen flex items-center justify-center `}>
-      <div className={`${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500`}>
+    <>
         <p className={`text-center mb-8 text-xl ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
           Now let's complete your profile to get started with JobSculpt
         </p>
@@ -43,17 +47,22 @@ const Start = ({ user, setStep, theme }) => {
         <div className=" flex flex-col gap-8 justify-center">
           <div>
             <label className=" flex items-center cursor-pointer">
-              <input
+            <input
                 type="checkbox"
-                className="form-checkbox h-5 w-5 text-indigo-600"
+                className="h-5 w-5"
+                style={
+                  {
+                    backgroundColor: theme === 'dark' ? '#4B5563' : '#F3F4F6',
+                  }
+                }
                 checked={isRoleConfirmed}
                 onChange={() => setIsRoleConfirmed(!isRoleConfirmed)}
               />
               <span className={`ml-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                I am sure that I want to sign up as a/an <b>{user?.role}</b>. Afterwards, I can't change my role.
+                I am sure that I want to sign up as a/an {user?.role}. Afterwards, I can't change my role.
               </span>
             </label>
-            <div className='flex gap-10 mt-2'>
+            <div className='flex gap-2 mt-2'>
               <p className={` ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                 Want to change your role?
               </p>
@@ -75,27 +84,40 @@ const Start = ({ user, setStep, theme }) => {
                 onChange={() => setIsTermsAccepted(!isTermsAccepted)}
               />
               <span className={`ml-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                I accept the terms and conditions
+                I accept the terms and conditions of JobSculpt  <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>
               </span>
             </label>
           </div>
         </div>
 
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-end mt-10">
           <button
             onClick={handleNext}
-            className={`px-6 py-3 rounded-full text-white text-lg ${
-              isRoleConfirmed && isTermsAccepted
-                ? 'bg-indigo-600 hover:bg-indigo-500'
-                : 'bg-gray-400 cursor-not-allowed'
-            }`}
+            className={`px-10 py-3 rounded-full ${theme !== 'dark' ? 'bg-white text-black hover:bg-black hover:text-white border-2 border-black' : 'bg-black text-white hover:bg-white hover:text-black '} transition-all duration-300\
+            hover:scale-105
+            ${!isRoleConfirmed || !isTermsAccepted ? 'cursor-not-allowed' : 'cursor-pointer'}
+            `}
             disabled={!isRoleConfirmed || !isTermsAccepted}
           >
             Next
           </button>
         </div>
-      </div>
-    </div>
+
+        <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: '100%' }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+      </>
   );
 };
 

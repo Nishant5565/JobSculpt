@@ -10,12 +10,18 @@ import { API_URL } from '../../Functions/Constants';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import Spinner2 from '../ShimmerAndSpinner/Spinner2';
 import { ThemeContext } from '../../Pages/ThemeContext';
+import JobSculptLogo from '../../Functions/JobSculptLogo';
+import { Snackbar } from '@mui/material';
+import { Alert } from '@mui/material';
 const Login = () => {
 
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   // To check if the user is already logged in
   useEffect(() => {
@@ -77,9 +83,16 @@ const Login = () => {
         setIsLoading(false);
         if (!response.data.token) {
           console.error('Login failed:', response.data);
+          setSnackbarMessage("Login Failed! " + response.data.msg);
+          setSnackbarSeverity("error");
+          setOpenSnackbar(true);
+          setIsLoading(false);
           return;
         }
         localStorage.setItem('token', response.data.token);
+        if(theme != response.data.theme){
+          toggleTheme();
+        }
 
         if (response?.data?.profileCompleteStatus != 'Complete' && response.data.msg !== 'Email is not Verified') {
           navigate('/complete-profile');
@@ -92,6 +105,10 @@ const Login = () => {
         navigate('/');
       } catch (err) {
         console.error('Login failed:', err);
+        setSnackbarMessage("Login Failed! " + err.response.data.msg);
+        setSnackbarSeverity("error"); 
+        setOpenSnackbar(true);
+        setIsLoading(false);
       }
     },
   });
@@ -108,6 +125,9 @@ const Login = () => {
         return;
       }
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('theme', res.data.theme);
+
+      
       if (res?.data?.profileCompleteStatus != 'Complete') {
         navigate('/complete-profile');
         return;
@@ -115,22 +135,30 @@ const Login = () => {
       navigate('/');
     } catch (err) {
       console.error('Login failed:', err);
+      setSnackbarMessage("Login Failed! " + err.response.data.msg);
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
+      setIsLoading(false);
     }
   };
   
 
   return (
     <>
-          <Link to={'/'} className={`text-xl font-bold JobSculpt  top-10 left-10 ${theme == 'dark'? 'text-red-500':''} fixed`}>
-              JobSculpt
-          </Link>
 
+    <JobSculptLogo />
           
-      <div className="flex items-center justify-center min-h-screen mt-20">
-        <div className={`${theme =='dark' ?'bg-[#1e1e1e] border-[#3f3f3f]':'bg-[#ffffff] border-[#999999]'} w-[600px] h-[612.5px]  p-8 space-y-8 bg bg-opacity-90 rounded-xl  border-2 `}>
+      <div className="flex items-center justify-center min-h-screen mt-20 p-2">
+        <div className={`${theme =='dark' ?'bg-[#1e1e1e] border-[#3f3f3f]':'bg-[#ffffff] border-[#999999]'} w-[600px] h-[612.5px]  p-8 space-y-8 bg bg-opacity-90 rounded-xl border-2 `}>
+          
           <div className="text-center">
           <div className="container">
-            <div className="card">
+            <div className="card flex items-center justify-center">
+            <button onClick={() => setStep(1)} className=" text-[20px] relative -top-18 -left-52 hover:underline"
+              style={{ color: theme == 'dark' ? 'white' : 'black' , visibility: step === 1 ? 'hidden' : 'visible' }}
+              >
+                <IoMdArrowRoundBack />
+              </button>
               <div id="front" className={` text-[19px] ${theme == 'dark'? 'text-white':' text-aesthetic-black'}`}>
                 Log in To JobSculpt
               </div>
@@ -194,9 +222,6 @@ const Login = () => {
 
 
               <form onSubmit={passwordFormik.handleSubmit} className="space-y-6 flex flex-col items-center">
-              <button onClick={() => setStep(1)} className="text-black text-[20px] relative -top-16 -left-52 hover:underline">
-                <IoMdArrowRoundBack />
-              </button>
                 <div className="relative w-3/4">
                   <AiOutlineLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
@@ -217,7 +242,7 @@ const Login = () => {
                   <button
                     disabled={isLoading}  
                     type="submit"
-                     className={`relative w-full px-4 py-2 text-white  text-whit rounded-lg bg-[#4E6E5D] shadow-md 
+                     className={`relative w-full px-4 py-2 bg-black border-2 text-white rounded-lg  shadow-md 
                       ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}
                       `}
                   >
@@ -245,6 +270,20 @@ const Login = () => {
         </div>        
       </div>
       <MinFooter />
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={4000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

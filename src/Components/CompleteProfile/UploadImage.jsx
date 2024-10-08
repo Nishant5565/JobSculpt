@@ -4,16 +4,25 @@ import { ThemeContext } from "../../Pages/ThemeContext";
 import { Avatar, Skeleton, Box, Typography, Button, IconButton } from "@mui/material";
 import { CloudUpload } from '@mui/icons-material';
 import { updateProfileCompleteStatus } from '../../Functions/CompleteProfile';
+import {Snackbar} from '@mui/material';
+import { Alert } from '@mui/material';
 
-const UploadImage = ({ user, setStep }) => {
+const UploadImage = ({ user, setStep, editStep, setPreviewOpenModal }) => {
   const [open, setOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const { theme } = useContext(ThemeContext);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertSeverity, setAlertSeverity] = useState('success');
 
 
   const handleNext = () => {
+    if(!editStep){
+      setPreviewOpenModal(false);
+      return 
+    }
       updateProfileCompleteStatus('UserDetail');
       setStep('UserDetail'); 
   };
@@ -51,8 +60,7 @@ const UploadImage = ({ user, setStep }) => {
   };
 
   return (
-    <div className={`${theme === 'dark' ? 'bg-[#131313]' : 'bg-[#f5f5f5]'} rounded-[25px] p-6 min-h-screen flex items-center justify-center`}>
-      <div className={`${theme === 'dark' ? 'bg-[#222222]' : 'bg-white'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500`}>
+    <>
         <Box
           textAlign="center"
           mb={6}
@@ -67,21 +75,35 @@ const UploadImage = ({ user, setStep }) => {
           {loading ? (
             <Skeleton variant="circular" width={120} height={120} />
           ) : (
-            <Avatar
+              <>
+            {
+              user?.profileImage =='NoImage'?(
+              <Avatar
               src={previewImage || user?.profileImage}
               alt={user?.name}
               sx={{
                 width: 120,
                 height: 120,
+                filter: theme === 'dark' ? 'invert(1)' : 'invert(1)',
+                backgroundColor: theme === 'dark' ? 'white' : 'black',
                 cursor: "pointer",
-                border: `4px solid ${theme === 'dark' ? 'white' : 'gray'}`,
-                transition: '0.3s ease-in-out',
-                '&:hover': {
-                  transform: 'scale(1.05)',
-                },
+                border: `4px solid ${theme === 'dark' ? 'black' : 'white'}`,
               }}
-              onClick={handleOpen}
-            />
+              ></Avatar> ) : ( 
+                <Avatar
+                src={previewImage || user?.profileImage}
+                alt={user?.name}
+                sx={{
+                  width: 120,
+                  height: 120,
+                  cursor: "pointer",
+                  border: `2px solid ${theme !== 'dark' ? 'black' : 'white'}`,
+                }}
+                ></Avatar> 
+                
+               )
+            }
+              </>
           )}
 
           <Typography
@@ -113,17 +135,20 @@ const UploadImage = ({ user, setStep }) => {
       onClick={handleOpen}
       sx={{
         borderRadius: '25px',
-        background: 'linear-gradient(90deg, #6A5ACD 0%, #7B68EE 100%)',
+        background: theme !== 'dark' ? 'black' : 'white',
         padding: '10px 30px',
-        color: 'white',
+        color: theme !== 'dark' ? 'white' : 'black',
+        transition: '0.3s ease-in-out',
+
         '&:hover': {
-          backgroundColor: '#5B4FC5',
+          backgroundColor: theme == 'dark' ? 'black' : 'white',
+          color: theme == 'dark' ? 'white' : 'black',
+          transform: 'scale(1.05)',
         },
       }}
     >
       Upload Image
     </Button>
-
           </Box>
         </Box>
 
@@ -139,17 +164,28 @@ const UploadImage = ({ user, setStep }) => {
           selectedFile={selectedFile}
           loading={loading}
         />
-          <div className="flex justify-center mt-10">
-          <button
+          <div className="flex justify-end w-full gap-10 mt-10">
+          {
+            editStep && (
+              <button
             onClick={handleNext}
-            className={`px-6 py-3 rounded-full text-white text-lg bg-indigo-600 hover:bg-indigo-500'
-            }`}
+            className={`px-10 py-3 rounded-full hover:scale-105  ${theme != 'dark' ? 'bg-white text-black hover:bg-black hover:text-white border-2 border-black' : 'bg-black text-white hover:bg-white hover:text-black'} transition-all duration-300`}
           >
             Next
+          </button>)
+          }
+          <button
+            onClick={handleNext}
+            className={`px-10 py-3 rounded-full ${theme !== 'dark' ? 'bg-white text-black hover:bg-black hover:text-white border-2 border-black' : 'bg-black text-white hover:bg-white hover:text-black '} transition-all duration-300\
+            hover:scale-105
+            `}
+          >
+            {
+              editStep ? 'Skip' : 'Close'
+            }
           </button>
           </div>
-      </div>
-    </div>
+      </>
   );
 };
 

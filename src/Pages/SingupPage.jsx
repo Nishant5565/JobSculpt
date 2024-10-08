@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link , useNavigate , useParams} from 'react-router-dom';
 import { ThemeContext } from './ThemeContext';
 import MinFooter from '../Components/Footer/MinFooter';
+import JobSculptLogo from '../Functions/JobSculptLogo';
 
 const Signup = () => {
   const { theme } = useContext(ThemeContext);
@@ -10,9 +11,7 @@ const Signup = () => {
   return (
     <>
     <div className={`min-h-screen flex items-center justify-center transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'} p-2`}>
-      <Link to="/" className={`text-xl font-bold fixed top-10 left-10 ${theme == 'dark' ? 'text-red-500' : 'text-teal-700'} transition-colors duration-500`}>
-        JobSculpt
-      </Link>
+    <JobSculptLogo />
       
       <div className={`container mx-auto max-w-3xl p-8 rounded-3xl border-2  shadow-2xl transition-all duration-500 ${theme == 'dark' && 'bg-[#131313] '} `}>
       <h1 className={`text-3xl  transition-all duration-500 font-bold text-center mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>

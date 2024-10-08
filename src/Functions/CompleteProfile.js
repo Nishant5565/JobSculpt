@@ -14,10 +14,7 @@ export const changeRole = async (role) => {
       }
     );
 
-    if (response.status !== 200) {
-      console.error('Role change failed:', response.data);
-      return;
-    }
+    return response;
   } catch (err) {
     console.error('Role change failed:', err);
     return err;
@@ -49,13 +46,13 @@ export const updateProfileCompleteStatus = async (status) => {
      }
 
 
-    export const updateUserName = async (userName, name, about) => {
+    export const updateUserName = async (userName, name, about, dob) => {
 
       try {
       const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
       const response = await axios.post(
             API_URL + '/api/auth/update-username',
-            { userName, name, about },
+            { userName, name, about, dob },
             {
             headers: {
                 'x-auth-token': token,
@@ -63,10 +60,7 @@ export const updateProfileCompleteStatus = async (status) => {
             }
       );
       
-      if (response.status !== 200) {
-            console.error('Username update failed:', response.data);
-            return;
-      }
+      return response;
       } catch (err) {
       console.error('Username update failed:', err);
       return err;
@@ -213,7 +207,11 @@ export const deleteWorkExperience = async (index) => {
 
 export const getAllSkills = async () => {
   try {
-    const response = await axios.get(API_URL + '/api/jobsculpt/admin/auth/skills');
+    const response = await axios.get(API_URL + '/api/jobsculpt/admin/auth/skills', {
+      headers: {
+        'x-auth-token': localStorage.getItem('token'),
+      },
+    });
     if (response.status !== 200) {
       console.error('Error fetching skills:', response.data);
       return [];
@@ -227,7 +225,7 @@ export const getAllSkills = async () => {
 
 export const getUserSkills = async () => {
   try {
-    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+    const token = localStorage.getItem('token'); 
     const response = await axios.get(API_URL + '/api/auth/user-skills', {
       headers: {
         'x-auth-token': token,
@@ -246,12 +244,13 @@ export const getUserSkills = async () => {
   }
 }
 
-export const addSkill = async (skill) => {
+export const addSkill = async (skill, proficiency) => {
+
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/add-user-skill',
-      { skill },
+      API_URL + '/api/auth/add-user-skills',
+      { skill, proficiency },
       {
         headers: {
           'x-auth-token': token,
@@ -261,7 +260,10 @@ export const addSkill = async (skill) => {
 
     if (response.status !== 200) {
       console.error('Error adding skill:', response.data);
-      return;
+      return response;
+    }
+    else{
+      return response;
     }
   } catch (err) {
     console.error('Error adding skill:', err);
@@ -269,12 +271,12 @@ export const addSkill = async (skill) => {
   }
 }
 
-export const deleteSkill = async (skill) => {
+export const deleteSkill = async (name) => {
   try {
-    const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+    const token = localStorage.getItem('token');
     const response = await axios.post(
       API_URL + '/api/auth/delete-user-skill',
-      { skill },
+      { name },
       {
         headers: {
           'x-auth-token': token,
@@ -288,6 +290,26 @@ export const deleteSkill = async (skill) => {
     }
   } catch (err) {
     console.error('Error deleting skill:', err);
+    return err;
+  }
+}
+
+export const updateTheme = async (theme) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(
+      API_URL + '/api/auth/update-theme',
+      { theme },
+      {
+        headers: {
+          'x-auth-token': token,
+        },
+      }
+    );
+
+    return response;
+  } catch (err) {
+    console.error('Error updating theme:', err);
     return err;
   }
 }

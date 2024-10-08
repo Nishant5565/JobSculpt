@@ -1,14 +1,16 @@
-import React ,{useEffect, useState}from 'react';
+import React ,{useEffect, useState, useContext}from 'react';
 import { AiOutlineMail } from 'react-icons/ai'; // Importing icons
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../../Functions/Constants';
 import Logo from '../../assets/Images/LogoNoBg.png'
+import JobSculptLogo from '../../Functions/JobSculptLogo';
+import { ThemeContext } from '../../Pages/ThemeContext';
 
 const VerifyEmail = () => {
   const navigate = useNavigate();
   const [message , setMessage] = useState('')
-
+  const { theme } = useContext(ThemeContext);
 
   const checkEmailVerified = async () => {
     const Maintoken = localStorage.getItem('token');
@@ -24,7 +26,7 @@ const VerifyEmail = () => {
       );
       setMessage(response.data.msg)
       if (response.data.msg === 'Email is Verified') {
-        navigate('/');
+        navigate('/email-verified');
       }
     } catch (err) {
       console.error('Email is not Verified:', err);
@@ -63,11 +65,9 @@ const VerifyEmail = () => {
 
   return (
     <>
-      <Link to={'/'} className="text-xl font-bold JobSculpt relative top-10 left-10">
-          JobSculpt
-      </Link>
-    <div className="flex justify-center mt-40 ">
-      <div className="w-[500px] p-8 space-y-8 bg-white bg-opacity-90 rounded-xl border-2 border-default-color1 h-96 ">
+    <JobSculptLogo/>
+    <div className={`${theme === 'dark' ? 'bg-[#131313]' : 'bg-[#f5f5f5]'} rounded-[25px] p-6 min-h-screen flex items-center justify-center`}>
+    <div className={`${theme === 'dark' ? 'bg-[#222222]' : 'bg-white'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500`}>
         <div className="flex flex-col  items-center gap-40 space-y-6 ">
           <div className=" w-3/4">
             <p className=" text-center text-navy-blue">
@@ -76,12 +76,13 @@ const VerifyEmail = () => {
           </div>
         </div>
       <div className="text-center flex flex-col gap-10  items-center">
-      <p className="text-gray-500 text-[16px] mt-20 after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
+      <p className=" text-[16px] mt-20 after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300">
         {
           message!=='' ? message : 'Verify your email to continue'
         }
       </p>
-      < button className=" JobSculpt border-2 w-48 mt-10 py-2 border-default-color1 rounded-lg" onClick={() => 
+      < button className={`${theme === 'dark' ? 'bg-[#000000] text-white border-2' : 'bg-[#1e1e1e] text-white'} px-10 py-4  rounded-[10px] mt-10 `}
+      onClick={() => 
         checkEmailVerified()
       }>
         Continue 

@@ -29,6 +29,7 @@ export default {
         'default-color3':'#8697C4',
         'default-color4':'#ADBBDA',
         'default-color5':'#EDE8F5',
+        'light-black':'#131313',
       },
       fontFamily: {
         'quickkiss': ['"Quickkiss"', 'sans-serif'], // Use the font-family name and provide a fallback

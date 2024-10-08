@@ -19,6 +19,7 @@ import axios from 'axios';
 import { API_URL } from '../../Functions/Constants';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import JobSculptLogo from '../../Functions/JobSculptLogo';
 
 
 const Signup = () => {
@@ -115,9 +116,7 @@ const Signup = () => {
 
   return (
     <>
-      <Link to={'/'} className={`text-xl font-bold JobSculpt top-10 left-10 ${theme === 'dark' ? 'text-red-500' : ''} fixed`}>
-        JobSculpt
-      </Link>
+    <JobSculptLogo />
       <div className={`flex items-center justify-center min-h-screen mt-20 transition-all duration-500`}>
         <div className={`w-[600px] p-8 min-h-[612.5px] space-y-8 bg-opacity-90 rounded-xl border-2 ${theme == "dark" ? "bg-[#0e0e0e] border-[#3f3f3f]" : "bg-[#ffffff] border-[#999999]"}`}>
           <div className="text-center">
