@@ -13,7 +13,7 @@ export const ThemeContextProvider = ({ children }) => {
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-    document.body.style.backgroundColor = theme == 'dark' ? '#f0f0f0' : '#333';
+    document.body.style.backgroundColor = theme == 'dark' ? '#f0f0f0' : '#1f1f1f';
     document.body.style.color = theme == 'dark' ? '#333' : '#f0f0f0';
   };
 

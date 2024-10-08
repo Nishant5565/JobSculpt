@@ -15,6 +15,7 @@ import Skills from './Skills'
 import './CompleteProfile.css'
 import { useNavigate } from 'react-router-dom'
 import Preview from './Preview'
+import JobSculptLogo from '../../Functions/JobSculptLogo'
 
 const CompleteProfile = () => {
 
@@ -41,6 +42,9 @@ const CompleteProfile = () => {
              setUserInfo(data);
              console.log(data);
              setStep(data?.profileCompleteStatus);
+             if(data?.profileCompleteStatus == "Complete"){
+               navigate('/');
+              }
               setLoading(false); 
            } 
          });  
@@ -51,9 +55,7 @@ const CompleteProfile = () => {
   if(loading){
     return (
     <>
-    <Link to={'/'} className={`text-xl font-bold JobSculpt top-14 left-14 ${theme === 'dark' ? 'text-red-500' : ''}  absolute`}>
-        JobSculpt
-      </Link>
+    <JobSculptLogo  />
      <div className={`  ${theme === 'dark' ? 'bg-black' : 'bg-white'} p-10 mb-10 min-h-screen `}>
 
     <ProfileLoading theme = {theme} />
@@ -69,9 +71,7 @@ const CompleteProfile = () => {
      <>
      {/* <Navbar /> */}
      
-    <Link to={'/'} className={`text-xl font-bold JobSculpt top-14 left-14 ${theme === 'dark' ? 'text-red-500' : ''}  absolute`}>
-        JobSculpt
-      </Link>
+    <JobSculptLogo  />
      <div className={`  ${theme === 'dark' ? 'bg-black' : 'bg-white'} p-10 mb-10 ${step=='Preview'&& 'hidden'}`}>
      <div className={`${theme === 'dark' ? 'bg-[#000000]' : 'bg-[#ffffff]'} rounded-[25px] p-6 mb-10 min-h-screen flex items-center justify-center `}>
      <div className={`${theme === 'dark' ? ' bg-light-black border-2' : 'bg-[white]'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500`}>
@@ -89,7 +89,15 @@ const CompleteProfile = () => {
         </div>
       </div>
      </div>
-    {step == 'Preview' && <Preview user={userInfo} setStep = {setStep} theme = {theme} />}
+     <div>
+
+    {step == 'Preview' && (
+      <> 
+    <Preview user={userInfo} setStep = {setStep} theme = {theme} />
+    
+    </>
+    )}
+     </div>
   <MinFooter />   
 
 </>

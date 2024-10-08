@@ -23,7 +23,7 @@ import Education from "./Education";
 import Skills from "./Skills";
 import { useNavigate } from "react-router-dom";
 import api_call from "../../Functions/api_call";
-
+import { updateProfileCompleteStatus } from "../../Functions/CompleteProfile";
 import { Edit as EditIcon } from "@mui/icons-material";
 import ChooseTheme from "../../Pages/ChooseTheme";
 const Preview = ({ user, theme, setStep }) => {
@@ -35,6 +35,7 @@ const Preview = ({ user, theme, setStep }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [confirmationModal, setConfirmationModal] = useState(false);
 
 const {authuser} = api_call();
 const getUserData = () => {
@@ -47,15 +48,20 @@ const getUserData = () => {
 useEffect(() => {
      getUserData();
 }, [openModal]);
+ const handleCompleteProfile = () => {
+          updateProfileCompleteStatus('Complete');
+          navigate('/');
+     };
 
   const handleEditComponent = (component) => {
     setOpenModal(true);
     setEditComponent(component);
   };
   return (
+     <>
     <Box
       sx={{
-        backgroundColor: theme === "light" ? "#fff" : "#333",
+        backgroundColor: theme === "light" ? "#fff" : "black",
         color: theme === "light" ? "#000" : "#fff",
         borderRadius: "25px",
         border: "1px solid #9e9e9e",
@@ -79,7 +85,7 @@ useEffect(() => {
                 margin: "auto",
                 border:
                   theme === "dark"
-                    ? "3px dotted #4B5563"
+                    ? "3px dotted #fff"
                     : "3px dotted #4B5563",
               }}
             />
@@ -348,6 +354,7 @@ useEffect(() => {
             left: "50%",
             transform: "translate(-50%, -50%)",
             bgcolor: theme === "dark" ? "#131313" : "white",
+            border : "2px solid #9e9e9e",
             boxShadow: 24,
             display: "flex",
             alignItems: "center",
@@ -445,8 +452,68 @@ useEffect(() => {
                {snackbarMessage}
           </Alert>
           </Snackbar>
+     <div>
+
+     </div>
 
     </Box>
+          <div className="w-full px-20 mb-10 -mt-20">
+          <button
+          onClick={() => setConfirmationModal(true)}
+         className={`px-10 py-4 w-full  rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 `}
+              >
+                   Complete Your Profile And Start Exploring
+         </button>
+          </div>
+
+          <Modal open={confirmationModal} onClose={() => setConfirmationModal(false)}>
+          <Box
+          sx={{
+               position: "absolute",
+               height: "auto",
+               top: "50%",
+               left: "50%",
+               transform: "translate(-50%, -50%)",
+               bgcolor: theme === "dark" ? "#131313" : "white",
+               border : "2px solid #9e9e9e",
+               boxShadow: 24,
+               display: "flex",
+               alignItems: "center",
+               p: 6,
+               borderRadius: "25px",
+               width: "50vw",
+               transition: "all 0.3s ease-in-out",
+               overflowY: "auto",
+               "&:focus": {
+               outline: "none",
+               },
+          }}
+          >
+               <div>
+                    <p>
+                    Are you sure you want to complete your profile? Don't worry, you can always edit your profile later.
+                    </p>
+                    <div className="flex justify-center gap-4 mt-10">
+                    <button
+                    onClick={() => handleCompleteProfile()}
+                    className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+                    >
+                         Complete Profile
+                    </button>
+                    <button
+                    onClick={() => setConfirmationModal(false)}
+                    className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+                    >
+                         Review Profile
+                    </button>
+                    </div>
+               </div>
+          </Box>
+          
+                 
+          </Modal>
+
+    </>
   );
 };
 
