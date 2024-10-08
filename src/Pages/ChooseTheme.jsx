@@ -30,7 +30,6 @@ const ChooseTheme = ({inPreview,setOpenSnackbar,setSnackbarMessage,setSnackbarSe
         return;
        }
        else {
-          alert('Please complete the signup process to continue');
           navigate('/signup');
        }
       }

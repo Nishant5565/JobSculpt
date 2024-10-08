@@ -85,12 +85,10 @@ const login = async(values) => {
               navigate('/');
           } else {
               setIsLoading(false);
-              alert('Wrong Credentials! Please try again.');
           }
       } catch (error) {
         setIsLoading(false);
           if (error){
-              alert("Something went wrong. Please try again.");
           }
           console.error('Error:', error);
       }
