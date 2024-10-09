@@ -138,9 +138,9 @@ useEffect(() => {
               <div
                 key={device._id}
               >
-                <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-center mt-10">
-                  {device.location}
-                </p>
+                <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-center mt-10 uppercase">
+              {device.location && device.location.split(',').map(part => part.trim().toUpperCase()).join(' - ')}     
+              </p>
               </div>
             ))
             }
