@@ -313,3 +313,19 @@ export const updateTheme = async (theme) => {
     return err;
   }
 }
+
+export const getUserDevices = async () => { 
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.get(API_URL() + '/api/auth/devices', {
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+
+    return response.data;
+  } catch (err) {
+    console.error('Error fetching user devices:', err);
+    return [];
+  }
+}
