@@ -177,7 +177,7 @@ const UploadImage = ({ user, setStep, editStep, setPreviewOpenModal }) => {
           <button
             onClick={handleNext}
             className={`px-10 py-3 rounded-full ${theme !== 'dark' ? 'bg-white text-black hover:bg-black hover:text-white border-2 border-black' : 'bg-black text-white hover:bg-white hover:text-black '} transition-all duration-300\
-            hover:scale-105
+            hover:scale-105 ${!editStep && ' absolute bottom-10 right-10' }
             `}
           >
             {

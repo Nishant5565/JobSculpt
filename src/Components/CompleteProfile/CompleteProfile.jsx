@@ -25,8 +25,8 @@ const CompleteProfile = () => {
      const [isLoggedIn , setIsLoggedIn] = useState(false);
      const[loading, setLoading] = useState(false);
      const navigate = useNavigate();
-     const [step, setStep] = useState(''); //  Steps : Start , UploadImage,  UserDetail , Education , Work , Skills , Finish
-    //  Steps : Start , UploadImage,  UserDetail , Education , Work , Skills , Finish
+     const [step, setStep] = useState(''); 
+     const [reloadUser, setReloadUser] = useState(false);
      useEffect(() => {
       
       setLoading(true);
@@ -72,12 +72,12 @@ const CompleteProfile = () => {
      {/* <Navbar /> */}
      
     <JobSculptLogo  />
-     <div className={`  ${theme === 'dark' ? 'bg-black' : 'bg-white'} p-10 mb-10 ${step=='Preview'&& 'hidden'}`}>
-     <div className={`${theme === 'dark' ? 'bg-[#000000]' : 'bg-[#ffffff]'} rounded-[25px] p-6 mb-10 min-h-screen flex items-center justify-center `}>
-     <div className={`${theme === 'dark' ? ' bg-light-black border-2' : 'bg-[white]'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500`}>
+     <div className={`  ${theme === 'dark' ? 'bg-black' : 'bg-white'} md:p-10 mb-10 ${step=='Preview'&& 'hidden'}`}>
+     <div className={`${theme === 'dark' ? 'bg-[#000000]' : 'bg-[#ffffff]'} rounded-[25px] md:p-6 p-2 mb-10 min-h-screen flex items-center justify-center `}>
+     <div className={`${theme === 'dark' ? ' bg-light-black border-2' : 'bg-[white]'} container mx-auto max-w-4xl p-10 sm:p-20 rounded-3xl shadow-2xl transition-all duration-500 `}>
     {
       step == "Incomplete" ? (
-        userInfo?.role == 'user' ?  <Role setStep={setStep} theme = {theme} user = {userInfo}/> : <Start setStep={setStep} theme = {theme} userInfo = {userInfo} />
+        userInfo?.role == 'user' ?  <Role setStep={setStep} theme = {theme} user = {userInfo} setReloadUser ={setReloadUser} setUserInfo= {setUserInfo} isStarting = 'true'/> : <Start setStep={setStep} theme = {theme} userInfo = {userInfo} />
       ): null
     }
 
@@ -99,7 +99,6 @@ const CompleteProfile = () => {
     )}
      </div>
   <MinFooter />   
-
 </>
   )
 }    

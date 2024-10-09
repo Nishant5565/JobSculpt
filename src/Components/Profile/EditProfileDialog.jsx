@@ -13,8 +13,9 @@ const EditProfileDialog = ({ user, open, onClose, theme }) => {
   }, [user]);
 
   const checkUsername = async (userName) => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.post(API_URL + '/api/auth/check-username', { userName });
+      const response = await axios.post(API_URL + '/api/auth/check-username', { userName }, { headers: { 'x-auth-token': token } });
       setUsernameAvailable(response.data.msg);
     } catch (err) {
       console.error('Username check failed:', err);

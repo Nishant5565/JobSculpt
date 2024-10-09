@@ -84,7 +84,7 @@ const Start = ({ userInfo, setStep, theme }) => {
                 onChange={() => setIsTermsAccepted(!isTermsAccepted)}
               />
               <span className={`ml-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-                I accept the terms and conditions of JobSculpt  <a href="#" className="text-blue-500 underline">Terms of Service</a> and <a href="#" className="text-blue-500 underline">Privacy Policy</a>
+                I accept the terms and conditions of JobSculpt  <a href="/JobSculpt/term-of-service" target='_blanc' className="text-blue-500 underline">Terms of Service</a> and <a href="/JobSculpt/Privacy-policy" target='_blanc' className="text-blue-500 underline">Privacy Policy</a>
               </span>
             </label>
           </div>

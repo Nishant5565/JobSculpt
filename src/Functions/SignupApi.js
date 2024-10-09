@@ -15,8 +15,13 @@ export const debounce = (func, delay) => {
 
 export const checkUsername = async (userName, setUsernameAvailable) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await axios.post(API_URL + '/api/auth/check-username', {
       userName,
+    }, {
+      headers: {
+        'x-auth-token': token,
+      },
     });
 
     if (response.status !== 200) {

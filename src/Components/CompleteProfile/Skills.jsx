@@ -79,6 +79,12 @@ const Skills = ({ user, theme, setStep , editStep,setPreviewOpenModal, updateUse
       setPreviewOpenModal(false);
       return;
     }
+    if(userSkills.length <3){
+      setSnackbarMessage("Please add atleast 3 skills to continue");
+      setSnackbarSeverity('error');
+      setOpenSnackbar(true);
+      return;
+    }
     updateProfileCompleteStatus('Preview');
     setStep('Preview'); 
   };
@@ -149,16 +155,17 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
           {userSkills.map((skillObj) => (
               <ul key={skillObj._id}>
                 <li
+                className=' md:w-[200px] w-[160px]'
                   style={
                     {
                       color: theme === 'dark' ? 'white' : 'black',
                       transition: 'all 0.3s ease-in-out',
-                      width: '200px',
                       padding: '8px 10px',
                       borderRadius: '15px',
                       border: theme === 'dark' ? '2px solid white' : '2px solid black',
                       listStyle: 'none',
                     }
+
                   }
                  
                 >
@@ -214,7 +221,8 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
           </div>
           <hr />
 
-          <div className=' my-2 border-2 p-6 overflow-y-auto rounded-[20px]'>
+          <div className=' my-2 border-2 p-6 overflow-y-auto rounded-[20px] max-h-[290px] ScrollBar' 
+          >
             <p className=' pb-2'>
               {userSkills.length < 3 ? `Add ${3 - userSkills.length} more skill to your profile` : null}
             </p>
@@ -286,14 +294,18 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
         sx={{
           marginTop: '20px',
           borderRadius: '30px',
-          background: theme === 'dark' ? 'white' : 'black',
-          color: theme === 'dark' ? 'black' : 'white',
+          background: theme !== 'dark' ? 'white' : 'black',
+          color: theme !== 'dark' ? 'black' : 'white',
           padding: '10px 20px',
           fontSize: '18px',
+          border: '2px solid black',
+          boxShadow:'none',
           textTransform: 'none',
           transition: 'all 0.2s ease-in',
           '&:hover': {
             transform: 'scale(1.02)',
+            background: theme !== 'dark' ? 'black' : 'white',
+            color: theme !== 'dark' ? 'white' : 'black',
           },
         }}
       >
@@ -401,7 +413,6 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
             onClick={handleNext}
             className={`px-10 py-3 rounded-full ${theme !== 'dark' ? 'bg-white text-black hover:bg-black hover:text-white border-2 border-black' : 'bg-black text-white hover:bg-white hover:text-black '} transition-all duration-300\
             hover:scale-105`}
-            disabled={userSkills.length < 3}
           >
             {
               editStep ? 'Next' : 'Close'

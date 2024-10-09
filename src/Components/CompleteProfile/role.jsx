@@ -1,13 +1,18 @@
 import React from 'react';
 import { changeRole } from '../../Functions/CompleteProfile';
 
-const Role = ({  theme , back, setShowRoleComponent,setSnackbarMessage,setOpenSnackbar, setSnackbarSeverity ,setUser}) => {
+const Role = ({  theme , back, setShowRoleComponent,setSnackbarMessage,setOpenSnackbar, setSnackbarSeverity ,setUser,setUserInfo, isStarting}) => {
 
      const changeUserRole = async (role) => {
+          console.log(isStarting);
           const data = await changeRole(role);
-          setSnackbarMessage(data.data.msg);
-          setOpenSnackbar(true);
           if(data.status == 200){
+            if(isStarting == 'true'){
+              setUserInfo(data.data.user);
+              return;
+            }
+            setSnackbarMessage(data.data.msg);
+            setOpenSnackbar(true);
             setSnackbarSeverity('success');
             setUser(data.data.user);
             setShowRoleComponent(false);
@@ -15,9 +20,6 @@ const Role = ({  theme , back, setShowRoleComponent,setSnackbarMessage,setOpenSn
           else{
             setSnackbarSeverity('error');
           }
-
-          
-          
      }
   return (
     <>

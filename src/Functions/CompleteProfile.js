@@ -67,8 +67,8 @@ export const updateProfileCompleteStatus = async (status) => {
       }
       }
 
-      export const updateEducation = async (education) => {
-        try {
+  export const updateEducation = async (education) => {
+      try {
           const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
           const response = await axios.post(
             API_URL + '/api/auth/update-education',

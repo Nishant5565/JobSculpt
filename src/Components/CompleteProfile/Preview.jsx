@@ -119,13 +119,12 @@ useEffect(() => {
               - {updatedUser?.email}
             </p>
             <p
-              className={`text-[14px] font-semibold text-end ml-32 uppercase
+              className={`text-[14px] font-semibold text-end md:ml-32 ml:20 uppercase
                     ${theme === "dark" ? "text-gray-300" : "text-gray-400"}
                     `}
             >
-              - {updatedUser?.role}
+              {"- " + updatedUser?.role}
             </p>
-
           </div>
         </div>
      
@@ -140,7 +139,12 @@ useEffect(() => {
           <div className=" flex md:justify-end justify-center mt-10">
           <button
             onClick={() => handleEditComponent("UserDetail")}
-            className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+            className={`px-10 py-3 rounded-full border-2 ${
+              theme !== "dark"
+                ? "bg-white text-black hover:bg-black hover:text-white  border-black"
+                : "bg-black text-white hover:bg-white hover:text-black border-white "
+            } transition-all duration-300
+            hover:scale-105`}
           >
             Edit Profile
           </button>
@@ -152,18 +156,21 @@ useEffect(() => {
      </div>
      <div className=" flex w-full md:flex-row flex-col ">
      <div className="md:w-1/3 border-r-2 min-h-screen  ">
-          <div className="flex justify-between items-center p-6 my-10 md:flex-row flex-col">
-               <h2 className="text-[20px] font-semibold">Theme </h2>
-               <div className={`${theme === "dark" ? "bg-[#000000] text-white border-2 border-white" : "bg-[#fff] text-black border-2 border-black"} px-10 py-3 rounded-[10px]  my-4 md:my-0 `}>
-                    {updatedUser.theme}
-               </div>
-               <button
+          <div className="flex items-end p-6 my-10 gap-10 flex-col">
+                <div className=" flex justify-between w-full flex-wrap">
+                <h2 className="text-[20px] font-semibold p-1">Theme </h2>
+                <button
                onClick={() => handleEditComponent("theme")}
-               className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+               className={`px-10 py-3 rounded-full ${theme != 'dark' ? 'bg-white text-black border-black' : 'bg-black text-white '}  text-end uppercase flex  gap-20 items-center border-2`}
                >
-                    Edit Theme
+                <p>{updatedUser?.theme} </p> 
+                <div className={` transition-all duration-300 hover:scale-110 ${theme =='dark' ? 'hover:bg-white hover:text-black' :' hover:text-white hover:bg-black ' }rounded-full p-1 `}>
+                  <EditIcon />
+                </div>
                </button>
+                </div>
           </div>
+
           <hr />
           <div className=" my-10">
                <h2 className="text-[20px] font-semibold p-6">Skills</h2>
@@ -179,7 +186,12 @@ useEffect(() => {
                <div className="flex justify-end p-6">
                <button
                onClick={() => handleEditComponent("Skills")}
-               className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 `}
+               className={`px-10 py-3 rounded-full  border-2 ${
+              theme !== "dark"
+                ? "bg-white text-black hover:bg-black hover:text-white border-black"
+                : "bg-black text-white hover:bg-white hover:text-black "
+            } transition-all duration-300
+            hover:scale-105 `}
                >
                     Edit Skills
                </button>
@@ -257,7 +269,12 @@ useEffect(() => {
             <div className="flex justify-end w-full">  
                <button
                onClick={() => handleEditComponent("Education")}
-               className={`px-10 py-3 mr-10 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+               className={`px-10 py-3 rounded-full  border-2 ${
+              theme !== "dark"
+                ? "bg-white text-black hover:bg-black hover:text-white border-black"
+                : "bg-black text-white hover:bg-white hover:text-black "
+            } transition-all duration-300
+            hover:scale-105 mr-10`}
                >
                     {
                          updatedUser?.education.length > 0 ? 'Edit Education' : 'Add Education'
@@ -328,7 +345,12 @@ useEffect(() => {
             <div className="flex justify-end w-full">  
                <button
                onClick={() => handleEditComponent("Work")}
-               className={`px-10 py-3 mr-10 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
+               className={`px-10 py-3 rounded-full border-2 ${
+              theme !== "dark"
+                ? "bg-white text-black hover:bg-black hover:text-white  border-black"
+                : "bg-black text-white hover:bg-white hover:text-black "
+            } transition-all duration-300
+            hover:scale-105 mr-10`}
                >
                     {
                          updatedUser?.workExperience.length > 0 ? 'Edit Experience' : 'Add Experience'
@@ -346,27 +368,24 @@ useEffect(() => {
       </div>
 
       <Modal open={openModal} onClose={() => setOpenModal(false)}>
-        <Box
-          sx={{
+        <div
+        className=" md:w-[80vw] md:h-[98vh] h-[80vh] outline-none"
+          style={{
             position: "absolute",
-            height: "98vh",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            bgcolor: theme === "dark" ? "#131313" : "white",
+            background: theme === "dark" ? "#131313" : "white",
             border : "2px solid #9e9e9e",
             boxShadow: 24,
             display: "flex",
             alignItems: "center",
             p: 6,
             borderRadius: "25px",
-            width: "90vw",
             transition: "all 0.3s ease-in-out",
             overflowY: "auto",
-            "&:focus": {
-              outline: "none",
-            },
           }}
+          
         >
           <div className=" w-screen">
             <div>
@@ -378,6 +397,7 @@ useEffect(() => {
                   setPreviewOpenModal={setOpenModal}
                 />
               )}
+              <div className=" mt-20">
               {editComponent == "UserDetail" && (
                 <UserDetail
                   userInfo={user}
@@ -390,7 +410,8 @@ useEffect(() => {
                   setSnackbarSeverity={setSnackbarSeverity}
                 />
               )}
-               <div className="flex flex-col items-center">
+              </div>
+              <div className="flex flex-col items-center">
               {editComponent == "Education" && (
                 <Education
                   user={user}
@@ -413,8 +434,8 @@ useEffect(() => {
 
                 />
               )}
-                 </div>  
-               <div className="flex flex-col items-center">
+            </div>  
+              <div className=" mx-auto md:w-[60vw] flex flex-col items-center p-10 rounded-[25px]">
                {editComponent == "Skills" && (
                 <Skills
                   user={user}
@@ -423,7 +444,7 @@ useEffect(() => {
                   setPreviewOpenModal={setOpenModal}
                 />
               )}
-               </div>
+              </div>
               {editComponent == "theme" && (
                 <ChooseTheme theme={theme} inPreview={true} 
                 setOpenSnackbar={setOpenSnackbar}
@@ -433,10 +454,9 @@ useEffect(() => {
                 setUpdatedUser={setUpdatedUser}
                 />
                )}
-
             </div>
           </div>
-        </Box>
+        </div>
       </Modal>
           <Snackbar
           open={openSnackbar}
@@ -460,7 +480,7 @@ useEffect(() => {
           <div className="w-full px-20 mb-10 -mt-20">
           <button
           onClick={() => setConfirmationModal(true)}
-         className={`px-10 py-4 w-full  rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 `}
+         className={`px-10 py-4 w-full border-2 rounded-full ${theme != 'dark' ? 'bg-white text-black hover:bg-black hover:text-white  border-black' : 'bg-black border-white text-white hover:bg-white hover:text-black '} transition-all duration-300 hover:scale-105 `}
               >
                    Complete Your Profile And Start Exploring
          </button>
