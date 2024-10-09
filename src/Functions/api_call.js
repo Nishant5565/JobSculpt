@@ -24,7 +24,6 @@ const api_call = () => {
               localStorage.removeItem('token');
             }
             const data = await response.json();
-            console.log(data);
             if(data == null){
               localStorage.removeItem('token');
               navigate('/login');

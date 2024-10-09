@@ -81,7 +81,7 @@ useEffect(() => {
         }`}>
       <div className="flex justify-between items-center md:flex-row flex-col"
       >
-        <div className=" flex items-center justify-between w-1/2">
+        <div className=" flex items-center justify-between w-full flex-wrap md:w-1/2">
           <div style={{ position: "relative", display: "inline-block" }}>
             <Avatar
               src={updatedUser?.profileImage}
@@ -138,7 +138,7 @@ useEffect(() => {
               <div
                 key={device._id}
               >
-                <p className="text-[20px] font-semibold">
+                <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-center mt-10">
                   {device.location}
                 </p>
               </div>
