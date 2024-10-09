@@ -16,7 +16,7 @@ const VerifyEmail = () => {
     const Maintoken = localStorage.getItem('token');
     try {
       const response = await axios.post(
-        `${API_URL}/api/auth/check-email-verified`,
+        `${API_URL()}/api/auth/check-email-verified`,
         {},
         {
           headers: {
@@ -41,7 +41,7 @@ const VerifyEmail = () => {
     try {
       checkEmailVerified()  
       const response = await axios.post(
-        `${API_URL}/api/auth/send-email-verification-link`,
+        `${API_URL()}/api/auth/send-email-verification-link`,
         {},
         {
           headers: {

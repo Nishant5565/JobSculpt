@@ -5,7 +5,7 @@ export const changeRole = async (role) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/change-role',
+      API_URL() + '/api/auth/change-role',
       { role },
       {
         headers: {
@@ -26,7 +26,7 @@ export const updateProfileCompleteStatus = async (status) => {
      try {
      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
      const response = await axios.post(
-          API_URL + '/api/auth/update-profile-complete-status',
+          API_URL() + '/api/auth/update-profile-complete-status',
           { status },
           {
           headers: {
@@ -51,7 +51,7 @@ export const updateProfileCompleteStatus = async (status) => {
       try {
       const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
       const response = await axios.post(
-            API_URL + '/api/auth/update-username',
+            API_URL() + '/api/auth/update-username',
             { userName, name, about, dob },
             {
             headers: {
@@ -71,7 +71,7 @@ export const updateProfileCompleteStatus = async (status) => {
       try {
           const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
           const response = await axios.post(
-            API_URL + '/api/auth/update-education',
+            API_URL() + '/api/auth/update-education',
             { education },
             {
               headers: {
@@ -94,7 +94,7 @@ export const editEducation = async (education, index) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/edit-education',
+      API_URL() + '/api/auth/edit-education',
       { education , index},
       {
         headers: {
@@ -117,7 +117,7 @@ export const deleteEducation = async (index) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/delete-education',
+      API_URL() + '/api/auth/delete-education',
       { index },
       {
         headers: {
@@ -140,7 +140,7 @@ export const updateWorkExperience = async (experience) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/update-work-experience',
+      API_URL() + '/api/auth/update-work-experience',
       { experience },
       {
         headers: {
@@ -163,7 +163,7 @@ export const editWorkExperience = async (experience, index) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/edit-work-experience',
+      API_URL() + '/api/auth/edit-work-experience',
       { experience, index },
       {
         headers: {
@@ -186,7 +186,7 @@ export const deleteWorkExperience = async (index) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/delete-work-experience',
+      API_URL() + '/api/auth/delete-work-experience',
       { index },
       {
         headers: {
@@ -207,7 +207,7 @@ export const deleteWorkExperience = async (index) => {
 
 export const getAllSkills = async () => {
   try {
-    const response = await axios.get(API_URL + '/api/jobsculpt/admin/auth/skills', {
+    const response = await axios.get(API_URL() + '/api/jobsculpt/admin/auth/skills', {
       headers: {
         'x-auth-token': localStorage.getItem('token'),
       },
@@ -226,7 +226,7 @@ export const getAllSkills = async () => {
 export const getUserSkills = async () => {
   try {
     const token = localStorage.getItem('token'); 
-    const response = await axios.get(API_URL + '/api/auth/user-skills', {
+    const response = await axios.get(API_URL() + '/api/auth/user-skills', {
       headers: {
         'x-auth-token': token,
       },
@@ -249,7 +249,7 @@ export const addSkill = async (skill, proficiency) => {
   try {
     const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
     const response = await axios.post(
-      API_URL + '/api/auth/add-user-skills',
+      API_URL() + '/api/auth/add-user-skills',
       { skill, proficiency },
       {
         headers: {
@@ -275,7 +275,7 @@ export const deleteSkill = async (name) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.post(
-      API_URL + '/api/auth/delete-user-skill',
+      API_URL() + '/api/auth/delete-user-skill',
       { name },
       {
         headers: {
@@ -298,7 +298,7 @@ export const updateTheme = async (theme) => {
   try {
     const token = localStorage.getItem('token');
     const response = await axios.post(
-      API_URL + '/api/auth/update-theme',
+      API_URL() + '/api/auth/update-theme',
       { theme },
       {
         headers: {

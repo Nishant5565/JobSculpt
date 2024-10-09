@@ -111,7 +111,7 @@
 
     const checkUsername = async (userName) => {
       try {
-        const response = await axios.post(API_URL + '/api/auth/check-username', { userName });
+        const response = await axios.post(API_URL() + '/api/auth/check-username', { userName });
         setUsernameAvailable(response.data.msg);
       } catch (err) {
         console.error('Username check failed:', err);
@@ -126,7 +126,7 @@
       }
 
       try {
-        const response = await fetch(API_URL + '/api/auth/auth-user', {
+        const response = await fetch(API_URL() + '/api/auth/auth-user', {
           method: 'POST',
           headers: {
             'x-auth-token': token,
@@ -177,7 +177,7 @@
       formData.append('image', file);
 
       try {
-        const response = await fetch(API_URL + '/upload', {
+        const response = await fetch(API_URL() + '/upload', {
           method: 'POST',
           body: formData,
           headers: {
@@ -207,7 +207,7 @@
       }
 
       try {
-        const response = await fetch(API_URL + '/api/auth/update-profile', {
+        const response = await fetch(API_URL() + '/api/auth/update-profile', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

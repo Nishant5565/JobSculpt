@@ -16,7 +16,7 @@ const Api = () => {
       navigate('/login');
     }
     try{
-      const response = await axios.get(`${API_URL}/auth-user`, 
+      const response = await axios.get(`${API_URL()}/auth-user`, 
       {
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const Api = () => {
     try {
       const response = await axios({
         method: method,
-        url: `${API_URL}/${path}`,
+        url: `${API_URL()}/${path}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -65,7 +65,7 @@ const Api = () => {
 const login = async(values) => {
       setIsLoading(true);
         try {
-          const response = await fetch( `${API_URL}/login` , {
+          const response = await fetch( `${API_URL()}/login` , {
               method: 'POST',
               headers: {
                     'Content-Type': 'application/json',

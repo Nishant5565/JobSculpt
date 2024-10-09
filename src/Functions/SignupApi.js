@@ -16,7 +16,7 @@ export const debounce = (func, delay) => {
 export const checkUsername = async (userName, setUsernameAvailable) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(API_URL + '/api/auth/check-username', {
+    const response = await axios.post(API_URL() + '/api/auth/check-username', {
       userName,
     }, {
       headers: {
@@ -40,7 +40,7 @@ export const handleGoogleSuccess = async (response, role, navigate) => {
       token: response.credential, 
       role: role,
     };
-    const res = await axios.post(API_URL + '/api/auth/google', data);
+    const res = await axios.post(API_URL() + '/api/auth/google', data);
     if (!res.data.token) {
       console.error('Login failed:', res.data);
       return;
@@ -55,14 +55,14 @@ export const handleGoogleSuccess = async (response, role, navigate) => {
 export const registerUser = async (emailFormik, values, role, setIsLoading, navigate, setMessages) => {
   try {
     setIsLoading(true);
-    const response = await axios.post(API_URL + '/api/auth/register', {
+    const response = await axios.post(API_URL() + '/api/auth/register', {
       userName: emailFormik.values.userName,
       email: emailFormik.values.email,
       password: values.password,
       role: role,
     });
     setIsLoading(false);
-
+    console.log(response);
     if (response.status !== 200) {
       console.error('Registration failed:', response.data);
       setMessages('Registration failed');

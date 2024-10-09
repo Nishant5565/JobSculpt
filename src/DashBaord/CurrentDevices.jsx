@@ -13,7 +13,7 @@ const CurrentDevices = () => {
 
     const fetchDevices = async () => {
       try {
-        const response = await axios.get(API_URL + "/api/auth/devices" , {
+        const response = await axios.get(API_URL() + "/api/auth/devices" , {
           headers: {
             "x-auth-token": localStorage.getItem("token"),
           },

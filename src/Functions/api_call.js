@@ -5,6 +5,7 @@ const api_call = () => {
      const [user, setUser] = useState({});
       const navigate = useNavigate();
      const authuser = async () => {
+          console.log(API_URL());
           const token = localStorage.getItem('token');
           if (!token) {
             console.log('No token found');
@@ -12,7 +13,7 @@ const api_call = () => {
           }
   
           try {
-            const response = await fetch(API_URL + '/api/auth/auth-user', {
+            const response = await fetch(API_URL() + '/api/auth/auth-user', {
               method: 'POST',
               headers: {
                 'x-auth-token': token,

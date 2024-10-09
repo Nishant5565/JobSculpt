@@ -48,7 +48,7 @@ const Login = () => {
 
   const sendEmailVerificationLink = async () => {
     try {
-      const response = await axios.post(API_URL + '/api/auth/send-email-verification-link', {
+      const response = await axios.post(API_URL() + '/api/auth/send-email-verification-link', {
       }, {
         headers: {
           'x-auth-token': localStorage.getItem('token'),
@@ -76,7 +76,7 @@ const Login = () => {
     onSubmit: async (values) => {
       try {
         setIsLoading(true);
-        const response = await axios.post( API_URL+ '/api/auth/login', {
+        const response = await axios.post( API_URL()+ '/api/auth/login', {
           email: emailFormik.values.email,
           password: values.password,
         });
@@ -119,7 +119,7 @@ const Login = () => {
       const data = {
         token: response.credential, // or response.tokenId depending on the library version
       };
-      const res = await axios.post(API_URL + '/api/auth/google', data);
+      const res = await axios.post(API_URL() + '/api/auth/google', data);
       if (!res.data.token) {
         console.error('Login failed:', res.data);
         return;

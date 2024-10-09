@@ -55,7 +55,7 @@ const EditPhotoModal = ({
       const formData = new FormData();
       formData.append("image", croppedImageBlob, "croppedImage.png");
 
-      const response = await axios.post(API_URL + "/upload", formData, {
+      const response = await axios.post(API_URL() + "/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "x-auth-token": localStorage.getItem("token"),

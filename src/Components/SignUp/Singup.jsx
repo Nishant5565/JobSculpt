@@ -56,7 +56,7 @@ const Signup = () => {
   const registerUser = async (emailFormik, values, role, setIsLoading, navigate) => {
       try {
         setIsLoading(true);
-        const response = await axios.post(API_URL + '/api/auth/register', {
+        const response = await axios.post(API_URL() + '/api/auth/register', {
           userName: emailFormik.values.userName,
           email: emailFormik.values.email,
           password: values.password,

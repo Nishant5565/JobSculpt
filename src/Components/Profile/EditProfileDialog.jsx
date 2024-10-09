@@ -15,7 +15,7 @@ const EditProfileDialog = ({ user, open, onClose, theme }) => {
   const checkUsername = async (userName) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.post(API_URL + '/api/auth/check-username', { userName }, { headers: { 'x-auth-token': token } });
+      const response = await axios.post(API_URL() + '/api/auth/check-username', { userName }, { headers: { 'x-auth-token': token } });
       setUsernameAvailable(response.data.msg);
     } catch (err) {
       console.error('Username check failed:', err);
@@ -43,7 +43,7 @@ const EditProfileDialog = ({ user, open, onClose, theme }) => {
     }
 
     try {
-      const response = await fetch(API_URL + '/api/auth/update-profile', {
+      const response = await fetch(API_URL() + '/api/auth/update-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
