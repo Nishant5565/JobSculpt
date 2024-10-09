@@ -57,8 +57,15 @@ useEffect(() => {
     setOpenModal(true);
     setEditComponent(component);
   };
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   return (
      <>
+     <button onClick={() => logout()} className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 absolute right-20 top-10`}>
+      Logout 
+     </button>
     <Box
       sx={{
         backgroundColor: theme === "light" ? "#fff" : "black",
@@ -74,7 +81,7 @@ useEffect(() => {
         }`}>
       <div className="flex justify-between items-center md:flex-row flex-col"
       >
-        <div className=" flex items-center gap-8">
+        <div className=" flex items-center justify-between w-1/2">
           <div style={{ position: "relative", display: "inline-block" }}>
             <Avatar
               src={updatedUser?.profileImage}
@@ -125,6 +132,18 @@ useEffect(() => {
             >
               {"- " + updatedUser?.role}
             </p>
+          </div>
+          <div>
+            {updatedUser?.devices.map((device) => (
+              <div
+                key={device._id}
+              >
+                <p className="text-[20px] font-semibold">
+                  {device.location}
+                </p>
+              </div>
+            ))
+            }
           </div>
         </div>
      
