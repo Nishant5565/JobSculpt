@@ -116,20 +116,9 @@ const EditPhotoModal = ({
           }}
         >
           <div>
-            <Typography
-              id="modal-title"
-              variant="h5"
-              component="h2"
-              sx={{
-                mb: 2,
-                fontWeight: "bold",
-                textAlign: "center",
-                textTransform: "uppercase",
-                color: theme === "dark" ? "white" : "black",
-              }}
-            >
+            <p className="text-center font-semibold text-[30px] mt-4">
               Edit Profile Image
-            </Typography>
+            </p>
             <Typography
               id="modal-description"
               sx={{
@@ -143,14 +132,14 @@ const EditPhotoModal = ({
             </Typography>
           </div>
 
-          <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid item xs={12} md={6}>
+          <div className="flex justify-around items-center md:flex-row flex-col">
+            <div className="flex justify-between ">
               {previewImage ? (
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-between items-center">
                   <div
                     style={{
+                      width:'100%',
                       position: "relative",
-                      width: "100%",
                       height: "200px",
                       background: "#333",
                     }}
@@ -190,7 +179,7 @@ const EditPhotoModal = ({
                   </Typography>
                 </div>
               )}
-            </Grid>
+            </div>
 
             <Grid item xs={12} md={6}>
               <div className="flex flex-col items-center justify-center mt-4 md:mt-0">
@@ -203,7 +192,7 @@ const EditPhotoModal = ({
                       sx={{ width: 150, height: 150, mb: 2, border: theme === "dark" ? "2px dotted white" : "2px dotted black" }}
                     />
                   </div>
-                  <div className="md:flex gap-5 items-center md:visible hidden">
+                  <div className="md:flex gap-5 items-center hidden md:visible">
                     <Avatar
                       alt="Cropped Preview"
                       src={croppedImageUrl}
@@ -235,7 +224,7 @@ const EditPhotoModal = ({
                 </div>
                 <Box
                   sx={{
-                    width: { xs: "80vw", md: "100%" },
+                    width: { xs: "80vw", md: "40vw" },
                     height: previewImage ? "" : "300px",
                     textAlign: "center",
                     display: "flex",
@@ -278,7 +267,7 @@ const EditPhotoModal = ({
                 </Box>
               </div>
             </Grid>
-          </Grid>
+          </div>
 
           <Grid container spacing={2} justifyContent="flex-end" mt={4}>
             <Grid item>

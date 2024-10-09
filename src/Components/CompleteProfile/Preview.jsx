@@ -230,7 +230,7 @@ useEffect(() => {
 
      <h2 className="text-[20px] font-semibold p-6">Education</h2>
       <div className="flex flex-wrap justify-center gap-6 mb-10 md:p-0 px-4">
-        {updatedUser?.education.length > 0 ? (
+        {updatedUser?.education?.length > 0 ? (
           updatedUser?.education.map((item, index) => (
             <div
               key={index}
@@ -296,7 +296,7 @@ useEffect(() => {
             hover:scale-105 mr-10`}
                >
                     {
-                         updatedUser?.education.length > 0 ? 'Edit Education' : 'Add Education'
+                         updatedUser?.education?.length > 0 ? 'Edit Education' : 'Add Education'
                     }
                </button>
                </div>
@@ -305,7 +305,7 @@ useEffect(() => {
 
       <h2 className="text-[20px] font-semibold p-6">Work Experience</h2>
       <div className="flex flex-wrap justify-center gap-6 mb-20 md:p-0 px-4">
-        {updatedUser?.workExperience.length > 0 ? (
+        {updatedUser?.workExperience?.length > 0 ? (
           updatedUser?.workExperience.map((item, index) => (
             <div
               key={index}
@@ -372,7 +372,7 @@ useEffect(() => {
             hover:scale-105 mr-10`}
                >
                     {
-                         updatedUser?.workExperience.length > 0 ? 'Edit Experience' : 'Add Experience'
+                         updatedUser?.workExperience?.length > 0 ? 'Edit Experience' : 'Add Experience'
                     }
                </button>
                </div>

@@ -149,7 +149,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
         Add Your Skills
       </Typography>
 
-      {userSkills.length > 0  ? (
+      {userSkills?.length > 0  ? (
         <Box>
           <div className='flex flex-wrap gap-4'>
           {userSkills.map((skillObj) => (
@@ -180,7 +180,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
             ))}
           </div>
           {
-            userSkills.length <3 && (
+            userSkills?.length <3 && (
               <p className={` text-center mt-3 mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'} ${openDialog && ' hidden'}`}>
                 Add at least 3 skills to get started.
               </p> )
@@ -224,7 +224,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
           <div className=' my-2 border-2 p-6 overflow-y-auto rounded-[20px] max-h-[290px] ScrollBar' 
           >
             <p className=' pb-2'>
-              {userSkills.length < 3 ? `Add ${3 - userSkills.length} more skill to your profile` : null}
+              {userSkills?.length < 3 ? `Add ${3 - userSkills?.length} more skill to your profile` : null}
             </p>
             <div className='flex gap-2 flex-wrap '>
               {userSkills.map((skillObj) => (
@@ -256,7 +256,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
           </div>
 
           <div className='absolute'>
-            {filteredSkills.length === 0 ? (
+            {filteredSkills?.length === 0 ? (
               <div className={`cursor-pointer rounded-[20px] ${theme === 'dark' ? 'hover:bg-[#1E1E1E] text-white' : 'hover:bg-[#F3F4F6] text-black'} px-4 py-3 mt-2 transition-all duration-300`}>
                 No skills found 
               </div>
@@ -310,7 +310,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
         }}
       >
          {
-          userSkills.length < 3 ? 'Add Skill' : 'Add More Skills'
+          userSkills?.length < 3 ? 'Add Skill' : 'Add More Skills'
          }
       </Button>
 

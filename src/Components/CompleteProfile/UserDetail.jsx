@@ -128,7 +128,7 @@ const UserDetail = ({
                     className={`w-full px-4 py-3 border-2 rounded-full focus:ring-4 focus:ring-primary outline-none transition-all duration-300 text-black ${usernameAvailable === "Username already exists" ? "border-red-500" : ""}`}
                   />
                   <ErrorMessage name="userName" component="div" className="text-red-500 mt-1" />
-                  {values?.userName.length > 5 &&  (
+                  {values?.userName?.length > 5 &&  (
                     <Typography
                       variant="body2"
                       sx={{
@@ -230,8 +230,8 @@ const UserDetail = ({
               <div className="flex justify-end w-full mt-10 gap-6">
                 <button
                   type="submit"
-                  className={`px-10 py-3 rounded-full ${theme !== "dark" ? "bg-white text-black hover:bg-black hover:text-white border-2 border-black" : "bg-black text-white hover:bg-white hover:text-black"} transition-all duration-300 hover:scale-105 ${values?.userName.length < 5 || usernameAvailable === "Username already exists" ? "cursor-not-allowed" : ""}`}
-                  disabled={ values?.userName.length < 5 || usernameAvailable === "Username already exists" || isSubmitting}
+                  className={`px-10 py-3 rounded-full ${theme !== "dark" ? "bg-white text-black hover:bg-black hover:text-white border-2 border-black" : "bg-black text-white hover:bg-white hover:text-black"} transition-all duration-300 hover:scale-105 ${values?.userName?.length < 5 || usernameAvailable === "Username already exists" ? "cursor-not-allowed" : ""}`}
+                  disabled={ values?.userName?.length < 5 || usernameAvailable === "Username already exists" || isSubmitting}
                 >
                   {editStep ? "Next" : "Update"}
                 </button>

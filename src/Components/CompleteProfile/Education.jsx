@@ -124,7 +124,7 @@ const Education = ({ user, theme, setStep, page, editStep, setPreviewOpenModal }
         {page === 'education' ? 'Education Details' : 'Work Experience Details'}
       </Typography>
 
-      {data.length > 0 ? (
+      {data?.length > 0 ? (
         data.map((item, index) => (
           <div
             key={index}
@@ -454,7 +454,7 @@ const Education = ({ user, theme, setStep, page, editStep, setPreviewOpenModal }
         >
           {editStep ? 'Next' : 'Close'}
         </button>
-        {editStep && data.length === 0 && (
+        {editStep && data?.length === 0 && (
           <button
             onClick={handleNext}
             className={`px-10 py-3 rounded-full ${
