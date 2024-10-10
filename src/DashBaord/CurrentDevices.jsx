@@ -3,6 +3,7 @@ import { Paper, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../Functions/Constants";
+import Spinner2 from "../Components/ShimmerAndSpinner/Spinner2";
 
 const CurrentDevices = () => {
 
@@ -35,7 +36,7 @@ const CurrentDevices = () => {
     <div className=" min-h-[300px] flex flex-col rounded-[22px] border-[#feb47b]">
     <div
       style={{
-        p: 2,
+        padding: 2,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -49,6 +50,30 @@ const CurrentDevices = () => {
     </div>
     <div className=" ">
 
+      {loading ? (
+        <div>
+          <Spinner2 />
+        </div>
+      ) : (
+        <>
+        <div>
+          {devices.map((device) => (
+            <Paper
+              key={device._id}
+              elevation={3}
+              className="flex flex-col justify-between items-center p-3 my-2"
+            >
+             <p>
+                <strong>Device:</strong> {device.deviceName}
+             </p>
+             <p>
+             Last Active: {device.lastLogin}
+             </p>
+            </Paper>
+          ))}
+        </div>
+        
+        </>)}
     </div>
     </div>
   );

@@ -43,7 +43,11 @@ const Navbar = () => {
     const user = localStorage.getItem("token");
     if (user) {
       authuser().then((data) => {
+        console.log(data.theme);
         if (data) {
+          if (data.theme != theme) {
+            toggleTheme();
+          }
           setIsLoggedIn(true);
           setUserInfo(data);
         }

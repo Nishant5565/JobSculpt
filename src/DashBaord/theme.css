@@ -1,0 +1,74 @@
+.theme-switch-wrapper{
+  width: 100px;
+  height: 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-sizing: content-box;
+}
+
+.dark {
+  background-color: #000;
+  color: #fff;
+  border : 2px solid #fff;
+  transition: all 0.3s;
+}
+
+.light {
+  background-color: #fff;
+  color: #000;
+  border : 2px solid #000;
+  transition: all 0.3s;
+}
+.slider{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.534);
+  transition: all 1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left
+{
+  transform: translateX(0) ;
+}
+
+.left::before
+{
+  content: 'Light';
+  position: absolute;
+  left : 60px;
+  overflow: hidden;
+  color: #000;
+}
+.right
+{
+  transform: translateX(70px);
+  background: #000;
+}
+
+.right::before
+{
+  content: 'Dark';
+  position: absolute;
+  right : 60px;
+  overflow: hidden;
+  color: #fff;
+  
+}
+
+.norotate
+{
+  transform: rotate(0deg);
+  transition: all 1s;
+}
+.rotate 
+{
+  transform: rotate(180deg);
+  transition: all 1s;
+}
+
+
