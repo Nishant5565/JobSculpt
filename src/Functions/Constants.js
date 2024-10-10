@@ -12,7 +12,7 @@ export function API_URL() {
     return API_URL3;
   } else if (currentUrl.startsWith('http://localhost:5173/JobSculpt')) {
      console.log('API_URL1');
-    return API_URL1;
+    return API_URL2;
   } else if (currentUrl.startsWith('https://nishant5565.github.io/JobSculpt')) {
      console.log('API_URL2');
     return API_URL2;

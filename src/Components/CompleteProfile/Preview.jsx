@@ -61,6 +61,20 @@ useEffect(() => {
     localStorage.removeItem("token");
     navigate("/login");
   }
+
+  const getTimeInTimeZone = (timeZone) => {
+    const date = new Date();
+    const options = {
+      timeZone,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false,
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  };
+
+
   return (
      <>
      <button onClick={() => logout()} className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 absolute right-20 top-10`}>
@@ -138,9 +152,13 @@ useEffect(() => {
               <div
                 key={device._id}
               >
-                <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-center mt-10 uppercase">
-              {device.location && device.location.split(',').map(part => part.trim().toUpperCase()).join(' - ')}     
+              <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-end mt-10 uppercase">
+              {device.location[0].city + " - " + device.location[0].country } 
+              <br />   
+  
+              Time Zone {device.location[0].timeZone}
               </p>
+
               </div>
             ))
             }
