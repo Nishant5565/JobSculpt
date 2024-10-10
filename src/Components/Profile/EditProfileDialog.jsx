@@ -53,7 +53,6 @@ const EditProfileDialog = ({ user, open, onClose, theme }) => {
       });
       const data = await response.json();
       if (data.success) {
-        console.log('Profile updated successfully:', data);
         onClose();
         return;
       } else {

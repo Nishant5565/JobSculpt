@@ -5,10 +5,8 @@ const api_call = () => {
      const [user, setUser] = useState({});
       const navigate = useNavigate();
      const authuser = async () => {
-          console.log(API_URL());
           const token = localStorage.getItem('token');
           if (!token) {
-            console.log('No token found');
             return 'No token found';
           }
   

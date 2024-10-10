@@ -1,45 +1,31 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import { Brightness4 as Brightness4Icon, Brightness7 as Brightness7Icon } from '@mui/icons-material';
-import { updateTheme } from '../Functions/CompleteProfile';
-import { useState } from 'react';
+import { updateTheme } from '../../Functions/CompleteProfile';
+import { useState,useContext } from 'react';
 import {Snackbar , Alert} from '@mui/material';
-const ThemeSwitcher = ({ theme, toggleTheme }) => {
+const ThemeSwitcher = ({theme, toggleTheme}) => {
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
-
   const iconStyle = {
     color: theme === 'dark' ? '#fb0505' : 'inherit', // Change to yellow when dark theme
     transition : 'all 0.3s ease-in-out'
   };
-  const token = localStorage.getItem('token');
-  
-  const handleUpdateTheme = async (theme) => {
-    if(!token){
-      toggleTheme();
-      return;
-    }
-    const data = await updateTheme(theme);
-    toggleTheme();  
-    console.log(data);
-      if(data.status === 200){
-      setOpenSnackbar(true);
-      setSnackbarMessage(theme + " Mode Enabled");
-      setSnackbarSeverity(theme !== 'dark' ? 'white' : 'black');
-    }
-    else {
-      setOpenSnackbar(true);
-      setSnackbarMessage("Error Updating Theme");
-      setSnackbarSeverity('error');
-    }
+  const handleUpdateTheme= () =>{
+    toggleTheme();
+    setSnackbarMessage(theme + " Mode Enabled");
+    setSnackbarSeverity(theme !== 'dark' ? 'white' : 'black');
+    setOpenSnackbar(true);
   }
+  
+  
 
   return (
     <>
     <IconButton onClick={() => {
-        handleUpdateTheme(theme === 'dark' ? 'light' : 'dark');
+        handleUpdateTheme();
       }
     } color="inherit">
       {theme === 'dark' ? <Brightness7Icon style={iconStyle} /> : <Brightness4Icon />}
@@ -56,7 +42,6 @@ const ThemeSwitcher = ({ theme, toggleTheme }) => {
           severity={snackbarSeverity}
           sx={{ width: '100%' , 
             textTransform: 'capitalize',
-
             bgcolor: theme == 'dark' ? '#000' : '#fff',
             color: theme == 'dark' ? '#fff' : '#000',
             border: theme == 'dark' ? '2px solid #fff' : '2px solid #000',

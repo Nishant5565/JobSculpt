@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState,useContext } from 'react';
 import { Box, Avatar, Skeleton, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ColorThief from 'colorthief';
+import ThemeSwitcher from './ThemeSwitcher';
+import { ThemeContext } from '../Pages/ThemeContext';
 
 
-const ProfileSection = ({ user, theme, handleOpen , size}) => {
+const ProfileSection = ({ user, handleOpen , size}) => {
   const [dominantColor, setDominantColor] = useState(null);
   const imageRef = useRef(null);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   // Function to calculate brightness of a color
   const calculateBrightness = (color) => {
@@ -123,6 +126,7 @@ const ProfileSection = ({ user, theme, handleOpen , size}) => {
           {user?.userName}
         </h2>
       </Box>
+      <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
     </Box>
     </>
   );

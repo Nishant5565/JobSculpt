@@ -1,22 +1,33 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Box, Toolbar, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import HomeSection from './HomeSection';
-import ThemeSwitcher from './ThemeSwitcher';
 import { ThemeContext } from '../Pages/ThemeContext';
 import api_call from '../Functions/api_call';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const {authuser} = api_call();
 
   useEffect(() => {
-    const data = authuser().then((data) => {
+    const getUser = async () => {
+
+      if (!localStorage.getItem('token')) {
+        navigate('/login');
+        return;
+      }
+      authuser().then((data) => {
         setUser(data);
-        console.log(data);
+    }).catch((error) => {
+        console.error("Error fetching user data:", error);
+        navigate('/login');
     });
+    }
+    getUser();
   }, []);
 
   return (

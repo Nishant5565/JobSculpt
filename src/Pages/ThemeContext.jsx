@@ -18,6 +18,7 @@ export const ThemeContextProvider = ({ children }) => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
     document.body.style.backgroundColor = theme == 'dark' ? '#f0f0f0' : '#1f1f1f';
     document.body.style.color = theme == 'dark' ? '#333' : '#f0f0f0';
+    localStorage.setItem('theme', theme);
   };
 
   const themeConfig = createTheme({

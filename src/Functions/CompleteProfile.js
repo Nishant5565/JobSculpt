@@ -231,7 +231,6 @@ export const getUserSkills = async () => {
         'x-auth-token': token,
       },
     });
-    console.log(response);
     if (response.status !== 200) {
       console.error('Error fetching user skills:', response.data);
       return [];

@@ -155,7 +155,6 @@ useEffect(() => {
               <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-end mt-10 uppercase">
               {device.location[0].city + " - " + device.location[0].country } 
               <br />   
-  
               Time Zone {device.location[0].timeZone}
               </p>
 

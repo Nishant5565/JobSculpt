@@ -36,11 +36,9 @@ const CompleteProfile = () => {
         }
        if (user) {
          authuser().then((data) => {  
-          console.log(data);
            if (data) {
              setIsLoggedIn(true);
              setUserInfo(data);
-             console.log(data);
              setStep(data?.profileCompleteStatus);
              if(data?.profileCompleteStatus == "Complete"){
                navigate('/');

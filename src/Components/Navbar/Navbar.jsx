@@ -10,29 +10,12 @@ import "./Navbar.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { CiSearch } from "react-icons/ci";
 import { IoChevronBackOutline } from "react-icons/io5";
-import ThemeSwitcher from "../../DashBaord/ThemeSwitcher";
-import { Box, Toolbar, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import {
-  IconButton,
-  Avatar,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-  Switch,
-} from "@mui/material";
-import {
-  AccountCircle,
-  TrendingUp,
-  CardMembership,
-  Settings,
-  Logout,
-  People,
-} from "@mui/icons-material";
-import { ThemeContext } from "../../Pages/ThemeContext";
+import ThemeSwitcher from "./ThemeSwitcher";
+import {Avatar, ThemeProvider, createTheme } from '@mui/material';
 import MobileNavbar from "./MobileNavbar";
 import api_call from "../../Functions/api_call";
 import NavMenu from "./NavMenu";
+import { ThemeContext } from "../../Pages/ThemeContext";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -63,7 +46,6 @@ const Navbar = () => {
         if (data) {
           setIsLoggedIn(true);
           setUserInfo(data);
-          console.log(data);
         }
       });  
     }
@@ -137,11 +119,12 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-4">
+
+          {!isLoggedIn ? (
+            <>
           <ThemeProvider theme={themeConfig}>
             <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} />
           </ThemeProvider>
-          {!isLoggedIn ? (
-            <>
               <Link to="/login" className={`${theme 
               === "dark" ? "text-red-600" : "text-teal-700"
               } JobSculpt px-5 themeTransition`}>

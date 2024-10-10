@@ -33,8 +33,8 @@ const CurrentDevices = () => {
 
   return (
     <div className=" min-h-[300px] flex flex-col rounded-[22px] border-[#feb47b]">
-    <Paper
-      sx={{
+    <div
+      style={{
         p: 2,
         display: "flex",
         flexDirection: "column",
@@ -45,10 +45,8 @@ const CurrentDevices = () => {
         color: "#fff",
       }}
     >
-      <Typography variant="h6" gutterBottom>
-        Current Devices
-      </Typography>
-    </Paper>
+      <h1 className="text-2xl font-bold">Current Devices</h1>
+    </div>
     <div className=" ">
 
     </div>

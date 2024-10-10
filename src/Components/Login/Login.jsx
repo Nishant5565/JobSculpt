@@ -55,7 +55,6 @@ const Login = () => {
         },
       });
       if (response.data.msg === 'Email sent') {
-        console.log('Email sent');
         navigate('/verify-email');
       }
     } catch (err) {
@@ -200,7 +199,12 @@ const Login = () => {
             Or
             </p>
             <div className=" flex items-center justify-center  ">
-              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() =>{ 
+                  setSnackbarMessage("Google Login Failed");
+                  setSnackbarSeverity("success");
+                  setOpenSnackbar(true);
+                  
+                }} />
             </div>
 
             <div className="text-center flex flex-col gap-10 items-center">
@@ -262,7 +266,11 @@ const Login = () => {
             {/* Google desgin */}
             <div className=" flex items-center justify-center" >
 
-              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => console.log('Google Login Failed')} />
+              <GoogleLogin onSuccess={handleGoogleSuccess} onError={() => {
+                setSnackbarMessage("Google Login Failed");
+                setSnackbarSeverity("success");
+                setOpenSnackbar(true);
+              }} />
             </div>
             </>
             )

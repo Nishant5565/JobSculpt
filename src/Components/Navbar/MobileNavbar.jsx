@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { CiSearch } from 'react-icons/ci';
 import SearchBar from "../SearchBar/SearchBar";
-import ThemeSwitcher from "../../DashBaord/ThemeSwitcher";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const MobileNavbar = ({ isLoggedIn, isOpened, handleClick, isSearchOpen, setIsSearchOpen, theme, logout, toggleTheme }) => {
   return (

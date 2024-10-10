@@ -62,7 +62,6 @@ export const registerUser = async (emailFormik, values, role, setIsLoading, navi
       role: role,
     });
     setIsLoading(false);
-    console.log(response);
     if (response.status !== 200) {
       console.error('Registration failed:', response.data);
       setMessages('Registration failed');

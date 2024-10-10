@@ -161,7 +161,12 @@ const Signup = () => {
                 Or
               </p>
               <div className="flex items-center justify-center">
-                <GoogleLogin onSuccess={(response) => handleGoogleSuccess(response, role, navigate)} onError={() => console.log('Google Login Failed')} />
+                <GoogleLogin onSuccess={(response) => handleGoogleSuccess(response, role, navigate)} onError={() => {
+                  setSnackbarMessage("Google login failed. Please try again later.")
+                  setSnackbarSeverity("error")
+                  setOpenSnackbar(true)
+                }}
+                />
               </div>
               <p className="text-[16px] after:content-[''] after:block after:w-1/2 after:mx-auto after:h-0.5 after:bg-gray-300 text-center">
                 Already have a JobSculpt account?
