@@ -4,6 +4,35 @@ import { useNavigate } from 'react-router-dom';
 const api_call = () => {
      const [user, setUser] = useState({});
       const navigate = useNavigate();
+
+      const checkTokenValidity = async (token) => {
+
+        if (!token) {
+          return 'No token found';
+        }
+
+        try {
+          const response = await fetch(API_URL() + '/api/auth/check-token', {
+            method: 'POST',
+            headers: {
+              'x-auth-token': token,
+            },
+
+          });
+          const data = await response.json();
+          if (data.msg === 'Token is not valid') {
+            alert('Token Expired');
+            navigate('/login');
+            return data;
+          }
+          return data;
+        } catch (error) {
+          console.error('Error checking token:', error);
+          navigate('/login');
+          return error;
+        }
+      }
+
      const authuser = async () => {
           const token = localStorage.getItem('token');
           if (!token) {
@@ -48,7 +77,7 @@ const api_call = () => {
         }
      , []);
   return (
-     {authuser, user}
+     {authuser, user, checkTokenValidity}
   )
 }
 

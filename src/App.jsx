@@ -11,6 +11,8 @@ import Dashboard from './DashBaord/Dashboard';
 import Signup from './Components/SignUp/Singup';
 import CompleteProfile from './Components/CompleteProfile/CompleteProfile';
 import ChooseTheme from './Pages/ChooseTheme';
+import ResetPassword from './Components/ResetPassword/ResetPassword';
+import ForgotPassword from './Components/ResetPassword/ForgotPassword';
 
 function App() {
 
@@ -30,7 +32,8 @@ function App() {
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="email-verified" element={<EmailVerified />} />
         <Route path="complete-profile" element={<CompleteProfile />} />
-
+        <Route path="reset-password/:token" element={<ResetPassword />} />
+        <Route path="forgot-password" element = {<ForgotPassword />} />
         
       </Routes>
     </Router>

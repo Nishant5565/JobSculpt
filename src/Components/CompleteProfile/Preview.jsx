@@ -42,6 +42,7 @@ const getUserData = () => {
      authuser().then((data) => {
           if (data) {
                setUpdatedUser(data);
+               console.log(data);
           }
      });
 };
@@ -77,9 +78,7 @@ useEffect(() => {
 
   return (
      <>
-     <button onClick={() => logout()} className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105 absolute right-20 top-10`}>
-      Logout 
-     </button>
+
     <Box
       sx={{
         backgroundColor: theme === "light" ? "#fff" : "black",
@@ -153,9 +152,9 @@ useEffect(() => {
                 key={device._id}
               >
               <p className="text-[20px] font-semibold md:mt-0 w-[300px] text-end mt-10 uppercase">
-              {device.location[0].city + " - " + device.location[0].country } 
+              {device?.location?.city + " - " + device?.location?.country } 
               <br />   
-              Time Zone {device.location[0].timeZone}
+              Time Zone {device?.location?.timeZone}
               </p>
 
               </div>
@@ -523,33 +522,34 @@ useEffect(() => {
           </div>
 
           <Modal open={confirmationModal} onClose={() => setConfirmationModal(false)}>
-          <Box
-          sx={{
+          <div
+          style={{
                position: "absolute",
                height: "auto",
                top: "50%",
                left: "50%",
                transform: "translate(-50%, -50%)",
-               bgcolor: theme === "dark" ? "#131313" : "white",
+               background: theme === "dark" ? "#131313" : "white",
                border : "2px solid #9e9e9e",
                boxShadow: 24,
                display: "flex",
                alignItems: "center",
-               p: 6,
+               justifyContent: "center",
+               padding: '20px',
                borderRadius: "25px",
-               width: "50vw",
                transition: "all 0.3s ease-in-out",
                overflowY: "auto",
                "&:focus": {
                outline: "none",
                },
           }}
+          className="md:w-[50vw] w-[90vw]"
           >
-               <div>
+               <div className="">
                     <p>
                     Are you sure you want to complete your profile? Don't worry, you can always edit your profile later.
                     </p>
-                    <div className="flex justify-center gap-4 mt-10">
+                    <div className="flex md:flex-row flex-col justify-center gap-4 mt-10">
                     <button
                     onClick={() => handleCompleteProfile()}
                     className={`px-10 py-3 rounded-full ${theme == 'dark' ? 'bg-white text-black ' : 'bg-black text-white '} transition-all duration-300 hover:scale-105`}
@@ -564,7 +564,7 @@ useEffect(() => {
                     </button>
                     </div>
                </div>
-          </Box>
+          </div>
           
                  
           </Modal>

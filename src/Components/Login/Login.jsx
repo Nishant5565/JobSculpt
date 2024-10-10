@@ -275,7 +275,13 @@ const Login = () => {
             </>
             )
           ) : null}
-        </div>        
+            <div className='text-end'>
+            <Link to ="/forgot-password" className="text-[14px] text-end text-[#000000] hover:underline">
+            Forget Password?
+          </Link>
+            </div>
+        </div>     
+           
       </div>
       <MinFooter />
       <Snackbar
