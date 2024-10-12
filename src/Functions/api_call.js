@@ -28,11 +28,12 @@ const api_call = () => {
           return data;
         } catch (error) {
           console.error('Error checking token:', error);
+          localStorage.removeItem(token);
           navigate('/login');
           return error;
         }
       }
-
+  
      const authuser = async () => {
           const token = localStorage.getItem('token');
           if (!token) {

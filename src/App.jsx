@@ -13,6 +13,7 @@ import CompleteProfile from './Components/CompleteProfile/CompleteProfile';
 import ChooseTheme from './Pages/ChooseTheme';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
 import ForgotPassword from './Components/ResetPassword/ForgotPassword';
+import CurrentDevices from './DashBaord/CurrentDevices';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<LandingPage />} />
           <Route path="profile" element={<Dashboard />} />
+          <Route path="devices" element={<CurrentDevices />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="choosetheme" element={<ChooseTheme />} />

@@ -10,7 +10,7 @@ export function API_URL() {
   if (currentUrl.startsWith('https://v811xkq7-5173.inc1.devtunnels.ms/JobSculpt')) {
     return API_URL3;
   } else if (currentUrl.startsWith('http://localhost:5173/JobSculpt')) {
-    return API_URL1;
+    return API_URL2;
   } else if (currentUrl.startsWith('https://nishant5565.github.io/JobSculpt')) {
     return API_URL2;
   } else {

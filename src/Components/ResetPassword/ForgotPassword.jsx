@@ -111,7 +111,7 @@ const ForgotPassword = () => {
             )}
           </Formik>
           <div className='text-end pt-80'>
-            <Link to ="/login" className="text-[14px] text-end text-[#000000] hover:underline">
+            <Link to ="/login" className="text-[14px] text-end hover:underline">
             Go back to Login
           </Link>
             </div>
