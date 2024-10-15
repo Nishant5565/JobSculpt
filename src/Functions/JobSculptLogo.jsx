@@ -8,7 +8,6 @@ import { AiOutlineWarning } from 'react-icons/ai'
 const JobSculptLogo = () => {
      const {theme} = React.useContext(ThemeContext);
      const [isBackendUp, setIsBackendUp] = useState(true);
-     const [countDown, setCountDown] = useState(10);
      const checkBackend = async () => {
        const response = await Website();
        if (response.status === 200) {
@@ -20,7 +19,6 @@ const JobSculptLogo = () => {
    
      useEffect(() => {
        checkBackend();
-   
        let intervalId;
        if (!isBackendUp) {
          intervalId = setInterval(checkBackend, 10000); // 10 seconds
@@ -38,7 +36,6 @@ const JobSculptLogo = () => {
          <div className="bg-white p-20 rounded-[50px]  shadow-lg text-center">
            <div className="flex justify-center items-center">
            <AiOutlineWarning className="text-red-500 text-6xl mb-4" />
-   
            </div>
            <h1 className="font-bold text-3xl text-gray-800 mb-2">
              Due to Inactivity the Backend Server is Down 

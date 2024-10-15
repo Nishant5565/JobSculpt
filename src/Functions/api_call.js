@@ -77,6 +77,23 @@ const api_call = () => {
           authuser();
         }
      , []);
+
+     const logout = () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return 'No token found';
+      }
+
+      const response = fetch(API_URL() + '/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      localStorage.removeItem('token');
+      navigate('/login');
+      return response;
+    }
   return (
      {authuser, user, checkTokenValidity}
   )
