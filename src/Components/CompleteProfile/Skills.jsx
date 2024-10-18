@@ -279,7 +279,7 @@ const filteredSkills = allSkills.filter((skill) => normalizeString(skill.skill).
             )}
           </div>
           <button  onClick={() => setOpenDialog(false)} className={`px-10 absolute bottom-6 right-6 py-3  rounded-full ${theme == 'dark' ? 'bg-white text-black border-2 border-black' : 'bg-black text-white '} transition-all duration-300`} >
-              Cancel 
+              Close 
           </button>
         </Box>
         

@@ -31,12 +31,14 @@ const UserDetail = ({
   setOpenSnackbar, setSnackbarMessage, setSnackbarSeverity
 }) => {
   const [usernameAvailable, setUsernameAvailable] = useState("");
+
   const { theme } = useContext(ThemeContext);
 
   const debouncedCheckUsername = debounce(
     (userName) => checkUsername(userName, setUsernameAvailable),
     500
   );
+
 
   const validationSchema = Yup.object({
     userName: Yup.string()
@@ -52,10 +54,11 @@ const UserDetail = ({
     if (!editStep) {
       updateUserName(userName, name, about, dob).then((data) => {
         setUpdatedUser(data?.data);
-        setSnackbarMessage(data?.msg);
         if (data.status === 200) {
+        setSnackbarMessage('Profile updated successfully');
           setSnackbarSeverity('success');
         } else {
+          setSnackbarMessage('Failed to update profile');
           setSnackbarSeverity('error');
         }
         setOpenSnackbar(true);
@@ -64,10 +67,20 @@ const UserDetail = ({
       return;
     }
 
-    updateUserName(userName, name, about, dob);
-    updateProfileCompleteStatus("Education");
-    setStep("Education");
-    setSubmitting(false);
+    updateUserName(userName, name, about, dob).then((data) => {
+      console.log(data);
+      if (data.status === 200) {
+        updateProfileCompleteStatus("Education");
+        setStep("Education");
+      setSubmitting(false);
+      } else {
+        
+        setSnackbarMessage('Failed to update profile');
+        setSnackbarSeverity('error');
+        setOpenSnackbar(true);
+      }
+    }
+    );
   };
 
   const handleClose = () => {
@@ -133,7 +146,7 @@ const UserDetail = ({
                       variant="body2"
                       sx={{
                         mt: 1,
-                        color: usernameAvailable === "Username already exists" ? "red" : "green",
+                        color: usernameAvailable === "Username is already taken" ? "red" : "green",
                       }}
                     >
                       {usernameAvailable}
@@ -230,8 +243,9 @@ const UserDetail = ({
               <div className="flex justify-end w-full mt-10 gap-6">
                 <button
                   type="submit"
-                  className={`px-10 py-3 rounded-full ${theme !== "dark" ? "bg-white text-black hover:bg-black hover:text-white border-2 border-black" : "bg-black text-white hover:bg-white hover:text-black"} transition-all duration-300 hover:scale-105 ${values?.userName?.length < 5 || usernameAvailable === "Username already exists" ? "cursor-not-allowed" : ""}`}
-                  disabled={ values?.userName?.length < 5 || usernameAvailable === "Username already exists" || isSubmitting}
+                  className={`px-10 py-3 rounded-full ${theme !== "dark" ? "bg-white text-black hover:bg-black hover:text-white border-2 border-black" : "bg-black text-white hover:bg-white hover:text-black"} transition-all duration-300 hover:scale-105 ${values?.userName?.length < 5 || usernameAvailable === "Username is already taken" ? "cursor-not-allowed" : ""}`}
+                  // disabled={ values?.userName?.length < 5 || usernameAvailable === "Username is already taken" || isSubmitting}
+
                 >
                   {editStep ? "Next" : "Update"}
                 </button>

@@ -24,8 +24,12 @@ export const checkUsername = async (userName, setUsernameAvailable) => {
       },
     });
 
-    if (response.status !== 200) {
+    if (response.status !== 200 ) {
       console.error('Username check failed:', response.data);
+      return;
+    }
+    if (response.data.msg === 'Username is already taken') {
+      setUsernameAvailable(response.data.msg);
       return;
     }
     setUsernameAvailable(response.data.msg);
