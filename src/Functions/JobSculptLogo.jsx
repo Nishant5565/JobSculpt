@@ -1,4 +1,4 @@
-import React , {useState, useEffect}from 'react'
+import React , {useState, useEffect, useContext}from 'react'
 import { Link } from 'react-router-dom'
 import { ThemeContext } from '../Pages/ThemeContext'
 import { Website } from './Website'
@@ -6,12 +6,16 @@ import { AiOutlineWarning } from 'react-icons/ai'
 
 
 const JobSculptLogo = () => {
-     const {theme} = React.useContext(ThemeContext);
+     const {theme} = useContext(ThemeContext);
      const [isBackendUp, setIsBackendUp] = useState(true);
      const checkBackend = async () => {
+      console.log('Checking Backend');
        const response = await Website();
+
+
        if (response.status === 200) {
          setIsBackendUp(true);
+         console.log(response);
        } else {
          setIsBackendUp(false);
        }
@@ -21,6 +25,8 @@ const JobSculptLogo = () => {
        checkBackend();
        let intervalId;
        if (!isBackendUp) {
+        const body = document.querySelector('body');
+        body.style.overflow = 'hidden';
          intervalId = setInterval(checkBackend, 10000); // 10 seconds
        }
        return () => {
@@ -32,7 +38,7 @@ const JobSculptLogo = () => {
    
      if (!isBackendUp) {
        return (
-         <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 ">
+         <div className="min-h-screen w-screen absolute z-10 top-0 left-0 flex flex-col justify-center items-center bg-gray-100 ">
          <div className="bg-white p-20 rounded-[50px]  shadow-lg text-center">
            <div className="flex justify-center items-center">
            <AiOutlineWarning className="text-red-500 text-6xl mb-4" />

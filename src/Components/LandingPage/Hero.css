@@ -1,0 +1,31 @@
+.wave-top,
+.wave-bottom {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  top: -1px;
+  z-index: 1;
+}
+
+.wave-bottom {
+  bottom: -1px;
+  top: auto;
+}
+
+.featureCard {
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.featureCardDark {
+  transition: all 0.3s ease;
+}
+
+.featureCardDark:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 24px rgba(255, 255, 255, 0.1);
+}

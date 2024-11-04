@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch, FaBell, FaPaperPlane, FaUsers, FaRegHandshake, FaBriefcase, FaChartLine, FaLaptopCode, FaLightbulb } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import "aos/dist/aos.css";
-import AOS from "aos";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = ({ theme }) => {
   const [isLoggedIn, setIsloggedIn] = useState(null);
@@ -15,10 +17,63 @@ const Hero = ({ theme }) => {
   }, []);
 
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
+    gsap.from("#find-jobs", {
+      scrollTrigger: {
+        trigger: "#find-jobs",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+      opacity: 0,
+      y: 50,
+      duration: 1,
     });
+
+    gsap.from("#hire", {
+      scrollTrigger: {
+        trigger: "#hire",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+      opacity: 0,
+      y: 50,
+      duration: 1,
+    });
+
+    gsap.from("#get-started", {
+      scrollTrigger: {
+        trigger: "#get-started",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none none",
+      },
+      opacity: 0,
+      y: 50,
+      duration: 1,
+    });
+
+    gsap.fromTo(".featureCard", 
+      { 
+        width: "70%",
+        opacity: 0.8,
+        margin : "0 auto",
+
+       }
+      , 
+      { 
+        width: "100%",
+        opacity: 1,
+        duration: 0.4, 
+        ease: "none", 
+        scrollTrigger: {
+          trigger: ".featureCard",
+          start: "top 90%",
+          end: "bottom 20%",
+          toggleActions: "play none none none",
+        }
+      }
+    );
   }, []);
 
   const primaryColor = theme == 'dark' ? 'text-red-500' : 'text-teal-700';
@@ -28,7 +83,6 @@ const Hero = ({ theme }) => {
       <section
         id="find-jobs"
         className={`py-20 px-4 md:px-8 ${theme === 'light' ? 'bg-gray-50' : 'bg-black'}`}
-        data-aos="fade-up"
       >
         <h2 className={`text-4xl md:text-5xl font-bold mb-10 text-center ${primaryColor}`}>
           Find Your Dream Job
@@ -80,7 +134,6 @@ const Hero = ({ theme }) => {
       <section
         id="hire"
         className={`py-20 px-4 md:px-8 ${theme === 'light' ? 'bg-white' : 'bg-[#0f0f0f]'}`}
-        data-aos="fade-up"
       >
         <h2 className={`text-4xl md:text-5xl font-bold mb-10 text-center ${primaryColor}`}>
           Hire the Best Talent
@@ -130,7 +183,7 @@ const Hero = ({ theme }) => {
       </section>
 
       {!isLoggedIn && (
-        <section className={`py-20 px-4 md:px-8 text-white text-center ${theme == "dark" ? 'bg-red-600' : 'bg-teal-700'}`}>
+        <section id="get-started" className={`py-20 px-4 md:px-8 text-white text-center ${theme == "dark" ? 'bg-red-600' : 'bg-teal-700'}`}>
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             Ready to Get Started?
           </h2>
