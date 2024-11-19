@@ -92,7 +92,7 @@ const Navbar = () => {
   return device === "Desktop" ? (
     <nav className={`
     ${
-      theme === "dark" ? "bg-[#131313] text-gray-200" : "bg-[white] text-gray-800"
+      theme === "dark" ? "bg-[#131313] text-gray-200 backdrop-blur-[5px] bg-opacity-60" : "bg-[white] text-gray-800"
     }
     fixed w-full z-10 top-0 themeTransition rounded-b-[20px]`}>
       <div className="flex items-center justify-between h-[60px] px-6">

@@ -18,7 +18,7 @@
 
 .featureCard:hover {
   transform: translateY(-10px);
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 12px 24px rgba(42, 157, 143, 0.1);
 }
 
 .featureCardDark {
@@ -27,5 +27,5 @@
 
 .featureCardDark:hover {
   transform: translateY(-10px);
-  box-shadow: 0px 12px 24px rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 12px 24px rgba(158, 0, 49, 0.1);
 }

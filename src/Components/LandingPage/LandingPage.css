@@ -18,9 +18,7 @@
   height: 10px;
   top: -10px;
   position: relative;
-  left: -12%;
-  /* LandingPage.css */
-  
+  left: -12%;  
   background: linear-gradient(90deg, #ff6f61, #e53935, #b71c1c);
   z-index: -1;
   animation: animate1 5s ease-in-out infinite;

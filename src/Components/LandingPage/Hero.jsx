@@ -17,17 +17,7 @@ const Hero = ({ theme }) => {
   }, []);
 
   useEffect(() => {
-    gsap.from("#find-jobs", {
-      scrollTrigger: {
-        trigger: "#find-jobs",
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none none",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-    });
+
 
     gsap.from("#hire", {
       scrollTrigger: {
@@ -40,40 +30,6 @@ const Hero = ({ theme }) => {
       y: 50,
       duration: 1,
     });
-
-    gsap.from("#get-started", {
-      scrollTrigger: {
-        trigger: "#get-started",
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none none",
-      },
-      opacity: 0,
-      y: 50,
-      duration: 1,
-    });
-
-    gsap.fromTo(".featureCard", 
-      { 
-        width: "70%",
-        opacity: 0.8,
-        margin : "0 auto",
-
-       }
-      , 
-      { 
-        width: "100%",
-        opacity: 1,
-        duration: 0.4, 
-        ease: "none", 
-        scrollTrigger: {
-          trigger: ".featureCard",
-          start: "top 90%",
-          end: "bottom 20%",
-          toggleActions: "play none none none",
-        }
-      }
-    );
   }, []);
 
   const primaryColor = theme == 'dark' ? 'text-red-500' : 'text-teal-700';
@@ -183,10 +139,22 @@ const Hero = ({ theme }) => {
       </section>
 
       {!isLoggedIn && (
-        <section id="get-started" className={`py-20 px-4 md:px-8 text-white text-center ${theme == "dark" ? 'bg-red-600' : 'bg-teal-700'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Ready to Get Started?
+        <section id="get-started" className={`py-20 px-4 md:px-8 text-white text-center ${theme == "dark" ? 'bg-[#131313]' : 'bg-teal-700'}`}>
+          <div className="flex justify-center gap-3 items-center ">
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 first-letter:text-red-600">
+            Ready
+          </h2>          
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 first-letter:text-red-600">
+            To
+          </h2>          
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 first-letter:text-red-600">
+            Get
+          </h2>          
+          <h2 className="text-4xl md:text-5xl font-bold mb-8 first-letter:text-red-600">
+            Started
           </h2>
+          
+          </div>
           <p className="text-xl md:text-2xl mb-10">
             Join JubSculpt today and take the next step towards achieving your
             career or business goals.
