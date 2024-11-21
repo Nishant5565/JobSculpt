@@ -328,3 +328,41 @@ export const getUserDevices = async () => {
     return [];
   }
 }
+
+
+// Employer Profile 
+
+export const getSkillsHiring = async () => {
+
+
+  const token = localStorage.getItem('token');
+  try {
+    const response = await axios.get(API_URL() + '/api/auth/skills-hiring' , {
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching skills-hiring:', error);
+    return [];
+  }
+};
+
+export const addSkillHiring = async (skill) => {
+
+  const token = localStorage.getItem('token');
+
+
+  try {
+    const response = await axios.post(API_URL() + '/api/auth/add-skills-hiring', { skill }, {
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error adding skill:', error);
+    return error;
+  }
+};

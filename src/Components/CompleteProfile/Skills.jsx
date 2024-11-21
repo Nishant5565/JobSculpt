@@ -87,7 +87,7 @@ const Skills = ({ user, theme, setStep , editStep,setPreviewOpenModal, updateUse
     }
     updateProfileCompleteStatus('Preview');
     setStep('Preview'); 
-  };
+  };  
 
   const handleAddSkill = async () => {
     if (!selectedSkill) return;
