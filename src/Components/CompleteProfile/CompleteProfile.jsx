@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import Preview from "./Preview";
 import JobSculptLogo from "../../Functions/JobSculptLogo";
 import { Alert, Snackbar } from "@mui/material";
+import EmployerProfile from "./EmployerProfile";
 
 const CompleteProfile = () => {
   const { theme } = useContext(ThemeContext);
@@ -146,6 +147,13 @@ const CompleteProfile = () => {
                 editStep={true}
               />
             )}
+                      {
+            step =="EmployerProfile" && (
+              <>
+                <EmployerProfile user={userInfo} setStep={setStep} theme={theme} />
+              </>
+            )
+          }
           </div>
         </div>
       </div>

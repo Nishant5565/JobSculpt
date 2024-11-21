@@ -92,7 +92,7 @@ const Login = () => {
         if(theme != response.data.theme){
           toggleTheme();
         }
-
+        alert(response?.data?.profileCompleteStatus, response?.data?.msg);
         if (response?.data?.profileCompleteStatus != 'Complete' && response.data.msg !== 'Email is not Verified') {
           navigate('/complete-profile');
           return;
