@@ -37,8 +37,7 @@ const FindJobs = () => {
      <h1 className="text-[50px] font-bold">Jobs for you</h1>
      <p className="text-gray-700">Jobs based on your skills</p>
      </div>
-    <div className="p-6 flex justify-center gap-20 mt-20">
-
+    <div className="p-6 flex justify-start gap-20 mt-20">
       {jobsBySkills && jobsBySkills.map((job) => (
         <JobCard key={job._id} job={job} />
       ))}

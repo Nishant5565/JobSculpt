@@ -104,9 +104,9 @@ const Navbar = () => {
             JobSculpt
           </Link>
           <div className="space-x-6 text-lg flex items-center">
-            <Link to="/hire" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
+            {userInfo?.role === "employer" &&         <Link to="/hire" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
               Post Job 
-            </Link>
+            </Link>}
             {
               userInfo?.role === "employer" ? (
                 <Link to="/jobs/posted" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
