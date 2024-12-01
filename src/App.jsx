@@ -14,7 +14,10 @@ import ChooseTheme from './Pages/ChooseTheme';
 import ResetPassword from './Components/ResetPassword/ResetPassword';
 import ForgotPassword from './Components/ResetPassword/ForgotPassword';
 import CurrentDevices from './DashBaord/CurrentDevices';
-
+import HomePage from './Pages/HomePage';
+import Hire from './Components/Hire/Hire';
+import JobPosted from './Components/Hire/JobsPosted';
+import FindJobs from './Components/FindJobs/FindJobs';
 function App() {
 
 
@@ -23,9 +26,12 @@ function App() {
     <Router basename='/JobSculpt'>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<LandingPage />} />
+          <Route index element={<HomePage />} />
           <Route path="profile" element={<Dashboard />} />
           <Route path="devices" element={<CurrentDevices />} />
+          <Route path="hire" element={<Hire />} />
+          <Route path="jobs/posted" element={<JobPosted />} />
+          <Route path="findjobs" element={<FindJobs />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="choosetheme" element={<ChooseTheme />} />

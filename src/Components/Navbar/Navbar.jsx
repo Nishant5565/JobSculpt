@@ -104,15 +104,19 @@ const Navbar = () => {
             JobSculpt
           </Link>
           <div className="space-x-6 text-lg flex items-center">
-            <Link to="/" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
-              Hire
+            <Link to="/hire" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
+              Post Job 
             </Link>
-            <Link to="/about" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
-              About
-            </Link>
-            <Link to="/FindJobs" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
+            {
+              userInfo?.role === "employer" ? (
+                <Link to="/jobs/posted" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
+                See Your Jobs 
+              </Link>
+              ) :             <Link to="/findJobs" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
               Find Jobs
             </Link>
+            }
+
             <Link to="/contact" className={`${theme === "dark" ? 'text-gray-300 hover:text-red-600' : 'text-gray-800 hover:text-teal-700'} relative group nav-text`}>
               Contact
             </Link>

@@ -70,8 +70,16 @@ const UserDetail = ({
     updateUserName(userName, name, about, dob).then((data) => {
       console.log(data);
       if (data.status === 200) {
-        updateProfileCompleteStatus("Education");
-        setStep("Education");
+
+
+        if(userInfo?.role == 'employer'){
+          updateProfileCompleteStatus('EmployerProfile'); 
+          setStep('EmployerProfile');
+    
+        }else {
+          updateProfileCompleteStatus("Education");
+          setStep("Education");
+        }
       setSubmitting(false);
       } else {
         

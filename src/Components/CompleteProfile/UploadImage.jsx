@@ -23,14 +23,8 @@ const UploadImage = ({ user, setStep, editStep, setPreviewOpenModal }) => {
       setPreviewOpenModal(false);
       return 
     }
-     if(user?.role == 'employer'){
-      updateProfileCompleteStatus('EmployerProfile'); 
-      setStep('EmployerProfile');
-
-    }else {
       setStep('UserDetail'); 
       updateProfileCompleteStatus('UserDetail');
-    }
   };
 
   const handleOpen = () => setOpen(true);

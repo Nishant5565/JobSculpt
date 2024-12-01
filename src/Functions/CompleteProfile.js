@@ -366,3 +366,20 @@ export const addSkillHiring = async (skill) => {
     return error;
   }
 };
+
+export const deleteSkillHiring = async (skill) => {
+
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios.post(API_URL() + '/api/auth/delete-skill-hiring', { skill }, {
+      headers: {
+        'x-auth-token': token,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error('Error deleting skill:', error);
+    return error;
+  }
+};  

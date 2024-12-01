@@ -94,8 +94,39 @@ const api_call = () => {
       navigate('/login');
       return response;
     }
+
+    const fetchApi = async (url, method, body) => {
+
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return 'No token found';
+      }
+
+      try {
+        const response = await fetch(API_URL() + url, {
+          method: method,
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+          body: JSON.stringify(body),
+        });
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return error;
+      }
+    }
+
+
+
+
+
+
+
   return (
-     {authuser, user, checkTokenValidity}
+     {authuser, user, checkTokenValidity,fetchApi}
   )
 }
 

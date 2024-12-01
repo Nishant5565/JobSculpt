@@ -92,8 +92,11 @@ const Login = () => {
         if(theme != response.data.theme){
           toggleTheme();
         }
-        alert(response?.data?.profileCompleteStatus, response?.data?.msg);
-        if (response?.data?.profileCompleteStatus != 'Complete' && response.data.msg !== 'Email is not Verified') {
+        console.log(response?.data?.user);
+
+
+        if (response?.data?.user?.emailVerified == true && response?.data?.user?.profileCompleteStatus != 'Complete') {
+          alert ('Login Success');
           navigate('/complete-profile');
           return;
         }
@@ -101,7 +104,14 @@ const Login = () => {
           sendEmailVerificationLink();
           return;
         }
-        navigate('/');
+        
+        if (response?.data?.user?.role === 'employer') {
+          navigate('/hire');
+        }else  {
+          navigate('/find-job');
+        }
+        
+
       } catch (err) {
         console.error('Login failed:', err);
         setSnackbarMessage("Login Failed! " + err.response.data.msg);
