@@ -1,6 +1,7 @@
 import React, { useEffect , useState} from 'react'
 import EmployerLandingPage from '../Components/LandingPage/EmployerLandingPage'
 import FreelancerLandingPage from '../Components/LandingPage/FreelancerLandingPage'
+import LandingPage from '../Components/LandingPage/LandingPage';
 import api_call from '../Functions/api_call';
 
 const HomePage = () => {
