@@ -119,163 +119,169 @@ const Hire = () => {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-4 mt-36">
-      <h1 className="text-2xl font-bold mb-4">Post a Job</h1>
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Job Title:</label>
+    <div className="max-w-3xl mx-auto p-8 mt-36 mb-10 bg-white shadow-xl rounded-3xl">
+    <h1 className="text-4xl font-bold text-center mb-10 ">Post a New Job</h1>
+    <form onSubmit={formik.handleSubmit} className="space-y-6">
+      {/* Job Title */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Job Title:</label>
+        <input
+          type="text"
+          name="jobTitle"
+          value={formik.values.jobTitle}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="e.g., Software Developer"
+          className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {formik.touched.jobTitle && formik.errors.jobTitle ? (
+          <div className="text-red-600 text-sm mt-1">{formik.errors.jobTitle}</div>
+        ) : null}
+      </div>
+  
+      {/* Skills Required */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Skills Required:</label>
+        <div ref={dropdownRef} className="relative">
           <input
             type="text"
-            name="jobTitle"
-            value={formik.values.jobTitle}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            placeholder='Software Developer'
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-3"
+            value={newSkill}
+            placeholder="Type to search skills"
+            onChange={(e) => setNewSkill(e.target.value)}
+            onFocus={() => setIsDropdownVisible(true)}
+            className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
-          {formik.touched.jobTitle && formik.errors.jobTitle ? (
-            <div className="text-red-600 text-sm">{formik.errors.jobTitle}</div>
-          ) : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Skills Required:</label>
-          <div ref={dropdownRef} className="relative w-full">
-            <input
-              placeholder="Type to search skills"
-              type="text"
-              value={newSkill}
-              onChange={(e) => setNewSkill(e.target.value)}
-              onFocus={() => setIsDropdownVisible(true)} // Show dropdown on focus
-              className="w-full py-3 pl-2 border-2 rounded-md outline-none transition-all duration-300"
-            />
-            <div className="flex flex-wrap mt-2">
-              {selectedSkills.map((skill) => (
-                <div
-                  key={skill}
-                  className="bg-indigo-600 text-white px-3 py-1 rounded-full mr-2 mb-2 flex items-center"
+          <div className="flex flex-wrap mt-3">
+            {selectedSkills.map((skill) => (
+              <div
+                key={skill}
+                className="flex items-center bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full mr-3 mb-3"
+              >
+                {skill}
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSkill(skill)}
+                  className="ml-2 text-indigo-700 font-bold"
                 >
-                  {skill}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(skill)}
-                    className="ml-2 text-white"
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-            {isDropdownVisible && (
-              <div className="absolute bg-white shadow-lg w-[400px]">
-                {filteredSkills.length === 0 ? (
-                  <div
-                    className={`cursor-pointer rounded-[20px] ${
-                      theme === 'dark'
-                        ? 'hover:bg-[#1E1E1E] text-white'
-                        : 'hover:bg-[#F3F4F6] text-black'
-                    } px-4 py-3 mt-2 transition-all duration-300`}
-                  >
-                    No skills found
-                  </div>
-                ) : (
-                  filteredSkills.map((skill, index) => (
-                    <ul
-                      key={skill._id}
-                      onClick={() => handleSkillClick(skill.skill)}
-                      className={`cursor-pointer rounded-[20px] ${
-                        theme === 'dark'
-                          ? 'hover:bg-[#1E1E1E] text-white'
-                          : 'hover:bg-[#F3F4F6] text-black'
-                      } px-4 py-3 mt-2 transition-all duration-300`}
-                    >
-                      <li>{skill.skill}</li>
-                    </ul>
-                  ))
-                )}
+                  ×
+                </button>
               </div>
-            )}
+            ))}
           </div>
-          {formik.touched.selectedSkills && formik.errors.selectedSkills ? (
-            <div className="text-red-600 text-sm">{formik.errors.selectedSkills}</div>
-          ) : null}
+          {isDropdownVisible && (
+            <div className="absolute bg-white border border-gray-300 shadow-lg rounded-lg w-full mt-2 max-h-52 overflow-y-auto">
+              {filteredSkills.length === 0 ? (
+                <div className="px-4 py-3 text-gray-500">No skills found</div>
+              ) : (
+                filteredSkills.map((skill) => (
+                  <div
+                    key={skill._id}
+                    onClick={() => handleSkillClick(skill.skill)}
+                    className="px-4 py-3 hover:bg-indigo-50 cursor-pointer"
+                  >
+                    {skill.skill}
+                  </div>
+                ))
+              )}
+            </div>
+          )}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Job Description:</label>
-          <textarea
-            name="jobDescription"
-            value={formik.values.jobDescription}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 min-h-52 p-2"
-          />
-          {formik.touched.jobDescription && formik.errors.jobDescription ? (
-            <div className="text-red-600 text-sm">{formik.errors.jobDescription}</div>
-          ) : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Company Name:</label>
-          <input
-            type="text"
-            name="companyName"
-            value={formik.values.companyName}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-3"
-          />
-          {formik.touched.companyName && formik.errors.companyName ? (
-            <div className="text-red-600 text-sm">{formik.errors.companyName}</div>
-          ) : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Salary:</label>
-          <input
-            type="number"
-            name="salary"
-            value={formik.values.salary}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-3"
-          />
-          {formik.touched.salary && formik.errors.salary ? (
-            <div className="text-red-600 text-sm">{formik.errors.salary}</div>
-          ) : null}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Duration:</label>
-          <input
-            type="text"
-            name="duration"
-            value={formik.values.duration}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm p-3"
-          />
-          {formik.touched.duration && formik.errors.duration ? (
-            <div className="text-red-600 text-sm">{formik.errors.duration}</div>
-          ) : null}
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Post Job
-        </button>
-      </form>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={4000}
-        onClose={() => setOpenSnackbar(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      </div>
+  
+      {/* Job Description */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Job Description:</label>
+        <textarea
+          name="jobDescription"
+          value={formik.values.jobDescription}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          rows={6}
+          placeholder="Describe the job in detail..."
+          className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        ></textarea>
+        {formik.touched.jobDescription && formik.errors.jobDescription ? (
+          <div className="text-red-600 text-sm mt-1">{formik.errors.jobDescription}</div>
+        ) : null}
+      </div>
+  
+      {/* Company Name */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Company Name:</label>
+        <input
+          type="text"
+          name="companyName"
+          value={formik.values.companyName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="e.g., Tech Corp"
+          className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {formik.touched.companyName && formik.errors.companyName ? (
+          <div className="text-red-600 text-sm mt-1">{formik.errors.companyName}</div>
+        ) : null}
+      </div>
+  
+      {/* Salary */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Salary:</label>
+        <input
+          type="number"
+          name="salary"
+          value={formik.values.salary}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="e.g., 50000"
+          className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {formik.touched.salary && formik.errors.salary ? (
+          <div className="text-red-600 text-sm mt-1">{formik.errors.salary}</div>
+        ) : null}
+      </div>
+  
+      {/* Duration */}
+      <div>
+        <label className="block text-lg font-semibold text-gray-700 mb-2">Duration:</label>
+        <input
+          type="text"
+          name="duration"
+          value={formik.values.duration}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          placeholder="e.g., 3 months"
+          className="w-full border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {formik.touched.duration && formik.errors.duration ? (
+          <div className="text-red-600 text-sm mt-1">{formik.errors.duration}</div>
+        ) : null}
+      </div>
+  
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full bg-gray-600 text-white py-4 rounded-lg shadow-md hover:bg-gray-900 transition-transform transform hover:scale-105  duration-300"
       >
-        <Alert
-          onClose={() => setOpenSnackbar(false)}
-          severity={snackbarSeverity}
-          sx={{ width: '100%' }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
-    </div>
+        Done 
+      </button>
+    </form>
+  
+    {/* Snackbar */}
+    <Snackbar
+      open={openSnackbar}
+      autoHideDuration={4000}
+      onClose={() => setOpenSnackbar(false)}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+    >
+      <Alert
+        onClose={() => setOpenSnackbar(false)}
+        severity={snackbarSeverity}
+        sx={{ width: '100%' }}
+      >
+        {snackbarMessage}
+      </Alert>
+    </Snackbar>
+  </div>
+  
   );
 };
 
