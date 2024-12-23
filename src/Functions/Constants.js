@@ -11,7 +11,7 @@ export function API_URL() {
     return API_URL3;
   } else if (currentUrl.startsWith('http://localhost:5173/JobSculpt')) {
     return API_URL1;
-  } else if (currentUrl.startsWith('https://nishant5565.github.io/JobSculpt')) {
+  } else if (currentUrl.startsWith('https://nishant5565.github.io/JobSculpt') || currentUrl.startsWith("http://nishantkumarsingh.me/JobSculpt/") )  {
     return API_URL2;
   } else {
     throw new Error('Unknown frontend route');
