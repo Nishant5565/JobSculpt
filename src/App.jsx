@@ -23,7 +23,7 @@ function App() {
 
 
   return (
-    <Router basename='/JobSculpt'>
+    <Router basename=''>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
