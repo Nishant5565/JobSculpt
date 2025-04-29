@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { ThemeContext } from '../../Pages/ThemeContext';
@@ -9,6 +9,7 @@ const Footer = () => {
   const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
   const linkHoverColor = theme === 'light' ? 'hover:text-red-500' : 'hover:text-teal-500';
 
+  
   return (
     <footer className={`${backgroundColor} ${textColor} py-8 rounded-t-lg shadow-lg transition-all duration-300`}>
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
